@@ -121,7 +121,14 @@
 
     if (!group || items.length === 0) return;
 
+    // These are carousel frames, so preload them to avoid a blank or late-arriving turn.
+    items.forEach((item) => {
+      const heroImage = item.querySelector('.pouch-hero-img');
+      if (heroImage) heroImage.loading = 'eager';
+    });
+
     let currentIndex = 0;
+    let hasInitialized = false;
 
     // Interactive 3D mouse parallax tilt on currently active Hero Pouch (MiCha smooth feel)
     if (banner) {
@@ -199,6 +206,8 @@
       if (nextIndex >= items.length) nextIndex = 0;
 
       const direction = dir !== undefined ? dir : (nextIndex >= currentIndex ? 1 : -1);
+      const isInitialRender = !hasInitialized;
+      hasInitialized = true;
       currentIndex = nextIndex;
 
       playCrunchSound();
@@ -217,18 +226,19 @@
       const currentShadow = currentItem.querySelector('.pouch-ground-shadow');
 
       if (typeof gsap !== 'undefined') {
-        // 1. EXACT MICHA HORIZONTAL PACKAGING GLIDE (Smooth Power3 InOut)
+        // Keep the product's existing horizontal carousel; animate only its spices.
         gsap.to(group, {
           xPercent: -currentIndex * 100,
           duration: 0.8,
-          ease: 'power3.inOut'
+          ease: 'power3.inOut',
+          overwrite: 'auto'
         });
 
-        // Keep the product glide dominant, with only a restrained settling motion.
-        if (currentPouch) {
+        // Small settle, without a 3D flip.
+        if (currentPouch && !isInitialRender) {
           gsap.fromTo(currentPouch,
-            { scale: 0.94, rotation: direction * 4, opacity: 0.92 },
-            { scale: 1, rotation: 0, opacity: 1, duration: 0.7, ease: 'power2.out', delay: 0.04 }
+            { scale: 0.94, rotation: direction * 4, opacity: 0.9 },
+            { scale: 1, rotation: 0, opacity: 1, duration: 0.65, ease: 'power2.out', delay: 0.04 }
           );
         }
 
@@ -240,20 +250,20 @@
           );
         }
 
-        // 2. Let the selected spices follow the product with a soft stagger.
+        // 2. Give the selected spices Micha's playful, staggered pop-in and drift.
         backdrops.forEach((bd, i) => {
           const shapes = bd.querySelectorAll('.backdrop-shape');
           gsap.killTweensOf(shapes);
           gsap.killTweensOf(bd);
 
           if (i !== currentIndex) {
-            // Outgoing spices fade and tuck back slightly as the next product arrives.
+            // Let the old spice arrangement gather and disappear behind the pouch.
             gsap.to(shapes, {
-              scale: 0.94,
+              scale: 0.35,
               opacity: 0,
-              rotation: direction * 5,
-              duration: 0.24,
-              stagger: 0.025,
+              rotation: direction * 24,
+              duration: 0.42,
+              stagger: 0.035,
               ease: 'power2.in',
               onComplete: () => {
                 bd.classList.remove('active');
@@ -271,24 +281,24 @@
           const activeShapes = activeBd.querySelectorAll('.backdrop-shape');
           gsap.killTweensOf(activeShapes);
 
-          // Incoming spices settle around the pouch without a large burst.
+          // New spice elements spring outward into their floating positions.
           gsap.fromTo(activeShapes,
             {
-              scale: 0.92,
+              scale: 0.28,
               opacity: 0,
-              rotation: -direction * 6
+              rotation: -direction * 24
             },
             {
               scale: 1,
               opacity: 1,
               rotation: 0,
-              duration: 0.6,
+              duration: 0.7,
               stagger: {
-                each: 0.035,
+                each: 0.055,
                 from: direction > 0 ? 'start' : 'end'
               },
-              ease: 'power2.out',
-              delay: 0.04,
+              ease: 'back.out(1.5)',
+              delay: 0.08,
               overwrite: 'auto'
             }
           );
@@ -349,7 +359,7 @@
 
       } else {
         // Fallback without GSAP
-        group.style.transform = `translateX(-${currentIndex * 100}%)`;
+        items.forEach((item, i) => item.classList.toggle('active', i === currentIndex));
         if (banner && newBg) banner.style.backgroundColor = newBg;
         if (stickerSpan && newTitle) {
           stickerSpan.textContent = newTitle;

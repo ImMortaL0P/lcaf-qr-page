@@ -484,6 +484,18 @@ h4 .sticker {
   border-bottom: var(--border-thick);
 }
 
+/* Keep the Micha-style halftone visible over the changing hero colors. */
+.banner-home::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(35, 25, 0, 0.15) 1.7px, transparent 2.1px);
+  background-size: clamp(18px, 1.8vw, 24px) clamp(18px, 1.8vw, 24px);
+  opacity: 0.78;
+}
+
 .banner-home .section-content {
   z-index: 5;
   width: 100%;
