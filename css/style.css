@@ -54,6 +54,98 @@ body {
   overflow-x: hidden;
   transition: background-color 0.5s ease;
   -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* ==========================================================================
+   GLOBAL TACTILE TEXTURE OVERLAYS (NEVER FLAT / NEVER PLAIN)
+   ========================================================================== */
+/* Fine Tactile Paper Noise Grain Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../assets/icons/paper-noise-texture.svg');
+  background-repeat: repeat;
+  background-size: 260px 260px;
+  opacity: 0.055;
+  pointer-events: none;
+  z-index: 99998;
+}
+
+/* Authentic MiCha Halftone Polka-Dot Paper Background Pattern */
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(rgba(0, 0, 0, 0.045) 10%, transparent 11%),
+    radial-gradient(rgba(0, 0, 0, 0.045) 10%, transparent 11%);
+  background-size: clamp(30px, 3vw, 60px) clamp(30px, 3vw, 60px);
+  background-position: 0 0, clamp(15px, 1.5vw, 30px) clamp(15px, 1.5vw, 30px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Section-level Halftone Texture Guarantee */
+.banner-home,
+.section.about,
+.flavours-section,
+.catalog-section,
+.bring-together,
+.section.instagram-section,
+.section.faq-main {
+  background-image:
+    radial-gradient(rgba(0, 0, 0, 0.04) 10%, transparent 11%),
+    radial-gradient(rgba(0, 0, 0, 0.04) 10%, transparent 11%);
+  background-size: clamp(28px, 2.8vw, 56px) clamp(28px, 2.8vw, 56px);
+  background-position: 0 0, clamp(14px, 1.4vw, 28px) clamp(14px, 1.4vw, 28px);
+}
+
+/* ==========================================================================
+   ZIG-ZAG BOUNDARY SECTION DIVIDERS (MICHA POP-CRIMP PACKAGING EDGES)
+   ========================================================================== */
+.zigzag-boundary {
+  width: 100%;
+  height: 20px;
+  position: relative;
+  z-index: 25;
+  display: block;
+  background-repeat: repeat-x;
+  background-position: center top;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  pointer-events: none;
+}
+
+.zigzag-yellow-down {
+  background-image: url('../assets/icons/zigzag-yellow.svg');
+  background-size: 32px 20px;
+}
+
+.zigzag-black-down {
+  background-image: url('../assets/icons/zigzag-black.svg');
+  background-size: 32px 20px;
+}
+
+.zigzag-red-down {
+  background-image: url('../assets/icons/zigzag-red.svg');
+  background-size: 32px 20px;
+}
+
+.zigzag-cream-down {
+  background-image: url('../assets/icons/zigzag-cream.svg');
+  background-size: 32px 20px;
+}
+
+.zigzag-faq-down {
+  background-image: url('../assets/icons/zigzag-faq.svg');
+  background-size: 32px 20px;
 }
 
 img {
@@ -581,64 +673,104 @@ h4 .sticker {
 
 /* ==========================================================================
    MICHA SIGNATURE CONTINUOUS RUNNING SPICE TICKER BAND
+   (EXACT ARCHITECTURE: RUNNING-TEXT-WRAPPER, TICKER-ITEM, SPINNING ICONS)
    ========================================================================== */
+.running-text-wrapper,
 .micha-ticker-wrapper {
+  overflow: hidden;
+  white-space: nowrap;
   width: 100%;
+  position: relative;
   background: #000;
-  color: var(--color-yellow);
   border-top: var(--border-thick);
   border-bottom: var(--border-thick);
-  overflow: hidden;
-  position: relative;
-  z-index: 10;
-  padding: 0.95rem 0;
+  padding: clamp(14px, 2.2vw, 36px) 0;
   user-select: none;
+  z-index: 10;
+  pointer-events: none;
 }
 
+.running-text-wrapper .running-text,
 .micha-ticker-track {
-  display: flex;
-  width: max-content;
-  animation: tickerMarquee 26s linear infinite;
-  will-change: transform;
-}
-
-.micha-ticker-wrapper:hover .micha-ticker-track {
-  animation-play-state: paused;
-}
-
-.micha-ticker-content {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 2rem;
-  padding-right: 2rem;
+  animation: tickerScroll 42s linear infinite !important;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* STRICT DESIGN REQUIREMENT: TICKER NEVER PAUSES ON HOVER */
+.running-text-wrapper:hover .running-text,
+.micha-ticker-wrapper:hover .running-text,
+.running-text-wrapper:hover .micha-ticker-track,
+.micha-ticker-wrapper:hover .micha-ticker-track,
+.running-text:hover,
+.micha-ticker-track:hover,
+*:hover > .running-text,
+*:hover > .micha-ticker-track {
+  animation-play-state: running !important;
+}
+
+.running-text-wrapper .ticker-item {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6.5vw, 120px);
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-shadow: 2px 3px 0px rgba(0, 0, 0, 0.9);
   flex-shrink: 0;
 }
 
-.ticker-text {
-  font-family: var(--font-display);
-  font-size: clamp(24px, 3.2vw, 42px);
-  line-height: 1;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #FFF;
-  white-space: nowrap;
-  text-shadow: 2px 2px 0px #000;
+.running-text-wrapper .ticker-item .text {
+  padding: 0 0.45em;
+  color: #FFFFFF;
 }
 
+.running-text-wrapper .ticker-item:nth-child(even) .text {
+  color: var(--color-yellow);
+}
+
+.running-text-wrapper .ticker-item .icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: clamp(52px, 6.8vw, 110px);
+  height: clamp(52px, 6.8vw, 110px);
+  position: relative;
+  margin: 0 0.25em;
+}
+
+.running-text-wrapper .ticker-item .icon-container img,
 .ticker-spice-icon {
-  width: clamp(32px, 3.5vw, 48px);
-  height: clamp(32px, 3.5vw, 48px);
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.6));
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: spinLeft 4s linear infinite;
+  filter: drop-shadow(2px 3px 0px rgba(0, 0, 0, 0.9));
 }
 
-.micha-ticker-wrapper:hover .ticker-spice-icon {
-  transform: scale(1.2) rotate(15deg);
+@keyframes spinLeft {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes spinRight {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 @keyframes tickerMarquee {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
