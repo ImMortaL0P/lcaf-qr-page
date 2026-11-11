@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 100" width="450" height="100">
+  <defs>
+    <style>
+      .btn-shape { fill: #000; }
+    </style>
+  </defs>
+  <!-- Central rounded banner -->
+  <rect class="btn-shape" x="45" y="2" width="360" height="96" rx="24" ry="24" />
+  
+  <!-- Left 3 flower petals fanning out -->
+  <!-- Top-left petal -->
+  <ellipse class="btn-shape" cx="35" cy="30" rx="26" ry="14" transform="rotate(-35 35 30)" />
+  <!-- Middle-left petal -->
+  <ellipse class="btn-shape" cx="22" cy="50" rx="26" ry="15" />
+  <!-- Bottom-left petal -->
+  <ellipse class="btn-shape" cx="35" cy="70" rx="26" ry="14" transform="rotate(35 35 70)" />
+  
+  <!-- Right 3 flower petals fanning out -->
+  <!-- Top-right petal -->
+  <ellipse class="btn-shape" cx="415" cy="30" rx="26" ry="14" transform="rotate(35 415 30)" />
+  <!-- Middle-right petal -->
+  <ellipse class="btn-shape" cx="428" cy="50" rx="26" ry="15" />
+  <!-- Bottom-right petal -->
+  <ellipse class="btn-shape" cx="415" cy="70" rx="26" ry="14" transform="rotate(-35 415 70)" />
+</svg>
