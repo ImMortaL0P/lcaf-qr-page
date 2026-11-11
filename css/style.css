@@ -180,20 +180,17 @@ h4 .sticker {
 }
 
 .site-branding .site-logo-img {
-  height: 44px;
+  height: 42px;
   width: auto;
-  max-width: 88px;
+  max-width: 90px;
   object-fit: contain;
-  background: #FFF;
-  border: var(--border-medium);
-  border-radius: 10px;
-  padding: 3px 6px;
-  box-shadow: 2px 2px 0px #000;
+  filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.35));
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
 }
 
 .site-branding:hover .site-logo-img {
-  transform: rotate(-3deg) scale(1.06);
+  transform: rotate(-4deg) scale(1.08);
 }
 
 .site-branding .brand-text {
