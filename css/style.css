@@ -492,7 +492,7 @@ h4 .sticker {
 
 .banner-home .can-backdrop {
   position: absolute;
-  width: clamp(600px, 68vw, 1080px);
+  width: clamp(480px, 50vw, 720px);
   height: 100%;
   max-height: clamp(380px, 58vh, 540px);
   left: 50%;
@@ -513,77 +513,52 @@ h4 .sticker {
 
 .banner-home .can-backdrop-wrapper .backdrop-shape {
   position: absolute;
-  width: clamp(80px, 8.5vw, 120px);
-  height: clamp(80px, 8.5vw, 120px);
+  width: clamp(115px, 12vw, 175px);
+  height: clamp(115px, 12vw, 175px);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  filter: drop-shadow(4px 8px 14px rgba(0, 0, 0, 0.22));
+  filter: drop-shadow(4px 10px 18px rgba(0, 0, 0, 0.24));
   will-change: transform;
 }
 
-/* 10 Floating Backdrop Shapes: UNIFORM IN SIZE, FLOATING CLEANLY AROUND PACKET EDGES (MiCha Style) */
-/* Left Perimeter */
+/* 6 Large Hero Backdrop Shapes Brought Directly Close to the Packaging */
+/* Left Side - Snug against pouch shoulders & waist */
 .banner-home .backdrop-shape.backdrop1 {
-  top: 4%;
+  top: 2%;
   left: 4%;
   animation: waveLeft 4.5s ease-in-out infinite;
 }
 
 .banner-home .backdrop-shape.backdrop2 {
-  top: 32%;
+  top: 38%;
   left: 0%;
-  animation: spinLeft 16s linear infinite;
+  animation: spinLeft 20s linear infinite;
 }
 
 .banner-home .backdrop-shape.backdrop3 {
-  top: 60%;
-  left: 2%;
+  bottom: 2%;
+  left: 6%;
   animation: waveLeft 5s ease-in-out infinite alternate;
 }
 
+/* Right Side - Snug against pouch shoulders & waist */
 .banner-home .backdrop-shape.backdrop4 {
-  bottom: 2%;
-  left: 12%;
-  animation: spinRight 16s linear infinite;
-}
-
-/* Right Perimeter */
-.banner-home .backdrop-shape.backdrop5 {
-  top: 4%;
+  top: 2%;
   right: 4%;
   animation: waveRight 4.5s ease-in-out infinite;
 }
 
-.banner-home .backdrop-shape.backdrop6 {
-  top: 32%;
+.banner-home .backdrop-shape.backdrop5 {
+  top: 38%;
   right: 0%;
-  animation: spinRight 16s linear infinite;
+  animation: spinRight 20s linear infinite;
 }
 
-.banner-home .backdrop-shape.backdrop7 {
-  top: 60%;
-  right: 2%;
-  animation: waveRight 5s ease-in-out infinite alternate;
-}
-
-.banner-home .backdrop-shape.backdrop8 {
+.banner-home .backdrop-shape.backdrop6 {
   bottom: 2%;
-  right: 12%;
-  animation: spinLeft 16s linear infinite;
-}
-
-/* Top & Bottom Crowns */
-.banner-home .backdrop-shape.backdrop9 {
-  top: -8%;
-  left: 45%;
-  animation: waveLeft 4.2s ease-in-out infinite alternate;
-}
-
-.banner-home .backdrop-shape.backdrop10 {
-  bottom: -8%;
-  left: 45%;
-  animation: waveRight 4.2s ease-in-out infinite alternate;
+  right: 6%;
+  animation: waveRight 5s ease-in-out infinite alternate;
 }
 
 /* Authentic MiCha Landing Area Free-Floating Product Showcase: ONE PACK AT A TIME */
