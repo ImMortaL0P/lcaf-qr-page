@@ -1,0 +1,1762 @@
+/* ==========================================================================
+   LAXMI CONFECTIONERY & FOODS (LCAF)
+   Authentic MiCha.asia Design System:
+   - Fonts: 'Passion One' & 'Be Vietnam Pro'
+   - Die-Cut Retro Stickers with white text-stroke & drop-shadow
+   - Dynamic Background Color Shifts on Scroll & Flavor Change
+   - Sticky Stacking About Cards with ScrollTrigger Scrub Rotation (-5deg / +5deg)
+   - Parallax Floating Polka-Dot Bubbles (-50vh / -20vh)
+   - Spinning Heading Sunbursts (spinLeft / spinRight 4s linear infinite)
+   - Interactive Flavour Bar with Rising Bubbles (bubbleUp) & Elastic Backdrops
+   - Infinite Marquee & Staggered Shapes Slider
+   - Complete FDA/FSSAI Nutrition Modal & QR Catalog
+   ========================================================================== */
+
+/* --- ROOT VARIABLES --- */
+:root {
+  --color-yellow: #FBEF43;
+  --color-purple: #7F4E9F;
+  --color-purple-dark: #582C72;
+  --color-orange: #FF5E36;
+  --color-red: #D32F2F;
+  --color-green: #2E7D32;
+  --color-pink: #E91E63;
+  --color-cream: #FAF6EE;
+  --color-white: #FFFFFF;
+  --color-black: #1A1615;
+
+  --font-display: 'Passion One', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --border-thick: 3px solid #1A1615;
+  --border-medium: 2px solid #1A1615;
+  --shadow-retro: 4px 4px 0px #1A1615;
+  --shadow-retro-lg: 8px 8px 0px #1A1615;
+}
+
+/* --- RESET & BASE --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-black);
+  background-color: var(--color-yellow);
+  line-height: 1.4;
+  overflow-x: hidden;
+  transition: background-color 0.5s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+}
+
+.section-content {
+  width: 90%;
+  max-width: 1360px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ==========================================================================
+   MICHA SIGNATURE STICKERS (EXACT STYLE)
+   ========================================================================== */
+.sticker,
+h1 .sticker,
+h2 .sticker,
+h3 .sticker,
+h4 .sticker {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: #000;
+  -webkit-text-stroke: 0.18em #FFF;
+  paint-order: stroke fill;
+  filter: drop-shadow(0px clamp(2px, 0.8vw, 8px) rgba(0, 0, 0, 0.45));
+  -webkit-filter: drop-shadow(0px clamp(2px, 0.8vw, 8px) rgba(0, 0, 0, 0.45));
+  padding: 0 0.25em;
+  line-height: 1.05;
+  display: inline-block;
+  user-select: none;
+}
+
+.sticker.tilt-left {
+  transform: rotate(-5deg);
+}
+
+.sticker.tilt-right {
+  transform: rotate(5deg);
+}
+
+.sticker.larger-text {
+  font-size: clamp(38px, 9vw, 150px);
+}
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1.1rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: var(--border-medium);
+  box-shadow: 2px 2px 0px #000;
+  background: #FFF;
+  color: #000;
+}
+
+.veg-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #2E7D32;
+  border-radius: 4px;
+  background: #FFF;
+  flex-shrink: 0;
+}
+
+.veg-badge::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2E7D32;
+}
+
+/* ==========================================================================
+   SITE HEADER (MICHA STYLE)
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: var(--border-thick);
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.site-branding {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.site-branding .logo-badge {
+  width: 44px;
+  height: 44px;
+  background: var(--color-yellow);
+  border: var(--border-medium);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-retro);
+}
+
+.site-branding .brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-branding .brand-title {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.site-branding .brand-sub {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-orange);
+}
+
+.main-navigation ul {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.main-navigation a {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.4rem 0.6rem;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.main-navigation a:hover {
+  color: var(--color-orange);
+}
+
+.header-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-crunch-sound {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  background: #FFF;
+  border: var(--border-medium);
+  border-radius: 9999px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  box-shadow: var(--shadow-retro);
+  transition: all 0.2s ease;
+}
+
+.btn-crunch-sound:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px #000;
+}
+
+.btn-qr-direct {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--color-orange);
+  color: #FFF;
+  padding: 0.5rem 1.1rem;
+  border-radius: 9999px;
+  border: var(--border-medium);
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: var(--shadow-retro);
+  transition: all 0.2s ease;
+}
+
+.btn-qr-direct:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #000;
+  background: #000;
+  color: var(--color-yellow);
+}
+
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  background: #FFF;
+  border: var(--border-medium);
+  border-radius: 10px;
+  box-shadow: var(--shadow-retro);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 8px;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  background: #000;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   BANNER HERO SECTION (EXACT MICHA ARCHITECTURE)
+   ========================================================================== */
+.banner-home {
+  min-height: 92vh;
+  position: relative;
+  padding: clamp(40px, 4vw, 80px) 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-yellow);
+  transition: background-color 0.5s ease;
+  overflow: hidden;
+  border-bottom: var(--border-thick);
+}
+
+.banner-home .section-content {
+  z-index: 5;
+  width: 100%;
+  text-align: center;
+}
+
+.banner-heading {
+  font-size: clamp(36px, 6.2vw, 130px);
+  width: fit-content;
+  margin: 0.2em auto 0.6em;
+  position: relative;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.banner-heading .spark-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: clamp(55px, 8vw, 110px);
+  transform: translate(-45%, -25%);
+  z-index: 2;
+  animation: spinRight 12s linear infinite;
+}
+
+.banner-heading .spark-container svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Pack Showcase & Carousel in Hero */
+.banner-home .can-outer-wrapper {
+  position: relative;
+  margin: 1.5rem auto 0;
+  max-width: 600px;
+}
+
+.banner-home .can-backdrop {
+  position: absolute;
+  width: clamp(240px, 32vw, 420px);
+  height: 100%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 1;
+  transform: translate(0, -10%);
+}
+
+.banner-home .can-backdrop .can-backdrop-wrapper {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.3);
+  transition: opacity 0.4s ease;
+}
+
+.banner-home .can-backdrop .can-backdrop-wrapper.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.banner-home .can-backdrop-wrapper .backdrop-shape {
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.15));
+}
+
+.backdrop-shape.shape1 { width: 45%; height: 45%; top: -5%; left: -10%; animation: spinLeft 8s linear infinite; }
+.backdrop-shape.shape2 { width: 35%; height: 35%; top: 15%; right: -12%; animation: spinRight 8s linear infinite; }
+.backdrop-shape.shape3 { width: 40%; height: 40%; bottom: 10%; left: -15%; animation: waveLeft 5s ease-in-out infinite; }
+.backdrop-shape.shape4 { width: 45%; height: 45%; bottom: -5%; right: -10%; animation: spinRight 10s linear infinite; }
+.backdrop-shape.shape5 { width: 25%; height: 25%; top: -10%; right: 15%; animation: spinLeft 6s linear infinite; }
+
+.banner-home .can-container {
+  position: relative;
+  width: clamp(220px, 28vw, 340px);
+  height: clamp(300px, 40vw, 440px);
+  margin: 0 auto;
+  z-index: 2;
+  border-radius: 28px;
+  border: var(--border-thick);
+  background: #FFF;
+  box-shadow: var(--shadow-retro-lg);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+}
+
+.banner-home .can-container:active {
+  cursor: grabbing;
+}
+
+.banner-home .packaging-group {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.banner-home .packaging-item {
+  flex: 0 0 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.banner-home .packaging-item img {
+  width: 85%;
+  height: 72%;
+  object-fit: cover;
+  border-radius: 18px;
+  border: var(--border-medium);
+  box-shadow: var(--shadow-retro);
+  margin-bottom: 0.75rem;
+}
+
+.banner-home .packaging-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  color: #000;
+  line-height: 1.1;
+}
+
+.banner-home .packaging-sub {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-orange);
+}
+
+/* Circular Arrow Buttons (Exact MiCha markup) */
+.banner-home .arrows {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  z-index: 9;
+  pointer-events: none;
+}
+
+.banner-home .arrows button {
+  pointer-events: auto;
+  background: transparent;
+  border: none;
+  padding: 0;
+  width: clamp(48px, 5.5vw, 76px);
+  height: clamp(48px, 5.5vw, 76px);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.banner-home .arrows button:hover {
+  transform: scale(1.1);
+}
+
+.banner-home .arrows button svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.25));
+}
+
+.banner-home .arrows button svg circle {
+  transition: fill 0.5s ease;
+}
+
+.banner-home .arrows button svg path {
+  transition: stroke 0.5s ease;
+}
+
+/* CTA Pill Button with Rising Bubbles (Exact MiCha style) */
+.banner-home .button-container {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.button-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 2.5rem;
+  border-radius: 9999px;
+  border: var(--border-thick);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background-color: var(--color-purple);
+  color: var(--color-yellow);
+  box-shadow: var(--shadow-retro-lg);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.button-wrapper:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 10px 10px 0px #000;
+  background-color: #000;
+  color: var(--color-yellow);
+}
+
+/* Rising Bubble Animation */
+.bubble {
+  position: absolute;
+  bottom: -20px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.2) 75%);
+}
+
+.button-wrapper:hover .bubble,
+.flavour-tab-nav:hover .bubble,
+.flavour-tab-nav.active .bubble {
+  animation: bubbleUp 1.2s infinite ease-out;
+}
+
+@keyframes bubbleUp {
+  0% {
+    transform: translate(var(--drift-start, 0px), 0) scale(var(--start-scale, 0.3));
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.9;
+  }
+  75% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(var(--drift-end, 0px), -150px) scale(var(--end-scale, 1.2));
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   BANNER SHAPES SLIDER (STAGGERED MARQUEE - MICHA STYLE)
+   ========================================================================== */
+.slider-wrapper {
+  background: #FFF;
+  border-bottom: var(--border-thick);
+  padding: 1.5rem 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.banner-shapes-slider {
+  display: flex;
+  gap: 2.5rem;
+  width: max-content;
+  animation: tickerScroll 22s linear infinite;
+}
+
+.slider-wrapper:hover .banner-shapes-slider {
+  animation-play-state: paused;
+}
+
+.banner-shape-item {
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-shape-item:nth-child(odd) {
+  transform: translateY(-12%);
+}
+
+.banner-shape-item:nth-child(even) {
+  transform: translateY(12%);
+}
+
+.banner-shape-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.15));
+}
+
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ==========================================================================
+   ABOUT SECTION WITH STICKY STACKING CARDS & SCROLLTRIGGER
+   (THE CORE MICHA SIGNATURE)
+   ========================================================================== */
+.section.about {
+  position: relative;
+  background-color: var(--color-red);
+  padding-bottom: 4rem;
+  border-bottom: var(--border-thick);
+}
+
+.about .bubbles-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.about .bubbles-wrapper .bubbles-group {
+  height: 100vh;
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.about .bubbles-wrapper .bubbles-group img {
+  height: 38vh;
+  object-fit: contain;
+  opacity: 0.85;
+}
+
+.about .about-cards {
+  width: 85%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.about .about-cards .card-outer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+}
+
+.about .about-cards .card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  padding: clamp(30px, 4vw, 80px);
+  border: var(--border-thick);
+  border-radius: 36px;
+  box-shadow: 12px 16px 0px #000;
+  position: relative;
+  overflow: hidden;
+}
+
+.about .about-cards .card-outer:nth-child(odd) .card {
+  flex-direction: row-reverse;
+}
+
+.about .about-cards .card-outer:nth-child(even) .card {
+  flex-direction: row;
+}
+
+.card.bg-yellow { background-color: var(--color-yellow); }
+.card.bg-green { background-color: #A5D6A7; }
+.card.bg-orange { background-color: #FFCC80; }
+
+.about .card .image-container {
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about .card .image-container .image-container-inner {
+  width: clamp(260px, 30vw, 400px);
+  height: clamp(260px, 30vw, 400px);
+  position: relative;
+  overflow: hidden;
+  border-radius: 32px;
+  border: var(--border-thick);
+  box-shadow: var(--shadow-retro-lg);
+}
+
+.about .card .image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.about .card:hover .image-container img {
+  transform: scale(1.08);
+}
+
+.about .card .text-container {
+  width: 50%;
+}
+
+.about .card .heading-wrapper {
+  position: relative;
+  width: fit-content;
+  margin-bottom: 1.5rem;
+}
+
+.about .card .heading-wrapper .shape {
+  position: absolute;
+  pointer-events: none;
+}
+
+.about .card .heading-wrapper .shape-1 {
+  width: 45%;
+  top: -35%;
+  left: -20%;
+  animation: spinLeft 5s linear infinite;
+  transition: animation-duration 0.3s ease;
+}
+
+.about .card:hover .heading-wrapper .shape-1 {
+  animation-duration: 1.5s;
+}
+
+.about .card .heading-wrapper .shape-2 {
+  width: 45%;
+  right: -25%;
+  top: -15%;
+  animation: spinRight 5s linear infinite;
+  transition: animation-duration 0.3s ease;
+}
+
+.about .card:hover .heading-wrapper .shape-2 {
+  animation-duration: 1.5s;
+}
+
+.about .card .card-heading {
+  font-size: clamp(34px, 5vw, 84px);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.about .card .card-heading .sticker {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.about .card:hover .card-heading .sticker {
+  transform: rotate(-2deg) scale(1.04);
+}
+
+.about .card .text {
+  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.6;
+  color: #1A1615;
+}
+
+@keyframes spinLeft {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes spinRight {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes waveLeft {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+
+/* ==========================================================================
+   FLAVOURS SECTION (MICHA INTERACTIVE TABS & CAN SHOWCASE)
+   ========================================================================== */
+.flavours-section {
+  padding: clamp(60px, 6vw, 100px) 0;
+  border-bottom: var(--border-thick);
+  background-color: #FFFDF7;
+  transition: background-color 0.5s ease;
+}
+
+.flavours-section .section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.flavours-bar {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  max-width: 1300px;
+  margin: 0 auto;
+  border: var(--border-thick);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--shadow-retro-lg);
+  background: #FFF;
+}
+
+.flavour-tab-nav {
+  width: 25%;
+  border-right: var(--border-thick);
+  cursor: pointer;
+  position: relative;
+  background-color: var(--background-color, #FFF);
+}
+
+.flavour-tab-nav:last-child {
+  border-right: none;
+}
+
+.flavour-tab-nav-inner {
+  padding: clamp(20px, 2.5vw, 36px) 1.5rem;
+  color: var(--text-color, #000);
+  background-color: var(--background-color, #FFF);
+  transition: color 0.4s ease, background-color 0.4s ease;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.flavour-tab-nav.active .flavour-tab-nav-inner,
+.flavour-tab-nav:hover .flavour-tab-nav-inner {
+  color: var(--active-text-color, #FFF);
+  background-color: var(--active-background-color, #000);
+}
+
+.flavour-tab-nav .flavour-name {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2vw, 36px);
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.flavour-tab-nav .arrow {
+  width: 38px;
+  height: 38px;
+  align-self: flex-end;
+  transition: transform 0.3s ease;
+}
+
+.flavour-tab-nav.active .arrow {
+  transform: rotate(180deg);
+}
+
+.flavour-tab-nav .arrow circle {
+  fill: var(--text-color, #000);
+  transition: fill 0.4s ease;
+}
+
+.flavour-tab-nav.active .arrow circle {
+  fill: var(--active-text-color, #FFF);
+}
+
+.flavour-tab-nav .arrow path {
+  stroke: var(--background-color, #FFF);
+  transition: stroke 0.4s ease;
+}
+
+.flavour-tab-nav.active .arrow path {
+  stroke: var(--active-background-color, #000);
+}
+
+/* Desktop Flavours Cans Side by Side */
+.flavours-cans {
+  width: 90%;
+  max-width: 1300px;
+  margin: 3.5rem auto 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.flavour-can-wrapper {
+  width: 23%;
+  background: #FFF;
+  border: var(--border-thick);
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-retro);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.25s ease;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+}
+
+.flavour-can-wrapper:hover {
+  transform: translateY(-8px);
+  box-shadow: 8px 12px 0px #000;
+  border-color: #000;
+}
+
+.flavour-can-wrapper.active {
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-retro-lg);
+  border-color: #000;
+}
+
+.flavour-can-wrapper .can-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  margin-bottom: 1rem;
+}
+
+.flavour-can-wrapper .can-backdrop-wrapper {
+  position: absolute;
+  inset: 0;
+  transform: scale(0.3);
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+
+.flavour-can-wrapper:hover:not(.active) .can-backdrop-wrapper {
+  transform: scale(0.65) rotate(5deg);
+}
+
+.flavour-can-wrapper.active .can-backdrop-wrapper {
+  transform: scale(1);
+}
+
+.flavour-can-wrapper .can-image-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  border: var(--border-medium);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.flavour-can-wrapper:hover .can-image-inner {
+  transform: scale(1.05);
+}
+
+.flavour-can-wrapper .can-image-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.flavour-can-wrapper:hover .can-image-inner img {
+  transform: scale(1.08);
+}
+
+.flavour-can-wrapper .flavour-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.flavour-can-wrapper .flavour-ingredients {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 1rem;
+  min-height: 2.5em;
+}
+
+.flavour-can-wrapper .btn-open-modal {
+  width: 100%;
+  padding: 0.65rem 0.5rem;
+  background: #000;
+  color: #FFF;
+  border: var(--border-medium);
+  border-radius: 9999px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.flavour-can-wrapper .btn-open-modal:hover {
+  background: var(--color-orange);
+  color: #FFF;
+}
+
+/* Mobile Flavour Drawer */
+.flavour-can-mobile {
+  display: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s ease;
+  background: #FFF;
+  border-top: var(--border-medium);
+}
+
+.flavour-tab-nav.active .flavour-can-mobile {
+  max-height: 600px;
+}
+
+.flavour-can-mobile-inner {
+  padding: 1.25rem;
+}
+
+/* ==========================================================================
+   PRODUCT CATALOG (THE QR SCAN HUB)
+   ========================================================================== */
+.catalog-section {
+  padding: clamp(60px, 6vw, 100px) 0;
+  background-color: var(--color-cream);
+  border-bottom: var(--border-thick);
+}
+
+.catalog-toolbar {
+  background: #FFF;
+  border: var(--border-thick);
+  border-radius: 28px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-retro-lg);
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.search-input-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.25rem;
+}
+
+.catalog-search-input {
+  width: 100%;
+  padding: 0.95rem 1rem 0.95rem 3.4rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-family: inherit;
+  border: var(--border-medium);
+  border-radius: 9999px;
+  outline: none;
+  background: #FFFDF7;
+}
+
+.catalog-search-input:focus {
+  border-color: #000;
+  box-shadow: 0 0 0 4px rgba(251, 239, 67, 0.4);
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: none;
+}
+
+.category-tabs-row {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.category-tabs-row::-webkit-scrollbar {
+  display: none;
+}
+
+.cat-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1.2rem;
+  border-radius: 9999px;
+  border: var(--border-medium);
+  background: #FFF;
+  font-weight: 800;
+  font-size: 0.88rem;
+  white-space: nowrap;
+  box-shadow: 2px 2px 0px #000;
+  transition: all 0.2s ease;
+}
+
+.cat-tab-btn:hover {
+  transform: translateY(-2px);
+}
+
+.cat-tab-btn.active {
+  background: #000;
+  color: #FFF;
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px var(--color-orange);
+}
+
+.filter-chips-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  border-top: 1px dashed #D6CBBA;
+  padding-top: 0.9rem;
+}
+
+.chip-btn {
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  border: 1.5px solid #000;
+  background: #FFF;
+  font-size: 0.82rem;
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.chip-btn.active {
+  background: var(--color-orange);
+  color: #FFF;
+}
+
+/* Product Cards Grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.product-card {
+  background: #FFF;
+  border: var(--border-thick);
+  border-radius: 28px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-retro);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.25s ease;
+  cursor: pointer;
+  position: relative;
+  will-change: transform;
+}
+
+.product-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 10px 14px 0px #000;
+  border-color: #000;
+}
+
+.product-card:hover .badge-bestseller,
+.product-card:hover .badge-pill {
+  transform: rotate(-5deg) scale(1.08);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-top-badges {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.badge-bestseller, .badge-pill {
+  transition: transform 0.3s ease;
+}
+
+.card-image-wrap {
+  position: relative;
+  height: 240px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: var(--border-medium);
+  margin-bottom: 1.25rem;
+  background: #FFF7ED;
+}
+
+.card-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+}
+
+.product-card:hover .card-image-wrap img {
+  transform: scale(1.1);
+  filter: brightness(1.03);
+}
+
+.spice-meter {
+  position: absolute;
+  bottom: 0.6rem;
+  left: 0.6rem;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  color: #FFF;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.card-category-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: #000;
+  margin-bottom: 0.2rem;
+}
+
+.card-hindi-title {
+  font-size: 0.95rem;
+  color: #665C54;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.card-desc {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.45;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-quick-nutrition {
+  background: #FAF3E3;
+  border: 1.5px dashed #D6CBBA;
+  border-radius: 12px;
+  padding: 0.65rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  margin-bottom: 1.25rem;
+  margin-top: auto;
+}
+
+.nutri-col-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #777;
+}
+
+.nutri-col-val {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #000;
+}
+
+.card-footer-action .btn-open-modal {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: #000;
+  color: #FFF;
+  border: var(--border-medium);
+  border-radius: 9999px;
+  font-weight: 800;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 3px 3px 0px #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+}
+
+.product-card:hover .card-footer-action .btn-open-modal,
+.card-footer-action .btn-open-modal:hover {
+  background: var(--color-orange);
+  color: #FFF;
+  transform: translateY(-2px);
+  box-shadow: 4px 5px 0px #000;
+}
+
+.card-footer-action .btn-open-modal span:last-child {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-block;
+}
+
+.product-card:hover .card-footer-action .btn-open-modal span:last-child,
+.card-footer-action .btn-open-modal:hover span:last-child {
+  transform: translateX(6px) scale(1.15);
+}
+
+/* ==========================================================================
+   BRING TOGETHER / ARTISANAL VIDEO SECTION (MICHA STYLE)
+   ========================================================================== */
+.section.bring-together {
+  background-color: #FFF9EF;
+  padding: clamp(60px, 6vw, 100px) 0;
+  border-bottom: var(--border-thick);
+}
+
+.bring-together-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.video-player-wrap {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  border: var(--border-thick);
+  box-shadow: var(--shadow-retro-lg);
+  background: #000;
+  height: 380px;
+}
+
+.video-player-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   TESTIMONIALS SECTION (MICHA STYLE)
+   ========================================================================== */
+.testimonials {
+  padding: clamp(60px, 6vw, 100px) 0;
+  background-color: var(--color-cream);
+  border-bottom: var(--border-thick);
+  overflow: hidden;
+}
+
+.testimonials-wrapper {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  padding: 1rem 0 2rem;
+  scrollbar-width: none;
+}
+
+.testimonials-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.testimony-card {
+  min-width: 330px;
+  max-width: 360px;
+  flex-shrink: 0;
+  background: #FFF;
+  border: var(--border-thick);
+  border-radius: 28px;
+  padding: 2rem;
+  box-shadow: var(--shadow-retro);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.testimony-quote {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.testimony-author-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  border-top: 1px dashed #D6CBBA;
+  padding-top: 1rem;
+}
+
+.testimony-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: var(--border-medium);
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   FAQ SECTION (MICHA ACCORDION)
+   ========================================================================== */
+.section.faq-main {
+  padding: clamp(60px, 6vw, 100px) 0;
+  background-color: #FAF0E6;
+  border-bottom: var(--border-thick);
+}
+
+.faq-list {
+  max-width: 900px;
+  margin: 3rem auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.faq-item {
+  background: #FFF;
+  border: var(--border-thick);
+  border-radius: 20px;
+  box-shadow: var(--shadow-retro);
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  padding: 1.35rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  text-transform: uppercase;
+}
+
+.faq-arrow {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: var(--border-medium);
+  background: var(--color-yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-arrow {
+  transform: rotate(180deg);
+  background: var(--color-orange);
+  color: #FFF;
+}
+
+.faq-answer {
+  display: none;
+  padding: 0 1.75rem 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.faq-item.active .faq-answer {
+  display: block;
+}
+
+/* ==========================================================================
+   FOOTER (MICHA ARCHITECTURE)
+   ========================================================================== */
+.site-footer {
+  background-color: #1A1615;
+  color: #FFF;
+  padding: 4.5rem 5% 2rem;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-brand .brand-title {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  color: #FFF;
+}
+
+.footer-brand p {
+  color: #AAA;
+  margin-top: 1rem;
+  max-width: 380px;
+}
+
+.footer-col-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  margin-bottom: 1.25rem;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-links a {
+  color: #DDD;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--color-yellow);
+}
+
+.footer-bottom {
+  border-top: 1px solid #332B29;
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #888;
+  font-size: 0.85rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   NUTRITION FACTS MODAL
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 15, 14, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-container {
+  background: #FFF;
+  border: var(--border-thick);
+  border-radius: 32px;
+  max-width: 920px;
+  width: 100%;
+  max-height: 90vh;
+  box-shadow: 16px 20px 0px #000;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(30px) scale(0.97);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.open .modal-container {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close-btn {
+  position: sticky;
+  top: 1rem;
+  right: 1rem;
+  float: right;
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: var(--border-medium);
+  background: #FFF;
+  color: #000;
+  font-size: 1.4rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-retro);
+  transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background: var(--color-orange);
+  color: #FFF;
+  transform: rotate(90deg);
+}
+
+.modal-content-grid {
+  padding: 2.25rem;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 2.5rem;
+}
+
+.modal-product-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.modal-image-wrap {
+  width: 100%;
+  height: 300px;
+  border: var(--border-thick);
+  border-radius: 20px;
+  overflow: hidden;
+  background: #FFF3E0;
+}
+
+.modal-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nutrition-panel {
+  border: var(--border-thick);
+  border-radius: 18px;
+  padding: 1.25rem;
+  background: #FFF;
+}
+
+.nutrition-panel-header {
+  border-bottom: 10px solid #000;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.nutrition-heading {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.serving-toggle-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  background: #F3EFE6;
+  padding: 0.3rem;
+  border-radius: 9999px;
+  border: var(--border-medium);
+}
+
+.toggle-serving-btn {
+  flex: 1;
+  padding: 0.4rem;
+  border-radius: 9999px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.toggle-serving-btn.active {
+  background: #000;
+  color: #FFF;
+}
+
+.calorie-highlight-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 6px solid #000;
+  padding: 0.4rem 0;
+}
+
+.cal-number {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.nutrient-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid #D6CBBA;
+  font-size: 0.88rem;
+}
+
+.nutrient-row.bold-row {
+  font-weight: 800;
+  border-bottom: 2px solid #000;
+}
+
+.nutrient-row.sub-row {
+  padding-left: 1.2rem;
+  font-size: 0.84rem;
+  color: #4A4036;
+}
+
+.ingredients-box {
+  margin-top: 1.5rem;
+  border: var(--border-medium);
+  border-radius: 14px;
+  padding: 1rem;
+  background: #FAF3E3;
+}
+
+.btn-share-whatsapp {
+  background: #25D366;
+  color: #FFF;
+  font-weight: 800;
+  font-size: 0.88rem;
+  padding: 0.65rem;
+  border-radius: 9999px;
+  border: var(--border-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  box-shadow: 2px 2px 0px #000;
+  transition: all 0.2s ease;
+}

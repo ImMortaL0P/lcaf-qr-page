@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Laxmi Confectionery & Foods | Royal Indian Namkeens & Artisanal Snacks</title>
+
+  <!-- SEO & Social Graph -->
+  <meta name="description" content="Laxmi Confectionery & Foods (LCAF) - Handcrafted Indian namkeens, royal mixtures, crispy bhujia, and roasted guilt-free snacks. Complete digital nutritional ledger.">
+  <meta name="theme-color" content="#FBEF43">
+  <meta property="og:title" content="Laxmi Confectionery & Foods | Royal Indian Namkeens">
+  <meta property="og:description" content="Scan the QR code to explore our complete product range, authentic ingredients, and verified nutritional values.">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪔</text></svg>">
+
+  <!-- Google Fonts: Passion One & Be Vietnam Pro (Exact Match to MiCha) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Passion+One:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- GSAP & Lenis Smooth Scroll (CDNs used by MiCha) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.3.4/dist/lenis.min.js"></script>
+</head>
+<body id="page-top">
+
+  <!-- ==================== HEADER (MICHA STYLE) ==================== -->
+  <header class="site-header" id="masthead">
+    <div class="site-header-inner">
+      <div class="site-branding">
+        <a href="#page-top" class="site-branding" aria-label="Laxmi Confectionery & Foods">
+          <div class="logo-badge">🪔</div>
+          <div class="brand-text">
+            <span class="brand-title">LAXMI</span>
+            <span class="brand-sub">Confectionery & Foods</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="main-navigation" id="siteNavigation">
+        <ul>
+          <li><a href="#about">The Craft</a></li>
+          <li><a href="#flavours">Our Flavours</a></li>
+          <li><a href="#catalog">QR Product Range</a></li>
+          <li><a href="#bring-together">The Heritage</a></li>
+          <li><a href="#testimonial">Reviews</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-cta-group">
+        <!-- Web Audio Crunch FX Button -->
+        <button id="soundToggleBtn" class="btn-crunch-sound" title="Toggle Crispy Sound FX" aria-label="Toggle Sound">
+          <span>🔊</span>
+          <span class="sound-label">Crunch: ON</span>
+        </button>
+
+        <!-- Direct QR Button -->
+        <a href="#catalog" class="btn-qr-direct">
+          <span>📱</span>
+          <span>Explore Catalog</span>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== BANNER HERO (EXACT MICHA ARCHITECTURE) ==================== -->
+  <div class="banner banner-home" id="homeBanner" style="background-color: #FBEF43; transition: background-color 0.5s ease;">
+    <div class="section-content">
+      <h1 class="banner-heading heading-center">
+        <!-- 8-Point Geometric Spark SVG from MiCha -->
+        <div class="spark-container">
+          <svg viewBox="0 0 101 87" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.7633 84.6863C25.798 87.2752 31.1441 86.1321 33.7667 82.0973C33.9348 81.8283 34.1029 81.5593 34.2374 81.2903L34.9435 79.3066L43.013 53.8876C43.3829 52.6772 41.9371 51.7693 41.0293 52.6099L21.2253 70.4974L19.9813 71.6405C19.5105 72.1785 19.3424 72.4139 19.1743 72.6829C16.5853 76.7176 17.7285 82.0637 21.7633 84.6863Z" fill="#7F4E9F"/>
+            <path d="M0.0428311 49.2819C0.513553 54.0563 4.78368 57.5195 9.55814 57.0488C9.86075 57.0488 10.1634 56.9815 10.466 56.9143L12.4161 56.2418L37.3308 46.7265C38.5076 46.2894 38.3394 44.5746 37.0954 44.3729L10.7686 40.0355L9.08742 39.8002C8.38134 39.8002 8.07873 39.8002 7.77612 39.8338C3.03528 40.2373 -0.427891 44.5074 0.0428311 49.2819Z" fill="#7F4E9F"/>
+            <path d="M33.2968 0.863942C28.9931 2.94857 27.1774 8.12652 29.2284 12.4303L30.9432 14.8847L48.3936 35.0586C49.2005 36 50.7808 35.2603 50.5454 34.0162L45.6365 7.79028C42.7113 0.628581 37.5333 -1.18706 33.2296 0.863942Z" fill="#7F4E9F"/>
+            <path d="M74.8536 0.864021C70.5499 -1.22061 65.3383 0.595037 63.2873 4.93241L62.4467 7.82398L57.5378 34.0499C57.3024 35.294 58.8491 36.0337 59.6896 35.0922L77.14 14.9184C80.9394 8.16022 79.1237 2.94865 74.7864 0.897644Z" fill="#7F4E9F"/>
+            <path d="M100.777 33.3444C99.7014 28.6708 95.0614 25.7456 90.3878 26.8216L87.6308 27.9984L64.0946 40.5061C62.9851 41.1113 63.3549 42.7589 64.6326 42.8261L91.262 43.8684C98.9281 42.6244 101.853 37.9844 100.777 33.3108Z" fill="#7F4E9F"/>
+          </svg>
+        </div>
+        <span class="sticker" data-sticker-text="ASLI CRUNCH • SHAHI SWAAD">ASLI CRUNCH • SHAHI SWAAD</span>
+      </h1>
+
+      <!-- Can/Pack Showcase with Vector Backdrops -->
+      <div class="can-outer-wrapper">
+        <!-- Floating Backdrop Shapes with Elastic Bounce -->
+        <div class="can-backdrop">
+          <!-- Backdrop 1: Bikaneri Bhujia (Purple/Yellow Theme) -->
+          <div class="can-backdrop-wrapper can-bikaneri active">
+            <div class="backdrop-shape shape1" style="background-image: url('assets/icons/yuzu-lavender-backdrop1.svg');"></div>
+            <div class="backdrop-shape shape2" style="background-image: url('assets/icons/yuzu-lavender-backdrop2.svg');"></div>
+            <div class="backdrop-shape shape3" style="background-image: url('assets/icons/yuzu-lavender-backdrop3.svg');"></div>
+            <div class="backdrop-shape shape4" style="background-image: url('assets/icons/yuzu-lavender-backdrop4.svg');"></div>
+            <div class="backdrop-shape shape5" style="background-image: url('assets/icons/yuzu-lavender-backdrop5.svg');"></div>
+          </div>
+
+          <!-- Backdrop 2: Shahi Navratan (Warm Orange Theme) -->
+          <div class="can-backdrop-wrapper can-navratan">
+            <div class="backdrop-shape shape1" style="background-image: url('assets/icons/citra-spark-backdrop1.svg');"></div>
+            <div class="backdrop-shape shape2" style="background-image: url('assets/icons/citra-spark-backdrop2.svg');"></div>
+            <div class="backdrop-shape shape3" style="background-image: url('assets/icons/citra-spark-backdrop3.svg');"></div>
+            <div class="backdrop-shape shape4" style="background-image: url('assets/icons/citra-spark-backdrop4.svg');"></div>
+            <div class="backdrop-shape shape5" style="background-image: url('assets/icons/citra-spark-backdrop5.svg');"></div>
+          </div>
+
+          <!-- Backdrop 3: Ratlami Sev (Crimson/Pink Theme) -->
+          <div class="can-backdrop-wrapper can-ratlami">
+            <div class="backdrop-shape shape1" style="background-image: url('assets/icons/lychee-rose-backdrop1.svg');"></div>
+            <div class="backdrop-shape shape2" style="background-image: url('assets/icons/lychee-rose-backdrop2.svg');"></div>
+            <div class="backdrop-shape shape3" style="background-image: url('assets/icons/lychee-rose-backdrop3.svg');"></div>
+            <div class="backdrop-shape shape4" style="background-image: url('assets/icons/lychee-rose-backdrop4.svg');"></div>
+            <div class="backdrop-shape shape5" style="background-image: url('assets/icons/lychee-rose-backdrop5.svg');"></div>
+          </div>
+
+          <!-- Backdrop 4: Roasted Makhana (Mint Green Theme) -->
+          <div class="can-backdrop-wrapper can-makhana">
+            <div class="backdrop-shape shape1" style="background-image: url('assets/icons/jasmine-hibiscus-backdrop1.svg');"></div>
+            <div class="backdrop-shape shape2" style="background-image: url('assets/icons/jasmine-hibiscus-backdrop2.svg');"></div>
+            <div class="backdrop-shape shape3" style="background-image: url('assets/icons/jasmine-hibiscus-backdrop3.svg');"></div>
+            <div class="backdrop-shape shape4" style="background-image: url('assets/icons/jasmine-hibiscus-backdrop4.svg');"></div>
+            <div class="backdrop-shape shape5" style="background-image: url('assets/icons/jasmine-hibiscus-backdrop5.svg');"></div>
+          </div>
+        </div>
+
+        <!-- Pack Container & Slider -->
+        <div class="can-container">
+          <div class="packaging-group">
+            <div class="packaging-item" data-bg="#FCE4EC" data-spark="#C2185B" data-tab="#flavour-tab1">
+              <img src="assets/images/lanka_namkeen.jpg" alt="Lanka Namkeen">
+              <div class="packaging-title">Lanka Namkeen</div>
+              <div class="packaging-sub">Fiery Red Chilli Sev & Peanuts</div>
+            </div>
+
+            <div class="packaging-item" data-bg="#F3E5F5" data-spark="#7B1FA2" data-tab="#flavour-tab2">
+              <img src="assets/images/bombay_mixture.jpg" alt="Navrang Namkeen">
+              <div class="packaging-title">Navrang Namkeen</div>
+              <div class="packaging-sub">9-Jewel Royal Cashew Mix</div>
+            </div>
+
+            <div class="packaging-item" data-bg="#FFF3E0" data-spark="#E65100" data-tab="#flavour-tab3">
+              <img src="assets/images/agara_dalmoth.jpg" alt="Agara Namkeen Dalmoth">
+              <div class="packaging-title">Agara Namkeen</div>
+              <div class="packaging-sub">Masoor Dalmoth & Melon Seeds</div>
+            </div>
+
+            <div class="packaging-item" data-bg="#FFFDE7" data-spark="#FBC02D" data-tab="#flavour-tab4">
+              <img src="assets/images/bhavnagri_gathia.jpg" alt="Bhavnagri Gathia">
+              <div class="packaging-title">Bhavnagri Gathia</div>
+              <div class="packaging-sub">Melt-in-Mouth Ajwain Besan</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Left/Right Circular Arrow Controls (MiCha SVGs) -->
+        <div class="arrows">
+          <button class="arrow left" aria-label="Previous Snack">
+            <svg viewBox="0 0 93 93" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="46.5" cy="46.5" r="46.5" fill="#7F4E9F"/>
+              <path d="M55 30L35 46.5L55 63" stroke="#FBEF43" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="arrow right" aria-label="Next Snack">
+            <svg viewBox="0 0 93 93" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="46.5" cy="46.5" r="46.5" fill="#7F4E9F"/>
+              <path d="M38 30L58 46.5L38 63" stroke="#FBEF43" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Animated Pill CTA with Rising Bubbles -->
+      <div class="button-container">
+        <a href="#flavours" class="button-wrapper" id="heroCtaBtn">
+          <span class="bubble" style="left:15%; width:16px; height:16px; --drift-start:-2px; --drift-end:-6px; --start-scale:0.3; --end-scale:1; animation-delay:0s;"></span>
+          <span class="bubble" style="left:40%; width:12px; height:12px; --drift-start:2px; --drift-end:-3px; --start-scale:0.4; --end-scale:1.2; animation-delay:0.3s;"></span>
+          <span class="bubble" style="left:65%; width:18px; height:18px; --drift-start:-1px; --drift-end:4px; --start-scale:0.3; --end-scale:1; animation-delay:0.6s;"></span>
+          <span class="bubble" style="left:82%; width:10px; height:10px; --drift-start:3px; --drift-end:1px; --start-scale:0.5; --end-scale:1.3; animation-delay:0.9s;"></span>
+          <span>Explore The Flavours</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== BANNER SHAPES SLIDER (STAGGERED MARQUEE - MICHA STYLE) ==================== -->
+  <div class="slider-wrapper">
+    <div class="banner-shapes-slider">
+      <div class="banner-shape-item"><img src="assets/icons/micha-flavour-asset1.svg" alt="shape"></div>
+      <div class="banner-shape-item"><img src="assets/icons/micha-flavour-asset2.svg" alt="shape"></div>
+      <div class="banner-shape-item"><img src="assets/icons/micha-flavour-asset3.svg" alt="shape"></div>
+      <div class="banner-shape-item"><img src="assets/icons/micha-flavour-asset4.svg" alt="shape"></div>
+      <div class="banner-shape-item"><img src="assets/icons/micha-flavour-asset5.svg" alt="shape"></div>
+      <div class="banner-shape-item"><img src="assets/icons/micha-flavour-asset6.svg" alt="shape"></div>
+      <!-- Loop Items -->
+      <div class="banner-shape-item"><img src="assets/icons/micha-flavour-asset1.svg" alt="shape"></div>
+      <div class="banner-shape-item"><img src="assets/icons/micha-flavour-asset2.svg" alt="shape"></div>
+      <div class="banner-shape-item"><img src="assets/icons/micha-flavour-asset3.svg" alt="shape"></div>
+      <div class="banner-shape-item"><img src="assets/icons/micha-flavour-asset4.svg" alt="shape"></div>
+      <div class="banner-shape-item"><img src="assets/icons/micha-flavour-asset5.svg" alt="shape"></div>
+      <div class="banner-shape-item"><img src="assets/icons/micha-flavour-asset6.svg" alt="shape"></div>
+    </div>
+  </div>
+
+  <!-- ==================== ABOUT SECTION WITH STICKY STACKING CARDS & SCROLLTRIGGER ==================== -->
+  <section class="section about" id="about">
+    <!-- Parallax Scrubbed Polka-Dot Bubbles (Exact MiCha Implementation) -->
+    <div class="bubbles-wrapper">
+      <div class="bubbles-group bubbles-1">
+        <img class="bubbles" src="assets/icons/what-is-micha-polkadots1.svg" alt="polkadots">
+        <img class="bubbles" src="assets/icons/what-is-micha-polkadots2.svg" alt="polkadots">
+      </div>
+      <div class="bubbles-group bubbles-2">
+        <img class="bubbles" src="assets/icons/why-drink-micha-polkadots1.svg" alt="polkadots">
+        <img class="bubbles" src="assets/icons/why-drink-micha-polkadots2.svg" alt="polkadots">
+      </div>
+      <div class="bubbles-group bubbles-3">
+        <img class="bubbles" src="assets/icons/what-is-micha-polkadots1.svg" alt="polkadots">
+        <img class="bubbles" src="assets/icons/what-is-micha-polkadots2.svg" alt="polkadots">
+      </div>
+    </div>
+
+    <!-- 3 Sticky Cards that rotate (-5deg / +5deg) with ScrollTrigger -->
+    <div class="about-cards">
+      <!-- Card 1: What is Laxmi Foods? -->
+      <div class="card-outer">
+        <div class="card bg-yellow pop-in-shape-container">
+          <div class="text-container">
+            <div class="heading-wrapper">
+              <div class="shape shape-1">
+                <img src="assets/icons/what-is-micha-heading-vector1.svg" alt="sunburst">
+              </div>
+              <div class="shape shape-2">
+                <img src="assets/icons/what-is-micha-heading-vector2.svg" alt="sunburst">
+              </div>
+              <h2 class="card-heading">
+                <span class="sticker">What is</span>
+                <br>
+                <span class="sticker">Laxmi Foods?</span>
+              </h2>
+            </div>
+            <p class="text">
+              Born from the royal confectionery and snack traditions of India, Laxmi Confectionery & Foods (LCAF) 
+              handcrafts authentic namkeens using desert moth bean flour, stone-crushed spices, and virgin cold-pressed groundnut oil. 
+              Every batch honors century-old recipes with pure acoustic crunch in every bite.
+            </p>
+          </div>
+          <div class="image-container">
+            <div class="image-container-inner">
+              <img src="assets/images/kanpuri_namkin.jpg" alt="Authentic Spices">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Why Choose Our Crunch? -->
+      <div class="card-outer">
+        <div class="card bg-green pop-in-shape-container">
+          <div class="text-container">
+            <div class="heading-wrapper">
+              <div class="shape shape-1">
+                <img src="assets/icons/why-drink-micha-heading-vector1.svg" alt="sunburst">
+              </div>
+              <div class="shape shape-2">
+                <img src="assets/icons/why-drink-micha-heading-vector2.svg" alt="sunburst">
+              </div>
+              <h2 class="card-heading">
+                <span class="sticker">Why Choose</span>
+                <br>
+                <span class="sticker larger-text">Our Crunch?</span>
+              </h2>
+            </div>
+            <p class="text">
+              We say an uncompromising <strong>NO to Palm Oil</strong>. While commercial brands cut corners with cheap blends, 
+              we fry and roast in pure cold-pressed groundnut and olive oils. Zero trans-fat, zero cholesterol, and verified 
+              digital nutritional transparency accessible right from our QR codes.
+            </p>
+          </div>
+          <div class="image-container">
+            <div class="image-container-inner">
+              <img src="assets/images/bikaneri_bhujia.jpg" alt="Crispy Bhujia">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: When to Enjoy Namkeen? -->
+      <div class="card-outer">
+        <div class="card bg-orange pop-in-shape-container">
+          <div class="text-container">
+            <div class="heading-wrapper">
+              <div class="shape shape-1">
+                <img src="assets/icons/when-to-drink-micha-heading-vector1.svg" alt="sunburst">
+              </div>
+              <div class="shape shape-2">
+                <img src="assets/icons/when-to-drink-micha-heading-vector2.svg" alt="sunburst">
+              </div>
+              <h2 class="card-heading">
+                <span class="sticker">When to</span>
+                <br>
+                <span class="sticker">Enjoy Namkeen?</span>
+              </h2>
+            </div>
+            <p class="text">
+              From morning cutting chai with spicy Ratlami Sev, to festive Diwali gatherings with Shahi Navratan Mixture, 
+              or midnight guilt-free munching with Himalayan Pink Salt Makhana. Every moment becomes a royal celebration of crunch.
+            </p>
+          </div>
+          <div class="image-container">
+            <div class="image-container-inner">
+              <img src="assets/images/chanachur_spicy.jpg" alt="Chai and Snack">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SIGNATURE FLAVOURS SECTION (MICHA INTERACTIVE TABS) ==================== -->
+  <section class="flavours-section" id="flavours">
+    <div class="section-title">
+      <span class="badge-pill" style="margin-bottom:0.75rem;">THE ROYAL QUARTET</span>
+      <h2 style="font-family:var(--font-display); font-size:clamp(32px, 5.5vw, 68px); text-transform:uppercase;">
+        <span class="sticker">Explore Our</span>
+        <span class="sticker larger-text">Flagship Flavours</span>
+      </h2>
+    </div>
+
+    <!-- 4 Tabs with Color Variables & Animated Bubbles -->
+    <div class="flavours-bar">
+      <!-- Tab 1: Lanka Namkeen -->
+      <div class="flavour-tab-nav active" id="flavour-tab1"
+           style="--background-color: #C2185B; --text-color: #FFF; --active-background-color: #FCE4EC; --active-text-color: #C2185B;">
+        <div class="flavour-tab-nav-inner">
+          <span class="bubble" style="left:18%; width:22px; height:22px; --drift-start:-2px; --drift-end:-6px; --start-scale:0.3; --end-scale:1; animation-delay:0s;"></span>
+          <span class="bubble" style="left:45%; width:14px; height:14px; --drift-start:1px; --drift-end:-4px; --start-scale:0.4; --end-scale:1.3; animation-delay:.3s;"></span>
+          <span class="bubble" style="left:68%; width:18px; height:18px; --drift-start:-1px; --drift-end:3px; --start-scale:0.4; --end-scale:1; animation-delay:.6s;"></span>
+          <h3 class="flavour-name">
+            <span>Lanka</span><br><span>Namkeen</span>
+          </h3>
+          <span class="arrow">
+            <svg viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="18.5" cy="18.5" r="18.5" fill="#FFF"/>
+              <path d="M26 16L18.5 23.5L11 16" stroke="#C2185B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+        <div class="flavour-can-mobile">
+          <div class="flavour-can-mobile-inner">
+            <img src="assets/images/lanka_namkeen.jpg" style="border-radius:18px; border:var(--border-medium); margin-bottom:1rem;" alt="Lanka Namkeen">
+            <h4 style="font-family:var(--font-display); font-size:1.5rem; text-transform:uppercase;">Lanka Namkeen</h4>
+            <p style="font-size:0.9rem; color:#555; margin-bottom:1rem;">Red Lanka Chilli • Double Roasted Peanuts • Coarse Sev</p>
+            <button class="btn-open-modal" data-product-id="lanka-namkeen">Inspect Nutrition Facts 👉</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Navrang Namkeen -->
+      <div class="flavour-tab-nav" id="flavour-tab2"
+           style="--background-color: #7B1FA2; --text-color: #FFF; --active-background-color: #F3E5F5; --active-text-color: #7B1FA2;">
+        <div class="flavour-tab-nav-inner">
+          <span class="bubble" style="left:22%; width:20px; height:20px; --drift-start:2px; --drift-end:-3px; --start-scale:0.3; --end-scale:1.1; animation-delay:.2s;"></span>
+          <span class="bubble" style="left:60%; width:16px; height:16px; --drift-start:-2px; --drift-end:4px; --start-scale:0.4; --end-scale:1; animation-delay:.5s;"></span>
+          <h3 class="flavour-name">
+            <span>Navrang</span><br><span>Namkeen</span>
+          </h3>
+          <span class="arrow">
+            <svg viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="18.5" cy="18.5" r="18.5" fill="#FFF"/>
+              <path d="M26 16L18.5 23.5L11 16" stroke="#7B1FA2" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+        <div class="flavour-can-mobile">
+          <div class="flavour-can-mobile-inner">
+            <img src="assets/images/bombay_mixture.jpg" style="border-radius:18px; border:var(--border-medium); margin-bottom:1rem;" alt="Navrang Namkeen">
+            <h4 style="font-family:var(--font-display); font-size:1.5rem; text-transform:uppercase;">Navrang Namkeen</h4>
+            <p style="font-size:0.9rem; color:#555; margin-bottom:1rem;">Golden Cashews • Seedless Raisins • Nine-Jewel Crunch</p>
+            <button class="btn-open-modal" data-product-id="navrang-namkeen">Inspect Nutrition Facts 👉</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Agara Namkeen Dalmoth -->
+      <div class="flavour-tab-nav" id="flavour-tab3"
+           style="--background-color: #E65100; --text-color: #FFF; --active-background-color: #FFF3E0; --active-text-color: #E65100;">
+        <div class="flavour-tab-nav-inner">
+          <span class="bubble" style="left:30%; width:24px; height:24px; --drift-start:-1px; --drift-end:5px; --start-scale:0.3; --end-scale:1.2; animation-delay:.1s;"></span>
+          <span class="bubble" style="left:75%; width:14px; height:14px; --drift-start:3px; --drift-end:-2px; --start-scale:0.5; --end-scale:1; animation-delay:.7s;"></span>
+          <h3 class="flavour-name">
+            <span>Agara</span><br><span>Namkeen</span>
+          </h3>
+          <span class="arrow">
+            <svg viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="18.5" cy="18.5" r="18.5" fill="#FFF"/>
+              <path d="M26 16L18.5 23.5L11 16" stroke="#E65100" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+        <div class="flavour-can-mobile">
+          <div class="flavour-can-mobile-inner">
+            <img src="assets/images/agara_dalmoth.jpg" style="border-radius:18px; border:var(--border-medium); margin-bottom:1rem;" alt="Agara Namkeen">
+            <h4 style="font-family:var(--font-display); font-size:1.5rem; text-transform:uppercase;">Agara Namkeen (Dalmoth)</h4>
+            <p style="font-size:0.9rem; color:#555; margin-bottom:1rem;">Fried Masoor Dal • Toasted Magaz Seeds • Clove Scent</p>
+            <button class="btn-open-modal" data-product-id="agara-namkeen-dalmoth">Inspect Nutrition Facts 👉</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Bhavnagri Gathia -->
+      <div class="flavour-tab-nav" id="flavour-tab4"
+           style="--background-color: #F57F17; --text-color: #FFF; --active-background-color: #FFFDE7; --active-text-color: #F57F17;">
+        <div class="flavour-tab-nav-inner">
+          <span class="bubble" style="left:15%; width:18px; height:18px; --drift-start:-3px; --drift-end:2px; --start-scale:0.4; --end-scale:1; animation-delay:.4s;"></span>
+          <span class="bubble" style="left:55%; width:22px; height:22px; --drift-start:1px; --drift-end:-5px; --start-scale:0.3; --end-scale:1.3; animation-delay:.8s;"></span>
+          <h3 class="flavour-name">
+            <span>Bhavnagri</span><br><span>Gathia</span>
+          </h3>
+          <span class="arrow">
+            <svg viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="18.5" cy="18.5" r="18.5" fill="#FFF"/>
+              <path d="M26 16L18.5 23.5L11 16" stroke="#F57F17" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+        <div class="flavour-can-mobile">
+          <div class="flavour-can-mobile-inner">
+            <img src="assets/images/bhavnagri_gathia.jpg" style="border-radius:18px; border:var(--border-medium); margin-bottom:1rem;" alt="Bhavnagri Gathia">
+            <h4 style="font-family:var(--font-display); font-size:1.5rem; text-transform:uppercase;">Bhavnagri Gathia</h4>
+            <p style="font-size:0.9rem; color:#555; margin-bottom:1rem;">Soft Melt-in-Mouth Besan • Ajwain (Carom) • Black Pepper</p>
+            <button class="btn-open-modal" data-product-id="bhavnagri-gathia">Inspect Nutrition Facts 👉</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop Side by Side Showcase -->
+    <div class="flavours-cans">
+      <div class="flavour-can-wrapper active">
+        <div class="can-image-wrapper">
+          <div class="can-backdrop-wrapper">
+            <img src="assets/icons/yuzu-lavender-backdrop1.svg" style="width:100%; height:100%;" alt="backdrop">
+          </div>
+          <div class="can-image-inner">
+            <img src="assets/images/lanka_namkeen.jpg" alt="Lanka Namkeen">
+          </div>
+        </div>
+        <h4 class="flavour-title">Lanka Namkeen</h4>
+        <p class="flavour-ingredients">Fiery red Lanka chilli sev & roasted peanuts</p>
+        <button class="btn-open-modal" data-product-id="lanka-namkeen">Nutrition & Facts</button>
+      </div>
+
+      <div class="flavour-can-wrapper">
+        <div class="can-image-wrapper">
+          <div class="can-backdrop-wrapper">
+            <img src="assets/icons/citra-spark-backdrop1.svg" style="width:100%; height:100%;" alt="backdrop">
+          </div>
+          <div class="can-image-inner">
+            <img src="assets/images/bombay_mixture.jpg" alt="Navrang Namkeen">
+          </div>
+        </div>
+        <h4 class="flavour-title">Navrang Namkeen</h4>
+        <p class="flavour-ingredients">Golden cashews, seedless raisins & 9-jewel mix</p>
+        <button class="btn-open-modal" data-product-id="navrang-namkeen">Nutrition & Facts</button>
+      </div>
+
+      <div class="flavour-can-wrapper">
+        <div class="can-image-wrapper">
+          <div class="can-backdrop-wrapper">
+            <img src="assets/icons/lychee-rose-backdrop1.svg" style="width:100%; height:100%;" alt="backdrop">
+          </div>
+          <div class="can-image-inner">
+            <img src="assets/images/agara_dalmoth.jpg" alt="Agara Namkeen">
+          </div>
+        </div>
+        <h4 class="flavour-title">Agara Namkeen</h4>
+        <p class="flavour-ingredients">Fried masoor dalmoth & toasted melon seeds</p>
+        <button class="btn-open-modal" data-product-id="agara-namkeen-dalmoth">Nutrition & Facts</button>
+      </div>
+
+      <div class="flavour-can-wrapper">
+        <div class="can-image-wrapper">
+          <div class="can-backdrop-wrapper">
+            <img src="assets/icons/jasmine-hibiscus-backdrop1.svg" style="width:100%; height:100%;" alt="backdrop">
+          </div>
+          <div class="can-image-inner">
+            <img src="assets/images/bhavnagri_gathia.jpg" alt="Bhavnagri Gathia">
+          </div>
+        </div>
+        <h4 class="flavour-title">Bhavnagri Gathia</h4>
+        <p class="flavour-ingredients">Soft melt-in-mouth besan & ajwain sticks</p>
+        <button class="btn-open-modal" data-product-id="bhavnagri-gathia">Nutrition & Facts</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== QR PRODUCT RANGE (THE MAIN CATALOG) ==================== -->
+  <section class="catalog-section" id="catalog">
+    <div class="section-content">
+      <div style="text-align:center; max-width:800px; margin:0 auto 2.5rem;">
+        <span class="badge-pill" style="margin-bottom:0.75rem;">COMPLETE QR PRODUCT LINE</span>
+        <h2 style="font-family:var(--font-display); font-size:clamp(32px, 5.5vw, 68px); text-transform:uppercase;">
+          <span class="sticker">Explore The</span>
+          <span class="sticker larger-text">Entire Range</span>
+        </h2>
+        <p style="color:#555; font-size:1.05rem; margin-top:0.5rem;">
+          Scanned our packet QR? Explore our complete digital catalog with verified lab nutrition, ingredients, and allergen facts for all fresh batches.
+        </p>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="catalog-toolbar">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="catalogSearchInput" class="catalog-search-input" placeholder="Search by name or ingredients (e.g. 'moth dal', 'cashew', 'clove', 'poha')..." aria-label="Search snacks">
+          <button class="clear-search-btn" id="clearSearchBtn">✕</button>
+        </div>
+
+        <div class="category-tabs-row">
+          <button class="cat-tab-btn active" data-category="all">
+            <span>✨</span> All Snacks (12)
+          </button>
+          <button class="cat-tab-btn" data-category="royal-mixtures">
+            <span>👑</span> Royal Mixtures & Chiwda (4)
+          </button>
+          <button class="cat-tab-btn" data-category="sev-bhujia">
+            <span>🥢</span> Crunchy Sev & Bhujia (3)
+          </button>
+          <button class="cat-tab-btn" data-category="crispy-bites">
+            <span>🥟</span> Crispy Bites & Mathri (3)
+          </button>
+          <button class="cat-tab-btn" data-category="healthy-roasted">
+            <span>🥗</span> Healthy Roasted (2)
+          </button>
+        </div>
+
+        <div class="filter-chips-row">
+          <span style="font-size:0.85rem; font-weight:800; text-transform:uppercase; color:#666;">Quick Filters:</span>
+          <button class="chip-btn" data-filter="gluten-free">🌾 Gluten-Free</button>
+          <button class="chip-btn" data-filter="roasted">🥗 100% Roasted</button>
+          <button class="chip-btn" data-filter="high-protein">⚡ High Protein (10g+)</button>
+          <button class="chip-btn" data-filter="bestseller">⭐ Bestsellers</button>
+          <span id="productCountDisplay" style="margin-left:auto; font-size:0.85rem; font-weight:800; color:#555;">
+            Showing 12 of 12 Artisanal Packs
+          </span>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="productsGrid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BRING TOGETHER / ARTISANAL VIDEO (MICHA STYLE) ==================== -->
+  <section class="section bring-together" id="bring-together">
+    <div class="section-content">
+      <div class="bring-together-grid">
+        <div class="video-player-wrap">
+          <video controls poster="assets/images/lanka_namkeen.jpg">
+            <source src="https://upload.wikimedia.org/wikipedia/commons/1/1f/A_Short_History_of_Indian_Spices.webm" type="video/webm">
+          </video>
+        </div>
+
+        <div>
+          <span class="badge-pill" style="margin-bottom:0.75rem;">TRADITION & HERITAGE</span>
+          <h2 style="font-family:var(--font-display); font-size:clamp(30px, 4.5vw, 60px); text-transform:uppercase; line-height:1.1;">
+            <span class="sticker">The Secret of</span>
+            <br>
+            <span class="sticker larger-text">Pure Desi Spices</span>
+          </h2>
+          <p style="color:#555; font-size:1.05rem; margin:1rem 0 1.5rem; line-height:1.6;">
+            We don't buy bulk factory-blended masalas. At Laxmi Confectionery & Foods, whole cloves, dried mango, cumin, 
+            and black peppercorns are stone-crushed daily in our kitchen kadhais to preserve natural essential oils. 
+            Combined with zero palm oil, our namkeens deliver an authentic crunch that never coats your palate with grease.
+          </p>
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+            <span class="badge-pill">🪨 Stone-Ground Masalas</span>
+            <span class="badge-pill">🌾 Zero Palm Oil</span>
+            <span class="badge-pill">🌿 100% Pure Veg</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIALS SLIDER (MICHA STYLE) ==================== -->
+  <section class="testimonials" id="testimonial">
+    <div class="section-content">
+      <div style="text-align:center; margin-bottom:2.5rem;">
+        <span class="badge-pill" style="margin-bottom:0.75rem;">THE CRUNCH COMMUNITY</span>
+        <h2 style="font-family:var(--font-display); font-size:clamp(32px, 5.5vw, 68px); text-transform:uppercase;">
+          <span class="sticker">What Snack Lovers</span>
+          <span class="sticker larger-text">Are Saying</span>
+        </h2>
+      </div>
+
+      <div class="testimonials-wrapper">
+        <div class="testimony-card">
+          <div style="color:#FFA000; font-size:1.1rem; margin-bottom:0.75rem;">★★★★★</div>
+          <p class="testimony-quote">"The Ratlami Laung Sev has that authentic Malwa kick. You can actually taste the freshly crushed cloves!"</p>
+          <div class="testimony-author-wrap">
+            <img class="testimony-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Ananya">
+            <div>
+              <strong>Ananya Sharma</strong>
+              <div style="font-size:0.8rem; color:#777;">Indore / Bangalore</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimony-card">
+          <div style="color:#FFA000; font-size:1.1rem; margin-bottom:0.75rem;">★★★★★</div>
+          <p class="testimony-quote">"Scanning the QR on the pouch gave me full confidence in the 0% palm oil and cold-pressed peanut oil ingredients."</p>
+          <div class="testimony-author-wrap">
+            <img class="testimony-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Rajiv">
+            <div>
+              <strong>Rajiv Malhotra</strong>
+              <div style="font-size:0.8rem; color:#777;">New Delhi</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimony-card">
+          <div style="color:#FFA000; font-size:1.1rem; margin-bottom:0.75rem;">★★★★★</div>
+          <p class="testimony-quote">"The Roasted Makhana is light, crunchy, and satisfies midnight cravings without feeling heavy. Outstanding!"</p>
+          <div class="testimony-author-wrap">
+            <img class="testimony-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" alt="Priya">
+            <div>
+              <strong>Priya Kulkarni</strong>
+              <div style="font-size:0.8rem; color:#777;">Mumbai</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimony-card">
+          <div style="color:#FFA000; font-size:1.1rem; margin-bottom:0.75rem;">★★★★★</div>
+          <p class="testimony-quote">"The Shahi Navratan Mixture has real jumbo cashews and seedless raisins. Premium quality throughout."</p>
+          <div class="testimony-author-wrap">
+            <img class="testimony-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80" alt="Vikram">
+            <div>
+              <strong>Vikram Rathore</strong>
+              <div style="font-size:0.8rem; color:#777;">Jaipur</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== INSTAGRAM CONNECT SECTION ==================== -->
+  <section class="section instagram-section" style="background-color: #FAF6EE; padding: clamp(50px, 5vw, 90px) 0; border-bottom: var(--border-thick);">
+    <div class="section-content" style="text-align: center;">
+      <span class="badge-pill" style="margin-bottom: 0.75rem; background: #E1306C; color: #FFF; border-color: #000;">📸 OFFICIAL INSTAGRAM</span>
+      <h2 style="font-family: var(--font-display); font-size: clamp(32px, 5vw, 64px); text-transform: uppercase;">
+        <span class="sticker">Follow Our Crunch On</span>
+        <br>
+        <span class="sticker larger-text" style="color: #E1306C;">@laxmiconfectionery_</span>
+      </h2>
+      <p style="color: #555; font-size: 1.1rem; max-width: 680px; margin: 0.75rem auto 2rem; font-weight: 600;">
+        Catch behind-the-scenes kadhai roasting, new regional snack drops, and festive gift tin unboxings on our official Instagram feed.
+      </p>
+
+      <a href="https://www.instagram.com/laxmiconfectionery_/" target="_blank" rel="noopener" class="button-wrapper" style="background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF); color: #FFF; border-color: #000; box-shadow: var(--shadow-retro-lg);">
+        <span>📱 Open @laxmiconfectionery_ on Instagram</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================== FAQ SECTION (MICHA STYLE) ==================== -->
+  <section class="section faq-main" id="faq">
+    <div class="section-content">
+      <div style="text-align:center;">
+        <span class="badge-pill" style="margin-bottom:0.75rem;">TRANSPARENCY FIRST</span>
+        <h2 style="font-family:var(--font-display); font-size:clamp(32px, 5.5vw, 68px); text-transform:uppercase;">
+          <span class="sticker">Frequently Asked</span>
+          <span class="sticker larger-text">Questions</span>
+        </h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span>Are all Laxmi Confectionery & Foods products 100% vegetarian?</span>
+            <span class="faq-arrow">↓</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, absolutely! 100% of our products carry the official green dot certification. We operate an exclusively vegetarian manufacturing line with zero animal rennet, gelatin, or animal derivatives.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Do you use palm oil or recycled frying oil?</span>
+            <span class="faq-arrow">↓</span>
+          </button>
+          <div class="faq-answer">
+            <p>Never. We strictly prohibit commercial palm oil and palm olein. We fry only in fresh, single-origin cold-pressed groundnut oil, and roast our healthy superfoods in virgin olive oil. Oil freshness is tested hourly using automated TPM meters.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Which options are suitable for gluten-sensitive diets?</span>
+            <span class="faq-arrow">↓</span>
+          </button>
+          <div class="faq-answer">
+            <p>Our Royal Bikaneri Bhujia, Ratlami Laung Sev, Bombay Special Chivda, Roasted Makhana, and Roasted Peri-Peri Jowar Puffs are naturally prepared from dew bean flour, gram flour, rice, and millets without wheat flour.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How does scanning the QR code help consumers?</span>
+            <span class="faq-arrow">↓</span>
+          </button>
+          <div class="faq-answer">
+            <p>When you scan the QR printed on the back of any pack, you get direct access to lab-tested nutritional facts (Per 100g and Per Serving), complete transparent ingredient lists, allergen warnings, and food safety certifications.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER (MICHA ARCHITECTURE) ==================== -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="brand-title">LAXMI</div>
+        <div style="font-size:0.85rem; font-weight:800; color:var(--color-yellow); text-transform:uppercase;">Confectionery & Foods</div>
+        <p>
+          Reimagining authentic Indian snack heritage with uncompromising purity, cold-pressed oils, stone-ground spices, and complete digital nutritional transparency.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Product Lines</h4>
+        <ul class="footer-links">
+          <li><a href="#catalog">Royal Mixtures & Chiwda</a></li>
+          <li><a href="#catalog">Crunchy Sev & Bhujia</a></li>
+          <li><a href="#catalog">Crispy Bites & Mathri</a></li>
+          <li><a href="#catalog">Healthy Roasted</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Heritage</h4>
+        <ul class="footer-links">
+          <li><a href="#about">The Artisanal Code</a></li>
+          <li><a href="#flavours">Signature Quartet</a></li>
+          <li><a href="#testimonial">Customer Reviews</a></li>
+          <li><a href="#faq">FSSAI Compliance</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Food Safety</h4>
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <div class="badge-pill" style="background:#2A2321; color:#FFF; border-color:#444;">
+            <span>🇮🇳</span> FSSAI Lic. No: 10022013000491
+          </div>
+          <div class="badge-pill" style="background:#2A2321; color:#FFF; border-color:#444;">
+            <span>🔬</span> NABL Accredited Lab Tested
+          </div>
+          <div class="badge-pill" style="background:#2A2321; color:#FFF; border-color:#444;">
+            <span>🌱</span> 100% Pure Vegetarian
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        © 2026 Laxmi Confectionery & Foods (LCAF). All rights reserved. Crafted with Royal Indian Pride.
+      </div>
+      <div style="display:flex; gap:1.5rem;">
+        <a href="#page-top">Back to Top ↑</a>
+        <a href="#catalog">Full Catalog</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== DETAILED NUTRITION FACTS MODAL ==================== -->
+  <div class="modal-overlay" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalProductTitle">
+    <div class="modal-container">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close Dialog">✕</button>
+
+      <div class="modal-content-grid">
+        <div class="modal-product-visual">
+          <div class="modal-image-wrap">
+            <img id="modalProductImage" src="" alt="Product">
+          </div>
+
+          <div>
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.4rem;">
+              <span class="veg-badge" title="100% Vegetarian"></span>
+              <span class="badge-pill" id="modalFssai" style="font-size:0.75rem;">FSSAI Certified</span>
+            </div>
+            <h3 id="modalProductTitle" style="font-family:var(--font-display); font-size:2rem; text-transform:uppercase; line-height:1.1;">Product Title</h3>
+            <p id="modalProductHindi" style="font-size:1.1rem; color:#666; font-weight:600; margin-bottom:0.5rem;">हिन्दी नाम</p>
+            <p id="modalProductTagline" style="font-size:0.92rem; font-weight:700; color:var(--color-orange); margin-bottom:0.75rem;">Tagline</p>
+            <p id="modalProductDesc" style="font-size:0.9rem; color:#555; line-height:1.5;">Description</p>
+          </div>
+
+          <div>
+            <strong style="font-size:0.8rem; text-transform:uppercase; color:#777; display:block; margin-bottom:0.35rem;">Spice & Flavor Notes:</strong>
+            <div id="modalTastingPills" style="display:flex; gap:0.5rem; flex-wrap:wrap;"></div>
+          </div>
+
+          <div>
+            <strong style="font-size:0.8rem; text-transform:uppercase; color:#777; display:block; margin-bottom:0.35rem;">Available Pack Sizes:</strong>
+            <div id="modalPackSizes" style="display:flex; gap:0.5rem; flex-wrap:wrap;"></div>
+          </div>
+
+          <a id="modalWhatsappBtn" href="#" target="_blank" rel="noopener" class="btn-share-whatsapp">
+            <span>📱</span> Share on WhatsApp
+          </a>
+        </div>
+
+        <div>
+          <div class="nutrition-panel">
+            <div class="nutrition-panel-header">
+              <div class="nutrition-heading">Nutrition Facts</div>
+              <div style="font-size:0.85rem; font-weight:700; color:#555;">
+                Serving Size: <span id="modalServingSize">30g</span>
+              </div>
+            </div>
+
+            <div class="serving-toggle-bar">
+              <button class="toggle-serving-btn active" id="toggle100gBtn">Per 100 Grams</button>
+              <button class="toggle-serving-btn" id="toggleServingBtn">Per 30g Serving</button>
+            </div>
+
+            <div class="calorie-highlight-row">
+              <span style="font-weight:900; font-size:1.2rem; text-transform:uppercase;">Energy / Calories</span>
+              <span class="cal-number" id="modalNutriCal">562</span>
+            </div>
+
+            <div style="text-align:right; font-size:0.75rem; font-weight:800; border-bottom:1px solid #000; padding:0.3rem 0;">% Daily Value (% DV)*</div>
+
+            <div class="nutrient-row bold-row">
+              <span>Total Fat</span>
+              <span id="modalNutriFat">37.4g</span>
+            </div>
+            <div class="nutrient-row sub-row">
+              <span>Saturated Fat</span>
+              <span id="modalNutriSatFat">8.9g</span>
+            </div>
+            <div class="nutrient-row sub-row">
+              <span>Trans Fat</span>
+              <span id="modalNutriTransFat" style="color:#2E7D32; font-weight:800;">0.0g (Zero)</span>
+            </div>
+            <div class="nutrient-row bold-row">
+              <span>Cholesterol</span>
+              <span id="modalNutriChol">0.0mg (Zero)</span>
+            </div>
+            <div class="nutrient-row bold-row">
+              <span>Sodium / Salt</span>
+              <span id="modalNutriSodium">780mg</span>
+            </div>
+            <div class="nutrient-row bold-row">
+              <span>Total Carbohydrates</span>
+              <span id="modalNutriCarbs">42.6g</span>
+            </div>
+            <div class="nutrient-row sub-row">
+              <span>Dietary Fiber</span>
+              <span id="modalNutriFiber">6.4g</span>
+            </div>
+            <div class="nutrient-row sub-row">
+              <span>Total Sugars</span>
+              <span id="modalNutriSugar">1.2g</span>
+            </div>
+            <div class="nutrient-row sub-row">
+              <span>Includes Added Sugars</span>
+              <span id="modalNutriAddedSugar">0.0g</span>
+            </div>
+            <div class="nutrient-row bold-row">
+              <span>Protein</span>
+              <span id="modalNutriProtein">14.8g</span>
+            </div>
+            <div class="nutrient-row">
+              <span>Calcium</span>
+              <span id="modalNutriCalcium">68mg</span>
+            </div>
+            <div class="nutrient-row">
+              <span>Iron</span>
+              <span id="modalNutriIron">4.2mg</span>
+            </div>
+            <p style="font-size:0.72rem; color:#777; margin-top:0.6rem;">* % Daily Values based on a standard 2,000 calorie diet.</p>
+          </div>
+
+          <div class="ingredients-box">
+            <h4 style="font-family:var(--font-display); font-size:1.25rem; text-transform:uppercase; margin-bottom:0.35rem;">Ingredients Breakdown</h4>
+            <p id="modalProductIngredients" style="font-size:0.85rem; line-height:1.5; color:#333;">Ingredients list</p>
+            <div id="modalProductAllergens" style="margin-top:0.6rem; font-size:0.82rem; font-weight:800; color:#C62828;">Allergens</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/products-data.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
