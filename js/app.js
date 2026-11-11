@@ -378,15 +378,25 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- 4. FAQ ACCORDION ---
   const faqItems = document.querySelectorAll('.faq-item');
   faqItems.forEach((item) => {
-    const questionBtn = item.querySelector('.faq-question-btn');
+    const questionBtn = item.querySelector('.faq-question, .faq-question-btn');
     if (questionBtn) {
       questionBtn.addEventListener('click', () => {
         const isActive = item.classList.contains('active');
-        faqItems.forEach((f) => f.classList.remove('active'));
+        // Toggle behavior: collapse others and toggle current
+        faqItems.forEach((f) => {
+          f.classList.remove('active');
+          const btn = f.querySelector('.faq-question, .faq-question-btn');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+        });
+
         if (!isActive) {
           item.classList.add('active');
+          questionBtn.setAttribute('aria-expanded', 'true');
         }
-        if (window.playCrunchSound) window.playCrunchSound();
+
+        if (window.playCrunchSound) {
+          window.playCrunchSound();
+        }
       });
     }
   });

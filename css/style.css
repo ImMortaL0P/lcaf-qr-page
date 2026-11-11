@@ -1588,6 +1588,16 @@ h4 .sticker {
   border-radius: 20px;
   box-shadow: var(--shadow-retro);
   overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+
+.faq-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px #000;
+}
+
+.faq-item.active {
+  box-shadow: 6px 6px 0px #000;
 }
 
 .faq-question {
@@ -1596,41 +1606,68 @@ h4 .sticker {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1.25rem;
   text-align: left;
   font-family: var(--font-display);
-  font-size: 1.45rem;
+  font-size: 1.35rem;
   text-transform: uppercase;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-black);
+  user-select: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.faq-question:hover {
+  background: rgba(255, 209, 102, 0.18);
+}
+
+.faq-item.active .faq-question {
+  color: var(--color-orange);
 }
 
 .faq-arrow {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
   border-radius: 50%;
   border: var(--border-medium);
   background: var(--color-yellow);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  transition: transform 0.3s ease;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #000;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.25s ease, color 0.25s ease;
+}
+
+.faq-question:hover .faq-arrow {
+  transform: scale(1.1);
 }
 
 .faq-item.active .faq-arrow {
-  transform: rotate(180deg);
+  transform: rotate(180deg) scale(1.05);
   background: var(--color-orange);
   color: #FFF;
 }
 
 .faq-answer {
-  display: none;
-  padding: 0 1.75rem 1.5rem;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #555;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  padding: 0 1.75rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #444;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, padding-bottom 0.3s ease;
 }
 
 .faq-item.active .faq-answer {
-  display: block;
+  max-height: 300px;
+  opacity: 1;
+  padding-bottom: 1.65rem;
 }
 
 /* ==========================================================================
