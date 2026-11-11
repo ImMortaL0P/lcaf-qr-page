@@ -254,6 +254,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Expose to window so other scripts and flagship cards can call directly
+  window.openProductModal = openProductModal;
+  window.closeModal = closeModal;
+
   function closeModal() {
     if (productModal) {
       productModal.classList.remove('open');
@@ -493,6 +497,17 @@ document.addEventListener('DOMContentLoaded', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
+
+  // Flagship packs card click triggers (Desktop cards & Mobile drawers)
+  document.querySelectorAll('.flavour-can-wrapper, .flavour-can-mobile-inner').forEach((card) => {
+    card.addEventListener('click', (e) => {
+      const prodId = card.getAttribute('data-product-id');
+      if (prodId) {
+        openProductModal(prodId);
+        if (window.playCrunchSound) window.playCrunchSound();
+      }
+    });
+  });
 
   // --- 6. INITIAL RENDER ---
   renderProducts();

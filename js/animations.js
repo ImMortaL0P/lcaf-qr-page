@@ -565,6 +565,7 @@
     tabs.forEach((tab, index) => {
       tab.addEventListener('click', function (e) {
         if (e.target.closest('.btn-open-modal')) return;
+        if (e.target.closest('.flavour-can-mobile-inner')) return;
         if (e.target.closest('a') && !e.target.closest('.flavour-tab-nav-inner')) return;
         activateFlavour(index);
       });
@@ -603,8 +604,11 @@
       });
 
       can.addEventListener('click', (e) => {
-        if (e.target.closest('.btn-open-modal')) return;
         activateFlavour(index);
+        const prodId = can.getAttribute('data-product-id');
+        if (prodId && window.openProductModal) {
+          window.openProductModal(prodId);
+        }
       });
     });
   }
