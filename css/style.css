@@ -579,57 +579,6 @@ h4 .sticker {
 }
 
 /* ==========================================================================
-   BANNER SHAPES SLIDER (STAGGERED MARQUEE - MICHA STYLE)
-   ========================================================================== */
-.slider-wrapper {
-  background: #FFF;
-  border-bottom: var(--border-thick);
-  padding: 1.5rem 0;
-  overflow: hidden;
-  position: relative;
-}
-
-.banner-shapes-slider {
-  display: flex;
-  gap: 2.5rem;
-  width: max-content;
-  animation: tickerScroll 22s linear infinite;
-}
-
-.slider-wrapper:hover .banner-shapes-slider {
-  animation-play-state: paused;
-}
-
-.banner-shape-item {
-  width: 90px;
-  height: 90px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.banner-shape-item:nth-child(odd) {
-  transform: translateY(-12%);
-}
-
-.banner-shape-item:nth-child(even) {
-  transform: translateY(12%);
-}
-
-.banner-shape-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.15));
-}
-
-@keyframes tickerScroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* ==========================================================================
    MICHA SIGNATURE CONTINUOUS RUNNING SPICE TICKER BAND
    ========================================================================== */
 .micha-ticker-wrapper {
