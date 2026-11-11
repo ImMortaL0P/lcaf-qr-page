@@ -446,6 +446,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.playCrunchSound) {
           window.playCrunchSound();
         }
+
+        // Smoothly refresh ScrollTrigger bounds and Lenis page height
+        setTimeout(() => {
+          if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+          if (window.lenis && typeof window.lenis.resize === 'function') {
+            window.lenis.resize();
+          }
+        }, 360);
       });
     }
   });
@@ -480,7 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Mobile Bottom Bar Quick Jump Buttons
+  // Mobile Bottom Bar Quick Jump Buttons (with Lenis smooth inertia)
   const mobileBtnCatalog = document.getElementById('mobileBtnCatalog');
   const mobileBtnSearch = document.getElementById('mobileBtnSearch');
   const mobileBtnTop = document.getElementById('mobileBtnTop');
@@ -489,7 +497,13 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileBtnCatalog.addEventListener('click', (e) => {
       e.preventDefault();
       const el = document.getElementById('catalog');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      if (!el) return;
+      if (window.playCrunchSound) window.playCrunchSound();
+      if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+        window.lenis.scrollTo(el, { offset: -10, duration: 1.15 });
+      } else {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
     });
   }
 
@@ -497,15 +511,28 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileBtnSearch.addEventListener('click', (e) => {
       e.preventDefault();
       const el = document.getElementById('catalog');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-      if (searchInput) searchInput.focus();
+      if (!el) return;
+      if (window.playCrunchSound) window.playCrunchSound();
+      if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+        window.lenis.scrollTo(el, { offset: -10, duration: 1.15 });
+      } else {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (searchInput) {
+        setTimeout(() => searchInput.focus(), 800);
+      }
     });
   }
 
   if (mobileBtnTop) {
     mobileBtnTop.addEventListener('click', (e) => {
       e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (window.playCrunchSound) window.playCrunchSound();
+      if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+        window.lenis.scrollTo(0, { duration: 1.15 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   }
 

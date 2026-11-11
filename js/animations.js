@@ -76,32 +76,31 @@
     });
   }
 
-  // --- 2. LENIS SMOOTH SCROLL ---
+  // --- 2. LENIS SMOOTH SCROLL (MICHA PARITY ARCHITECTURE) ---
   let lenis = null;
   if (typeof Lenis !== 'undefined') {
     lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.2,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.1,
       infinite: false
     });
     window.lenis = lenis;
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    // Connect Lenis scroll to GSAP ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update);
 
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add((time) => {
-        lenis.raf(time * 1000);
-      });
-      gsap.ticker.lagSmoothing(0);
-    }
+    // Sync Lenis RAF exclusively with GSAP ticker (Single unified render loop)
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    // Disable lagSmoothing so Lenis doesn't jump on scroll stop
+    gsap.ticker.lagSmoothing(0);
   }
 
   // --- 3. HERO POUCH CAROUSEL & VISUAL TRANSITIONS (EXACT MICHA BEHAVIOR) ---
@@ -126,29 +125,37 @@
 
     // Interactive 3D mouse parallax tilt on currently active Hero Pouch (MiCha smooth feel)
     if (banner) {
+      let bannerRect = null;
+      banner.addEventListener('mouseenter', () => {
+        bannerRect = banner.getBoundingClientRect();
+      });
+      window.addEventListener('resize', () => {
+        if (banner) bannerRect = banner.getBoundingClientRect();
+      });
+
       banner.addEventListener('mousemove', (e) => {
         const activePouch = items[currentIndex]?.querySelector('.pouch-hero-img');
         if (!activePouch) return;
 
-        const rect = banner.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        if (!bannerRect) bannerRect = banner.getBoundingClientRect();
+        const x = (e.clientX - bannerRect.left) / bannerRect.width - 0.5;
+        const y = (e.clientY - bannerRect.top) / bannerRect.height - 0.5;
 
         if (typeof gsap !== 'undefined') {
           gsap.to(activePouch, {
-            rotationY: x * 16,
-            rotationX: -y * 14,
-            x: x * 22,
-            y: y * 14,
-            duration: 0.6,
+            rotationY: x * 14,
+            rotationX: -y * 12,
+            x: x * 18,
+            y: y * 12,
+            duration: 0.45,
             ease: 'power1.out',
             overwrite: 'auto'
           });
           if (backdropContainer) {
             gsap.to(backdropContainer, {
-              x: -x * 30,
-              y: -y * 20,
-              duration: 0.8,
+              x: -x * 24,
+              y: -y * 16,
+              duration: 0.65,
               ease: 'power1.out',
               overwrite: 'auto'
             });
@@ -157,6 +164,7 @@
       });
 
       banner.addEventListener('mouseleave', () => {
+        bannerRect = null;
         const activePouch = items[currentIndex]?.querySelector('.pouch-hero-img');
         if (activePouch && typeof gsap !== 'undefined') {
           gsap.to(activePouch, {
@@ -164,16 +172,18 @@
             rotationX: 0,
             x: 0,
             y: 0,
-            duration: 0.8,
-            ease: 'elastic.out(1, 0.4)'
+            duration: 0.6,
+            ease: 'elastic.out(1, 0.5)',
+            overwrite: 'auto'
           });
         }
         if (backdropContainer && typeof gsap !== 'undefined') {
           gsap.to(backdropContainer, {
             x: 0,
             y: 0,
-            duration: 0.8,
-            ease: 'power2.out'
+            duration: 0.6,
+            ease: 'power2.out',
+            overwrite: 'auto'
           });
         }
       });
@@ -429,7 +439,7 @@
               trigger: card,
               start: 'top center+=20%',
               end: 'center center',
-              scrub: true,
+              scrub: 0.6,
               invalidateOnRefresh: true
             }
           });
@@ -452,7 +462,7 @@
               trigger: card,
               start: 'top center+=20%',
               end: 'center center',
-              scrub: true,
+              scrub: 0.6,
               invalidateOnRefresh: true
             }
           });
@@ -482,7 +492,7 @@
           trigger: group,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: true
+          scrub: 0.8
         }
       });
 
@@ -494,7 +504,7 @@
           trigger: group,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: true
+          scrub: 0.8
         }
       });
     });
@@ -520,7 +530,7 @@
         scrollTrigger: {
           trigger: container,
           start: 'top 75%',
-          toggleActions: 'play none none reverse'
+          toggleActions: 'play none none none'
         }
       });
     });
@@ -653,37 +663,65 @@
     let lastCrunchTime = 0;
     function triggerHoverCrunch() {
       const now = Date.now();
-      if (now - lastCrunchTime > 180) {
+      if (now - lastCrunchTime > 160) {
         lastCrunchTime = now;
         playCrunchSound();
       }
     }
 
-    // 3D Tilt & Crunch Audio for Product Catalog Cards
+    // High-performance GSAP 3D Tilt & Crunch Audio for Product Catalog Cards
     const cards = document.querySelectorAll('.product-card');
     cards.forEach((card) => {
-      card.addEventListener('mouseenter', triggerHoverCrunch);
+      if (card.dataset.tiltBound) return;
+      card.dataset.tiltBound = 'true';
+
+      let rect = null;
+
+      card.addEventListener('mouseenter', () => {
+        rect = card.getBoundingClientRect();
+        triggerHoverCrunch();
+      });
 
       card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -6; // max 6deg tilt
-        const rotateY = ((x - centerX) / centerX) * 6;
+        if (!rect) rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-10px) scale(1.02)`;
+        if (typeof gsap !== 'undefined') {
+          gsap.to(card, {
+            rotationY: x * 8,
+            rotationX: -y * 8,
+            y: -8,
+            scale: 1.02,
+            duration: 0.25,
+            ease: 'power1.out',
+            transformPerspective: 1000,
+            overwrite: 'auto'
+          });
+        }
       });
 
       card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
+        rect = null;
+        if (typeof gsap !== 'undefined') {
+          gsap.to(card, {
+            rotationY: 0,
+            rotationX: 0,
+            y: 0,
+            scale: 1,
+            duration: 0.45,
+            ease: 'elastic.out(1, 0.5)',
+            overwrite: 'auto'
+          });
+        }
       });
     });
 
-    // Interactive Floating Hero & Ticker Spice Elements on Hover
-    const bannerShapes = document.querySelectorAll('.banner-shape-item img, .ticker-spice-icon');
-    bannerShapes.forEach((img) => {
+    // Interactive Floating Ticker Spice Elements on Hover
+    const tickerSpices = document.querySelectorAll('.ticker-spice-icon');
+    tickerSpices.forEach((img) => {
+      if (img.dataset.hoverBound) return;
+      img.dataset.hoverBound = 'true';
       img.addEventListener('mouseenter', () => {
         if (typeof gsap !== 'undefined') {
           gsap.to(img, { scale: 1.35, rotate: 'random(-25, 25)', duration: 0.4, ease: 'elastic.out(1, 0.4)' });
@@ -697,9 +735,11 @@
       });
     });
 
-    // Sound effect on button hover
-    const interactiveBtns = document.querySelectorAll('.btn-primary, .btn-secondary, .btn-open-modal, .cat-tab-btn, .chip-btn');
+    // Sound effect on button hover (bound only once per button)
+    const interactiveBtns = document.querySelectorAll('.btn-primary, .btn-secondary, .btn-open-modal, .cat-tab-btn, .chip-btn, .btn-qr-direct, .btn-crunch-sound, #heroCtaBtn, .faq-question');
     interactiveBtns.forEach((btn) => {
+      if (btn.dataset.soundBound) return;
+      btn.dataset.soundBound = 'true';
       btn.addEventListener('mouseenter', triggerHoverCrunch);
     });
   }
@@ -725,8 +765,8 @@
         trigger: el,
         start: 'top 50%',
         end: 'bottom 50%',
-        onEnter: () => gsap.to('body', { backgroundColor: sec.color, duration: 0.5, ease: 'power2.out' }),
-        onEnterBack: () => gsap.to('body', { backgroundColor: sec.color, duration: 0.5, ease: 'power2.out' })
+        onEnter: () => gsap.to('body', { backgroundColor: sec.color, duration: 0.5, ease: 'power2.out', overwrite: 'auto' }),
+        onEnterBack: () => gsap.to('body', { backgroundColor: sec.color, duration: 0.5, ease: 'power2.out', overwrite: 'auto' })
       });
     });
   }
@@ -778,7 +818,7 @@
           trigger: wrap,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: true
+          scrub: 0.6
         }
       });
     });
@@ -795,20 +835,24 @@
           scrollTrigger: {
             trigger: player,
             start: 'top 85%',
-            toggleActions: 'play none none reverse'
+            toggleActions: 'play none none none'
           }
         }
       );
 
-      // Interactive 3D mouse parallax tilt on Video Frame
+      // Interactive 3D mouse parallax tilt on Video Frame with cached rect
+      let playerRect = null;
+      player.addEventListener('mouseenter', () => {
+        playerRect = player.getBoundingClientRect();
+      });
       player.addEventListener('mousemove', (e) => {
-        const rect = player.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        if (!playerRect) playerRect = player.getBoundingClientRect();
+        const x = (e.clientX - playerRect.left) / playerRect.width - 0.5;
+        const y = (e.clientY - playerRect.top) / playerRect.height - 0.5;
         gsap.to(player, {
-          rotationY: x * 10,
-          rotationX: -y * 10,
-          duration: 0.5,
+          rotationY: x * 8,
+          rotationX: -y * 8,
+          duration: 0.4,
           ease: 'power1.out',
           transformPerspective: 900,
           overwrite: 'auto'
@@ -816,11 +860,13 @@
       });
 
       player.addEventListener('mouseleave', () => {
+        playerRect = null;
         gsap.to(player, {
           rotationY: 0,
           rotationX: 0,
           duration: 0.6,
-          ease: 'elastic.out(1, 0.4)'
+          ease: 'elastic.out(1, 0.4)',
+          overwrite: 'auto'
         });
       });
     }
@@ -891,16 +937,20 @@
     const tickerIcons = document.querySelectorAll('.ticker-spice-icon');
     if (!tickerIcons.length) return;
 
+    let isSpinning = false;
     ScrollTrigger.create({
       onUpdate: (self) => {
+        if (isSpinning) return;
         const vel = Math.abs(self.getVelocity());
-        if (vel > 300) {
-          const spin = Math.min(vel / 60, 20) * (self.direction || 1);
+        if (vel > 600) {
+          isSpinning = true;
+          const spin = Math.min(vel / 40, 50) * (self.direction || 1);
           gsap.to(tickerIcons, {
-            rotation: `+=${spin.toFixed(1)}`,
-            duration: 0.4,
-            ease: 'power1.out',
-            overwrite: 'auto'
+            rotation: `+=${spin.toFixed(0)}`,
+            duration: 0.65,
+            ease: 'power2.out',
+            overwrite: 'auto',
+            onComplete: () => { isSpinning = false; }
           });
         }
       }

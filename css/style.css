@@ -44,7 +44,27 @@
 html {
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
+}
+
+/* Lenis Smooth Scroll Core Rules */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 body {
@@ -53,7 +73,6 @@ body {
   background-color: var(--color-yellow);
   line-height: 1.4;
   overflow-x: hidden;
-  transition: background-color 0.5s ease;
   -webkit-font-smoothing: antialiased;
   position: relative;
 }
@@ -61,7 +80,7 @@ body {
 /* ==========================================================================
    GLOBAL TACTILE TEXTURE OVERLAYS (NEVER FLAT / NEVER PLAIN)
    ========================================================================== */
-/* Fine Tactile Paper Noise Grain Overlay */
+/* Fine Tactile Paper Noise Grain Overlay (Hardware Accelerated Fixed Layer) */
 body::before {
   content: "";
   position: fixed;
@@ -74,26 +93,29 @@ body::before {
   opacity: 0.055;
   pointer-events: none;
   z-index: 99998;
+  transform: translateZ(0);
+  contain: strict;
 }
 
-/* Authentic MiCha Halftone Polka-Dot Paper Background Pattern */
+/* Authentic MiCha Halftone Polka-Dot Paper Pattern (Zero-Repaint Fixed GPU Layer) */
 body::after {
   content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
   background-image:
-    radial-gradient(rgba(0, 0, 0, 0.045) 10%, transparent 11%),
-    radial-gradient(rgba(0, 0, 0, 0.045) 10%, transparent 11%);
+    radial-gradient(rgba(0, 0, 0, 0.04) 10%, transparent 11%),
+    radial-gradient(rgba(0, 0, 0, 0.04) 10%, transparent 11%);
   background-size: clamp(30px, 3vw, 60px) clamp(30px, 3vw, 60px);
   background-position: 0 0, clamp(15px, 1.5vw, 30px) clamp(15px, 1.5vw, 30px);
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
+  transform: translateZ(0);
+  contain: strict;
 }
 
-/* Section-level Halftone Texture Guarantee */
+/* Section Base Layering (Sits above fixed halftone overlay) */
 .banner-home,
 .section.about,
 .flavours-section,
@@ -101,11 +123,8 @@ body::after {
 .bring-together,
 .section.instagram-section,
 .section.faq-main {
-  background-image:
-    radial-gradient(rgba(0, 0, 0, 0.04) 10%, transparent 11%),
-    radial-gradient(rgba(0, 0, 0, 0.04) 10%, transparent 11%);
-  background-size: clamp(28px, 2.8vw, 56px) clamp(28px, 2.8vw, 56px);
-  background-position: 0 0, clamp(14px, 1.4vw, 28px) clamp(14px, 1.4vw, 28px);
+  position: relative;
+  z-index: 1;
 }
 
 /* ==========================================================================
@@ -328,11 +347,17 @@ h4 .sticker {
   white-space: nowrap;
   position: relative;
   color: #FFF;
-  transition: color 0.2s ease;
+  display: inline-block;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .main-navigation a:hover {
   color: #FBEF43;
+  transform: translateY(-2px);
+}
+
+.main-navigation a:active {
+  transform: translateY(1px);
 }
 
 .header-cta-group {
@@ -353,12 +378,19 @@ h4 .sticker {
   font-weight: 800;
   font-size: 0.78rem;
   box-shadow: 2px 2px 0px #000;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease;
 }
 
 .btn-crunch-sound:hover {
   transform: translate(-2px, -2px);
   box-shadow: 4px 4px 0px #000;
+}
+
+.btn-crunch-sound:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px #000;
 }
 
 .btn-qr-direct {
@@ -369,6 +401,28 @@ h4 .sticker {
   color: #000;
   padding: 0.4rem 0.95rem;
   border-radius: 9999px;
+  border: var(--border-medium);
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 2px 2px 0px #000;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-qr-direct:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px #000;
+  background: #000;
+  color: #FBEF43;
+}
+
+.btn-qr-direct:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px #000;
+}
   border: var(--border-medium);
   font-weight: 800;
   font-size: 0.8rem;
@@ -624,6 +678,8 @@ h4 .sticker {
   align-items: center;
   justify-content: center;
   width: 100%;
+  animation: pouchFloat 4.8s ease-in-out infinite;
+  will-change: transform;
 }
 
 .banner-home .pouch-hero-img {
@@ -635,16 +691,10 @@ h4 .sticker {
   display: block;
   margin: 0 auto;
   filter: drop-shadow(0 20px 32px rgba(0, 0, 0, 0.28));
-  animation: pouchFloat 4.8s ease-in-out infinite;
   transform-origin: center bottom;
   will-change: transform;
   user-select: none;
   -webkit-user-drag: none;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.banner-home .pouch-presentation:hover .pouch-hero-img {
-  transform: scale(1.05) rotate(-2deg);
 }
 
 @keyframes pouchFloat {
@@ -768,6 +818,10 @@ h4 .sticker {
 
 .button-container .button:hover {
   transform: scaleX(0.9) scaleY(1.05);
+}
+
+.button-container .button:active {
+  transform: scaleX(0.85) scaleY(0.95);
 }
 
 .button-container .button span {
@@ -965,6 +1019,8 @@ h4 .sticker {
   justify-content: center;
   position: sticky;
   top: 0;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
   filter: 
     drop-shadow(3.5px 0 0 #000)
     drop-shadow(-3.5px 0 0 #000)
@@ -984,6 +1040,8 @@ h4 .sticker {
   border: none;
   border-radius: 0;
   box-shadow: none;
+  will-change: transform;
+  transform-origin: 50% 60%;
   -webkit-mask-image: url('../assets/icons/micha-about-card-mask.svg');
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -1180,6 +1238,10 @@ h4 .sticker {
   background-color: var(--active-background-color, #000);
 }
 
+.flavour-tab-nav:active .flavour-tab-nav-inner {
+  transform: scale(0.985);
+}
+
 .flavour-tab-nav .flavour-name {
   font-family: var(--font-display);
   font-size: clamp(22px, 2vw, 36px);
@@ -1233,16 +1295,22 @@ h4 .sticker {
   border-radius: 24px;
   padding: 1.5rem;
   box-shadow: var(--shadow-retro);
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.25s ease;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease, border-color 0.25s ease;
   position: relative;
   text-align: center;
   cursor: pointer;
+  will-change: transform;
 }
 
 .flavour-can-wrapper:hover {
   transform: translateY(-8px);
   box-shadow: 8px 12px 0px #000;
   border-color: #000;
+}
+
+.flavour-can-wrapper:active {
+  transform: translateY(-2px) scale(0.985);
+  box-shadow: 4px 6px 0px #000;
 }
 
 .flavour-can-wrapper.active {
@@ -1434,11 +1502,19 @@ h4 .sticker {
   font-size: 0.88rem;
   white-space: nowrap;
   box-shadow: 2px 2px 0px #000;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .cat-tab-btn:hover {
   transform: translateY(-2px);
+  box-shadow: 3px 3px 0px #000;
+}
+
+.cat-tab-btn:active {
+  transform: translateY(1px);
+  box-shadow: 1px 1px 0px #000;
 }
 
 .cat-tab-btn.active {
@@ -1464,7 +1540,19 @@ h4 .sticker {
   background: #FFF;
   font-size: 0.82rem;
   font-weight: 800;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.chip-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 2px 2px 0px #000;
+}
+
+.chip-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0px 0px 0px #000;
 }
 
 .chip-btn.active {
@@ -1487,16 +1575,20 @@ h4 .sticker {
   box-shadow: var(--shadow-retro);
   display: flex;
   flex-direction: column;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.25s ease;
+  transition: box-shadow 0.3s ease, border-color 0.25s ease;
   cursor: pointer;
   position: relative;
   will-change: transform;
 }
 
 .product-card:hover {
-  transform: translateY(-10px) scale(1.02);
   box-shadow: 10px 14px 0px #000;
   border-color: #000;
+}
+
+.product-card:active {
+  transform: translateY(-2px) scale(0.99) !important;
+  box-shadow: 4px 6px 0px #000 !important;
 }
 
 .product-card:hover .badge-bestseller,
@@ -1542,8 +1634,7 @@ h4 .sticker {
   position: absolute;
   bottom: 0.6rem;
   left: 0.6rem;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.88);
   color: #FFF;
   padding: 0.25rem 0.65rem;
   border-radius: 9999px;
@@ -1637,6 +1728,11 @@ h4 .sticker {
   color: #FFF;
   transform: translateY(-2px);
   box-shadow: 4px 5px 0px #000;
+}
+
+.card-footer-action .btn-open-modal:active {
+  transform: translateY(1px);
+  box-shadow: 1px 1px 0px #000;
 }
 
 .card-footer-action .btn-open-modal span:last-child {
@@ -1968,11 +2064,15 @@ h4 .sticker {
   cursor: pointer;
   color: var(--color-black);
   user-select: none;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
 .faq-question:hover {
   background: rgba(255, 209, 102, 0.18);
+}
+
+.faq-question:active {
+  transform: scale(0.992);
 }
 
 .faq-item.active .faq-question {
