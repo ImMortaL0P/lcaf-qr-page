@@ -445,13 +445,18 @@ h4 .sticker {
 }
 
 .banner-heading {
-  font-size: clamp(38px, 5.8vw, 92px);
+  font-size: clamp(30px, 4.8vw, 76px);
   width: fit-content;
-  margin: clamp(2px, 0.6vh, 8px) auto clamp(2px, 0.4vh, 6px);
+  max-width: 95vw;
+  margin: clamp(2px, 0.4vh, 6px) auto;
   position: relative;
-  line-height: 1.05;
+  line-height: 1.1;
   text-transform: uppercase;
   flex-shrink: 0;
+  min-height: clamp(66px, 10vh, 105px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .banner-heading .sticker {
@@ -654,20 +659,20 @@ h4 .sticker {
   }
 }
 
-/* Circular Arrow Buttons (Exact MiCha markup & positioning) */
+/* Circular Arrow Buttons: PINNED RELATIVE TO POUCH IMAGE CENTER (No Jumps on Title Text Wrap) */
 .banner-home .arrows {
   position: absolute;
   top: 50%;
-  left: 0;
-  right: 0;
-  width: 100%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(350px, 46vw, 660px);
+  max-width: 96vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 clamp(16px, 8vw, 140px);
+  padding: 0;
   box-sizing: border-box;
-  z-index: 9;
+  z-index: 10;
   pointer-events: none;
 }
 
@@ -2302,4 +2307,232 @@ h4 .sticker {
   gap: 0.4rem;
   box-shadow: 2px 2px 0px #000;
   transition: all 0.2s ease;
+}
+
+/* ==========================================================================
+   COMPREHENSIVE MOBILE RESPONSIVE SYSTEM (PIXEL-PERFECT ALIGNMENTS)
+   ========================================================================== */
+
+/* Tablet & Mobile Breakpoint (<= 860px) */
+@media (max-width: 860px) {
+  .main-navigation {
+    display: none;
+  }
+  .site-header-inner {
+    padding: 0 1rem;
+  }
+  .site-branding .brand-sub {
+    display: none;
+  }
+  .btn-qr-direct span {
+    display: none;
+  }
+  .btn-qr-direct::after {
+    content: 'Catalog';
+  }
+
+  /* Flavours section: switch from squished 4 desktop cards to native mobile accordion drawer */
+  .flavours-cans {
+    display: none !important;
+  }
+  .flavours-bar {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    width: 92%;
+    margin: 1.5rem auto 0;
+  }
+  .flavour-tab-nav {
+    border-right: none;
+    border-bottom: var(--border-thick);
+    cursor: pointer;
+  }
+  .flavour-tab-nav:last-child {
+    border-bottom: none;
+  }
+  .flavour-can-mobile {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #FFF;
+    border-top: var(--border-medium);
+  }
+  .flavour-tab-nav.active .flavour-can-mobile {
+    max-height: 520px;
+  }
+  .flavour-can-mobile-inner {
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .flavour-can-mobile-inner img {
+    max-height: 200px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 0.75rem;
+    filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.25));
+  }
+  .flavour-can-mobile-inner .btn-open-modal {
+    padding: 0.65rem 1.25rem;
+    border-radius: 9999px;
+    background: #000;
+    color: #FFF;
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    border: var(--border-medium);
+    margin-top: 0.5rem;
+    cursor: pointer;
+  }
+
+  /* Bring Together / Artisanal Video: single column stack */
+  .bring-together-grid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    text-align: center;
+  }
+  .video-player-wrap {
+    height: 280px;
+  }
+  .video-container-outer .video-floating-spice img {
+    width: 50px;
+    height: 50px;
+  }
+  .video-container-outer .spice-tl { top: -14px; left: -10px; }
+  .video-container-outer .spice-tr { top: -16px; right: -10px; }
+  .video-container-outer .spice-bl { bottom: -12px; left: -10px; }
+  .video-container-outer .spice-br { bottom: -14px; right: -10px; }
+
+  /* Footer: single column clean stack */
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    margin-bottom: 2.5rem;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+/* Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
+  /* About Section Stacking Cards: vertical flow with centered floral photo frame */
+  .about .about-cards {
+    width: 94%;
+  }
+  .about .about-cards .card-outer {
+    height: auto;
+    min-height: 85vh;
+    padding: 1.5rem 0;
+  }
+  .about .about-cards .card,
+  .about .about-cards .card-outer:nth-child(odd) .card,
+  .about .about-cards .card-outer:nth-child(even) .card {
+    flex-direction: column !important;
+    padding: 2.25rem 1.25rem;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  .about .card .text-container {
+    width: 100%;
+  }
+  .about .card .heading-wrapper {
+    margin: 0 auto 1rem;
+  }
+  .about .card .image-container {
+    width: 100%;
+  }
+  .about .card .image-container .image-container-inner {
+    width: clamp(190px, 52vw, 250px);
+    height: clamp(190px, 52vw, 250px);
+    margin: 0 auto;
+  }
+  .about .bubbles-wrapper .bubbles-group img {
+    height: 20vh;
+  }
+
+  /* Modal on Mobile */
+  .modal-overlay {
+    padding: 0.5rem;
+  }
+  .modal-container {
+    border-radius: 24px;
+    max-height: 94vh;
+  }
+  .modal-content-grid {
+    grid-template-columns: 1fr;
+    padding: 1.25rem;
+    gap: 1.75rem;
+  }
+  .modal-image-wrap {
+    height: 200px;
+  }
+}
+
+/* Small Smartphone Devices (<= 640px) */
+@media (max-width: 640px) {
+  /* Landing Hero Mobile Optimization */
+  .banner-home {
+    padding: 4px 10px;
+  }
+  .banner-heading {
+    font-size: clamp(24px, 6.8vw, 36px);
+    min-height: 60px;
+    margin: 2px auto;
+  }
+  .banner-home .arrows {
+    width: 96vw;
+    padding: 0 0.25rem;
+  }
+  .banner-home .arrows button {
+    width: 44px;
+    height: 44px;
+  }
+  .banner-home .can-backdrop {
+    width: 94vw;
+    max-height: 400px;
+  }
+  .banner-home .can-backdrop-wrapper .backdrop-shape {
+    width: clamp(65px, 17vw, 90px);
+    height: clamp(65px, 17vw, 90px);
+  }
+  .banner-home .can-container {
+    width: clamp(240px, 75vw, 310px);
+  }
+  .banner-home .pouch-hero-img {
+    max-height: clamp(240px, 45vh, 340px);
+  }
+
+  /* Product Catalog Grid on Mobile: single clean column */
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .catalog-toolbar {
+    padding: 1.1rem;
+    border-radius: 20px;
+  }
+  .product-card {
+    padding: 1.2rem;
+    border-radius: 22px;
+  }
+  .card-image-wrap {
+    height: 210px;
+  }
+
+  /* Testimonials on Mobile */
+  .testimonials-wrapper {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .testimony-card {
+    min-width: 280px;
+    max-width: 300px;
+    padding: 1.35rem;
+  }
 }
