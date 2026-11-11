@@ -445,6 +445,7 @@ h4 .sticker {
 }
 
 .banner-heading {
+  font-family: var(--font-display);
   font-size: clamp(30px, 4.8vw, 76px);
   width: fit-content;
   max-width: 95vw;
@@ -457,9 +458,12 @@ h4 .sticker {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 15; /* Sits above any floating spice backdrops */
 }
 
 .banner-heading .sticker {
+  position: relative;
+  z-index: 2; /* CRITICAL: Heading letters and white border are ALWAYS in front of spark */
   display: block;
   width: 100%;
   color: #000;
@@ -470,12 +474,14 @@ h4 .sticker {
 
 .banner-heading .spark-container {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: clamp(52px, 7.5vw, 96px);
-  transform: translate(-45%, -25%);
-  z-index: 2;
-  animation: spinRight 12s linear infinite;
+  left: -20px;
+  top: -14px;
+  width: clamp(44px, 5.5vw, 74px);
+  transform: translate(-30%, -30%);
+  z-index: 1; /* CRITICAL: Strictly BEHIND .sticker, NEVER overlapping letters */
+  pointer-events: none;
+  animation: spinRight 14s linear infinite;
+  opacity: 0.95;
 }
 
 .banner-heading .spark-container svg {
@@ -2331,6 +2337,22 @@ h4 .sticker {
     content: 'Catalog';
   }
 
+  /* Landing Hero Tablet Breakpoint */
+  .banner-home .can-container {
+    width: clamp(200px, 36vw, 290px);
+  }
+  .banner-home .pouch-hero-img {
+    max-height: clamp(230px, 40vh, 320px);
+  }
+  .banner-home .can-backdrop {
+    width: clamp(420px, 76vw, 620px);
+    max-height: clamp(340px, 50vh, 460px);
+  }
+  .banner-home .can-backdrop-wrapper .backdrop-shape {
+    width: clamp(75px, 12vw, 110px);
+    height: clamp(75px, 12vw, 110px);
+  }
+
   /* Flavours section: switch from squished 4 desktop cards to native mobile accordion drawer */
   .flavours-cans {
     display: none !important;
@@ -2478,34 +2500,78 @@ h4 .sticker {
 @media (max-width: 640px) {
   /* Landing Hero Mobile Optimization */
   .banner-home {
-    padding: 4px 10px;
+    padding: 4px 8px;
+    min-height: 100svh;
+    height: 100svh;
   }
   .banner-heading {
-    font-size: clamp(24px, 6.8vw, 36px);
-    min-height: 60px;
+    font-size: clamp(22px, 6.4vw, 34px);
+    min-height: 52px;
     margin: 2px auto;
   }
+  .banner-heading .spark-container {
+    width: clamp(32px, 7.5vw, 44px);
+    left: -12px;
+    top: -10px;
+    transform: translate(-25%, -25%);
+  }
   .banner-home .arrows {
-    width: 96vw;
-    padding: 0 0.25rem;
+    width: 100%;
+    max-width: 100vw;
+    padding: 0 4px;
+    pointer-events: none;
   }
   .banner-home .arrows button {
-    width: 44px;
-    height: 44px;
+    width: 38px;
+    height: 38px;
+    pointer-events: auto;
+    box-shadow: 2px 2px 0px #000;
   }
-  .banner-home .can-backdrop {
-    width: 94vw;
-    max-height: 400px;
-  }
-  .banner-home .can-backdrop-wrapper .backdrop-shape {
-    width: clamp(65px, 17vw, 90px);
-    height: clamp(65px, 17vw, 90px);
-  }
+
+  /* Pouch size on mobile: golden proportion so floating elements have room to orbit */
   .banner-home .can-container {
-    width: clamp(240px, 75vw, 310px);
+    width: clamp(165px, 46vw, 215px);
   }
   .banner-home .pouch-hero-img {
-    max-height: clamp(240px, 45vh, 340px);
+    max-height: clamp(210px, 38vh, 275px);
+  }
+
+  /* Backdrop envelope on mobile: wide enough so elements float clearly around the packet */
+  .banner-home .can-backdrop {
+    width: 96vw;
+    max-width: 420px;
+    max-height: clamp(310px, 50vh, 420px);
+  }
+  .banner-home .can-backdrop-wrapper .backdrop-shape {
+    width: clamp(56px, 16vw, 74px);
+    height: clamp(56px, 16vw, 74px);
+    filter: drop-shadow(2px 6px 14px rgba(0, 0, 0, 0.22));
+  }
+
+  /* Floating elements positioned clearly outside the packet perimeter on mobile */
+  .banner-home .backdrop-shape.backdrop1 {
+    top: 2%;
+    left: 0%;
+  }
+  .banner-home .backdrop-shape.backdrop2 {
+    top: 38%;
+    left: -3%;
+  }
+  .banner-home .backdrop-shape.backdrop3 {
+    bottom: 3%;
+    left: 1%;
+  }
+  .banner-home .backdrop-shape.backdrop4 {
+    top: 2%;
+    right: 0%;
+  }
+  .banner-home .backdrop-shape.backdrop5 {
+    top: 38%;
+    right: -3%;
+  }
+  .banner-home .backdrop-shape.backdrop6 {
+    bottom: 3%;
+    right: 1%;
   }
 
   /* Product Catalog Grid on Mobile: single clean column */
