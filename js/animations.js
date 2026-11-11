@@ -562,12 +562,47 @@
       }
     }
 
+    function deactivateFlavour(index) {
+      if (index < 0 || index >= tabs.length) return;
+      playCrunchSound();
+
+      const activeTab = tabs[index];
+      const activeCan = desktopCans[index];
+
+      if (activeTab) {
+        activeTab.classList.remove('active');
+      }
+
+      if (activeCan) {
+        activeCan.classList.remove('active');
+        if (typeof gsap !== 'undefined') {
+          const bd = activeCan.querySelector('.can-backdrop-wrapper');
+          if (bd) {
+            gsap.killTweensOf(bd);
+            gsap.to(bd, { scale: 0.3, rotate: 0, duration: 0.35, ease: 'power2.out' });
+          }
+        }
+      }
+
+      // If all tabs are collapsed, restore default section background
+      const anyActive = Array.from(tabs).some((t) => t.classList.contains('active'));
+      if (!anyActive && flavoursSection && typeof gsap !== 'undefined') {
+        gsap.to(flavoursSection, { backgroundColor: '#880E4F', duration: 0.5, ease: 'power2.inOut' });
+      }
+    }
+
     tabs.forEach((tab, index) => {
       tab.addEventListener('click', function (e) {
         if (e.target.closest('.btn-open-modal')) return;
         if (e.target.closest('.flavour-can-mobile-inner')) return;
         if (e.target.closest('a') && !e.target.closest('.flavour-tab-nav-inner')) return;
-        activateFlavour(index);
+
+        // Toggle / Collapse behavior: if already active, collapse it!
+        if (tab.classList.contains('active')) {
+          deactivateFlavour(index);
+        } else {
+          activateFlavour(index);
+        }
       });
     });
 
@@ -883,6 +918,14 @@
         if (target) {
           e.preventDefault();
           if (window.playCrunchSound) window.playCrunchSound();
+
+          // Close mobile menu if open
+          const menuToggle = document.getElementById('menuToggle') || document.querySelector('.menu-toggle');
+          const siteNav = document.getElementById('siteNavigation') || document.querySelector('.main-navigation');
+          if (menuToggle && siteNav) {
+            menuToggle.classList.remove('active');
+            siteNav.classList.remove('open');
+          }
 
           if (window.lenis && typeof window.lenis.scrollTo === 'function') {
             window.lenis.scrollTo(target, {
