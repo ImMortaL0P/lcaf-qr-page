@@ -693,6 +693,12 @@ h4 .sticker {
   justify-content: center;
   position: sticky;
   top: 0;
+  filter: 
+    drop-shadow(3.5px 0 0 #000)
+    drop-shadow(-3.5px 0 0 #000)
+    drop-shadow(0 3.5px 0 #000)
+    drop-shadow(0 -3.5px 0 #000)
+    drop-shadow(10px 16px 0px rgba(0, 0, 0, 0.4));
 }
 
 .about .about-cards .card {
@@ -701,12 +707,19 @@ h4 .sticker {
   align-items: center;
   justify-content: space-between;
   gap: 3rem;
-  padding: clamp(30px, 4vw, 80px);
-  border: var(--border-thick);
-  border-radius: 36px;
-  box-shadow: 12px 16px 0px #000;
+  padding: clamp(35px, 5vw, 90px);
   position: relative;
-  overflow: hidden;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  -webkit-mask-image: url('../assets/icons/micha-about-card-mask.svg');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  mask-image: url('../assets/icons/micha-about-card-mask.svg');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 100% 100%;
 }
 
 .about .about-cards .card-outer:nth-child(odd) .card {
@@ -732,16 +745,21 @@ h4 .sticker {
   width: clamp(260px, 30vw, 400px);
   height: clamp(260px, 30vw, 400px);
   position: relative;
-  overflow: hidden;
-  border-radius: 32px;
-  border: var(--border-thick);
-  box-shadow: var(--shadow-retro-lg);
+  filter: drop-shadow(6px 8px 0px #000);
 }
 
 .about .card .image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  -webkit-mask-image: url('../assets/icons/micha-flower-mask.svg');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-image: url('../assets/icons/micha-flower-mask.svg');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
   transition: transform 0.6s ease;
 }
 
