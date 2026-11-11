@@ -103,7 +103,7 @@
     }
   }
 
-  // --- 3. HERO POUCH CAROUSEL WITH EXACT MICHA 3D SPIN ANIMATION ---
+  // --- 3. HERO POUCH CAROUSEL & VISUAL TRANSITIONS (EXACT MICHA BEHAVIOR) ---
   function setupHeroSlider() {
     const banner = document.querySelector('.banner-home');
     const group = document.querySelector('.banner-home .packaging-group');
@@ -111,6 +111,8 @@
     const backdrops = document.querySelectorAll('.banner-home .can-backdrop-wrapper');
     const btnRight = document.querySelector('.banner-home .arrows button.right');
     const btnLeft = document.querySelector('.banner-home .arrows button.left');
+    const arrowCircles = document.querySelectorAll('.banner-home .arrows button circle');
+    const arrowPaths = document.querySelectorAll('.banner-home .arrows button path');
     const sparkContainer = document.querySelector('.banner-heading .spark-container');
     const sparkSvgPaths = document.querySelectorAll('.banner-heading .spark-container svg path');
     const ctaButton = document.querySelector('#heroCtaBtn');
@@ -120,12 +122,10 @@
     if (!group || items.length === 0) return;
 
     let currentIndex = 0;
-    let isAnimating = false;
 
-    // Interactive 3D mouse parallax tilt on currently active Hero Pouch
+    // Interactive 3D mouse parallax tilt on currently active Hero Pouch (MiCha smooth feel)
     if (banner) {
       banner.addEventListener('mousemove', (e) => {
-        if (isAnimating) return;
         const activePouch = items[currentIndex]?.querySelector('.pouch-hero-img');
         if (!activePouch) return;
 
@@ -135,18 +135,18 @@
 
         if (typeof gsap !== 'undefined') {
           gsap.to(activePouch, {
-            rotationY: x * 18,
+            rotationY: x * 16,
             rotationX: -y * 14,
             x: x * 22,
             y: y * 14,
-            duration: 0.5,
+            duration: 0.6,
             ease: 'power1.out',
             overwrite: 'auto'
           });
           if (backdropContainer) {
             gsap.to(backdropContainer, {
-              x: -x * 28,
-              y: -y * 18,
+              x: -x * 30,
+              y: -y * 20,
               duration: 0.8,
               ease: 'power1.out',
               overwrite: 'auto'
@@ -179,160 +179,122 @@
     }
 
     function showHeroSlide(index, dir = 1) {
-      const prevIndex = currentIndex;
       let nextIndex = index;
       if (nextIndex < 0) nextIndex = items.length - 1;
       if (nextIndex >= items.length) nextIndex = 0;
 
-      const direction = dir !== undefined ? dir : (nextIndex >= prevIndex ? 1 : -1);
+      const direction = dir !== undefined ? dir : (nextIndex >= currentIndex ? 1 : -1);
       currentIndex = nextIndex;
 
       playCrunchSound();
 
       const currentItem = items[currentIndex];
-      const prevItem = items[prevIndex];
       const newBg = currentItem.getAttribute('data-bg');
       const sparkColor = currentItem.getAttribute('data-spark');
+      const btnBg = currentItem.getAttribute('data-btn-bg');
+      const btnText = currentItem.getAttribute('data-btn-text');
+      const btnHoverBg = currentItem.getAttribute('data-btn-hover-bg');
+      const btnHoverText = currentItem.getAttribute('data-btn-hover-text');
       const newTitle = currentItem.getAttribute('data-title');
       const targetTab = currentItem.getAttribute('data-tab');
 
       const currentPouch = currentItem.querySelector('.pouch-hero-img');
-      const prevPouch = prevItem?.querySelector('.pouch-hero-img');
       const currentShadow = currentItem.querySelector('.pouch-ground-shadow');
 
       if (typeof gsap !== 'undefined') {
-        isAnimating = true;
-
-        // 1. MICHA CYLINDRICAL SPIN ON POUCHES
-        if (prevPouch && prevIndex !== currentIndex) {
-          gsap.killTweensOf(prevPouch);
-          gsap.to(prevPouch, {
-            rotationY: direction * 85,
-            rotation: -direction * 12,
-            scale: 0.72,
-            opacity: 0,
-            duration: 0.42,
-            ease: 'power2.in'
-          });
-        }
-
-        if (currentPouch) {
-          gsap.killTweensOf(currentPouch);
-          if (prevIndex !== currentIndex) {
-            gsap.fromTo(currentPouch,
-              {
-                rotationY: -direction * 85,
-                rotation: direction * 12,
-                scale: 0.72,
-                opacity: 0
-              },
-              {
-                rotationY: 0,
-                rotation: 0,
-                scale: 1,
-                opacity: 1,
-                duration: 0.8,
-                ease: 'elastic.out(1, 0.45)',
-                delay: 0.15,
-                onComplete: () => {
-                  isAnimating = false;
-                }
-              }
-            );
-          } else {
-            gsap.to(currentPouch, { rotationY: 0, rotation: 0, scale: 1, opacity: 1, duration: 0.4 });
-            isAnimating = false;
-          }
-        } else {
-          isAnimating = false;
-        }
-
-        // 2. Packaging Group Translation
+        // 1. EXACT MICHA HORIZONTAL PACKAGING GLIDE (Smooth Power3 InOut)
         gsap.to(group, {
           xPercent: -currentIndex * 100,
-          duration: 0.65,
+          duration: 0.8,
           ease: 'power3.inOut'
         });
 
-        // 3. Ground Shadow Pop
-        if (currentShadow) {
-          gsap.fromTo(currentShadow,
-            { scale: 0.4, opacity: 0.2 },
-            { scale: 1, opacity: 0.85, duration: 0.65, ease: 'power2.out', delay: 0.1 }
+        // Subtle elastic punch on current pouch settling into center
+        if (currentPouch) {
+          gsap.fromTo(currentPouch,
+            { scale: 0.94 },
+            { scale: 1, duration: 0.8, ease: 'elastic.out(1.1, 0.5)', delay: 0.1 }
           );
         }
 
-        // 4. Spark Starburst Acceleration Spin & Color Fill
+        // Ground shadow pulse
+        if (currentShadow) {
+          gsap.fromTo(currentShadow,
+            { scale: 0.7, opacity: 0.35 },
+            { scale: 1, opacity: 0.85, duration: 0.75, ease: 'power2.out', delay: 0.1 }
+          );
+        }
+
+        // 2. EXACT MICHA BACKDROP TRANSITION (Scale 0.3 InOut -> Target 1.0 Elastic Delay 0.35s)
+        gsap.killTweensOf(backdrops);
+        gsap.to(backdrops, {
+          scale: 0.3,
+          duration: 0.45,
+          ease: 'power2.inOut'
+        });
+
+        backdrops.forEach((bd, i) => bd.classList.remove('active'));
+
+        const activeBd = backdrops[currentIndex];
+        if (activeBd) {
+          activeBd.classList.add('active');
+          gsap.to(activeBd, {
+            scale: 1,
+            duration: 0.85,
+            ease: 'elastic.out(1, 0.5)',
+            delay: 0.35
+          });
+        }
+
+        // 3. SMOOTH BACKGROUND COLOR MORPH (0.5s power2.inOut)
+        if (banner && newBg) {
+          gsap.to(banner, { backgroundColor: newBg, duration: 0.55, ease: 'power2.inOut' });
+        }
+
+        // 4. SPARK ACCELERATION ROTATION & COLOR MORPH
         if (sparkContainer) {
           gsap.to(sparkContainer, {
-            rotation: `+=${direction * 360}`,
+            rotation: `+=${direction * 180}`,
             duration: 0.7,
             ease: 'power2.out'
           });
         }
         if (sparkSvgPaths.length && sparkColor) {
           sparkSvgPaths.forEach((path) => {
-            gsap.to(path, { fill: sparkColor, duration: 0.5 });
+            gsap.to(path, { fill: sparkColor, duration: 0.5, ease: 'power2.inOut' });
           });
         }
 
-        // 5. Morph Background Color Smoothly
-        if (banner && newBg) {
-          gsap.to(banner, { backgroundColor: newBg, duration: 0.65, ease: 'power2.inOut' });
+        // 5. MICHA DYNAMIC ARROW & CTA COLOR SYNCHRONIZATION
+        if (btnBg) {
+          arrowCircles.forEach((circle) => {
+            gsap.to(circle, { fill: btnBg, duration: 0.45 });
+          });
+          if (ctaButton) {
+            gsap.to(ctaButton, { backgroundColor: btnBg, duration: 0.45 });
+          }
+        }
+        if (btnText) {
+          arrowPaths.forEach((path) => {
+            gsap.to(path, { stroke: btnText, duration: 0.45 });
+          });
+          if (ctaButton) {
+            gsap.to(ctaButton, { color: btnText, duration: 0.45 });
+          }
         }
 
-        // 6. Tactile Sticker Punch
+        // 6. TACTILE STICKER PUNCH
         if (stickerSpan && newTitle) {
           gsap.fromTo(stickerSpan,
-            { scale: 0.8, rotation: -direction * 5 },
+            { scale: 0.82 },
             {
               scale: 1,
-              rotation: -1.5,
               duration: 0.45,
               ease: 'back.out(2)',
               onStart: () => {
                 stickerSpan.textContent = newTitle;
                 stickerSpan.setAttribute('data-sticker-text', newTitle);
               }
-            }
-          );
-        }
-
-        // 7. 10 Floating Spices & Cartoon Chillis Explosive Spin Burst
-        backdrops.forEach((bd, i) => {
-          if (i !== currentIndex) {
-            bd.classList.remove('active');
-            const shapes = bd.querySelectorAll('.backdrop-shape');
-            gsap.killTweensOf(shapes);
-            gsap.to(shapes, {
-              scale: 0.2,
-              rotation: `+=${direction * 180}`,
-              opacity: 0,
-              duration: 0.35,
-              ease: 'power2.in'
-            });
-          }
-        });
-
-        const activeBd = backdrops[currentIndex];
-        if (activeBd) {
-          activeBd.classList.add('active');
-          const activeShapes = activeBd.querySelectorAll('.backdrop-shape');
-          gsap.killTweensOf(activeShapes);
-          gsap.fromTo(activeShapes,
-            {
-              scale: 0.1,
-              rotation: `-=${direction * 220}`,
-              opacity: 0
-            },
-            {
-              scale: 1,
-              rotation: 0,
-              opacity: 1,
-              duration: 0.85,
-              stagger: 0.025,
-              ease: 'elastic.out(1.15, 0.45)',
-              delay: 0.1
             }
           );
         }
@@ -350,7 +312,7 @@
         });
       }
 
-      // Update CTA
+      // Update CTA Link
       if (ctaButton && targetTab) {
         ctaButton.setAttribute('href', targetTab);
       }
@@ -359,7 +321,7 @@
     if (btnRight) {
       btnRight.addEventListener('click', (e) => {
         e.preventDefault();
-        gsap?.fromTo(btnRight, { scale: 0.88 }, { scale: 1, duration: 0.35, ease: 'elastic.out(1.5, 0.3)' });
+        gsap?.fromTo(btnRight, { scale: 0.9 }, { scale: 1, duration: 0.3, ease: 'elastic.out(1.5, 0.3)' });
         showHeroSlide(currentIndex + 1, 1);
       });
     }
@@ -367,7 +329,7 @@
     if (btnLeft) {
       btnLeft.addEventListener('click', (e) => {
         e.preventDefault();
-        gsap?.fromTo(btnLeft, { scale: 0.88 }, { scale: 1, duration: 0.35, ease: 'elastic.out(1.5, 0.3)' });
+        gsap?.fromTo(btnLeft, { scale: 0.9 }, { scale: 1, duration: 0.3, ease: 'elastic.out(1.5, 0.3)' });
         showHeroSlide(currentIndex - 1, -1);
       });
     }
@@ -388,7 +350,10 @@
       }
     }, { passive: true });
 
-    // Initial show to align everything
+    // Initial setup with scale 0.3 on backdrops and activate first slide
+    if (typeof gsap !== 'undefined') {
+      gsap.set(backdrops, { scale: 0.3 });
+    }
     showHeroSlide(0, 1);
   }
 
