@@ -100,8 +100,14 @@
   }
 
   .banner-home .can-container {
-    width: 240px;
-    height: 320px;
+    width: fit-content;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .banner-home .pouch-hero-img {
+    max-height: 360px;
+    max-width: 280px;
   }
 
   .banner-home .arrows {

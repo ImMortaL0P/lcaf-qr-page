@@ -103,16 +103,63 @@
     }
   }
 
-  // --- 3. HERO PACK SLIDER & BACKDROPS (MICHA SIGNATURE) ---
+  // --- 3. HERO POUCH PARALLAX & TILT (EXACT MICHA 3D INTERACTION) ---
   function setupHeroSlider() {
     const banner = document.querySelector('.banner-home');
+    const pouchImg = document.querySelector('.banner-home .pouch-hero-img');
+    const backdrop = document.querySelector('.banner-home .can-backdrop');
     const group = document.querySelector('.banner-home .packaging-group');
     const items = document.querySelectorAll('.banner-home .packaging-item');
-    const backdrops = document.querySelectorAll('.banner-home .can-backdrop-wrapper');
-    const btnLeft = document.querySelector('.banner-home .arrows button.left');
-    const btnRight = document.querySelector('.banner-home .arrows button.right');
-    const ctaButton = document.querySelector('.banner-home .button-wrapper');
-    const sparkSvg = document.querySelector('.banner-heading .spark-container svg path');
+
+    // Interactive 3D mouse parallax tilt on Hero Pouch
+    if (banner && pouchImg) {
+      banner.addEventListener('mousemove', (e) => {
+        const rect = banner.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        if (typeof gsap !== 'undefined') {
+          gsap.to(pouchImg, {
+            rotationY: x * 16,
+            rotationX: -y * 14,
+            x: x * 22,
+            y: y * 16,
+            duration: 0.6,
+            ease: 'power1.out',
+            overwrite: 'auto'
+          });
+          if (backdrop) {
+            gsap.to(backdrop, {
+              x: -x * 32,
+              y: -y * 22,
+              duration: 0.8,
+              ease: 'power1.out',
+              overwrite: 'auto'
+            });
+          }
+        }
+      });
+
+      banner.addEventListener('mouseleave', () => {
+        if (typeof gsap !== 'undefined') {
+          gsap.to(pouchImg, {
+            rotationY: 0,
+            rotationX: 0,
+            x: 0,
+            y: 0,
+            duration: 0.8,
+            ease: 'elastic.out(1, 0.4)'
+          });
+          if (backdrop) {
+            gsap.to(backdrop, {
+              x: 0,
+              y: 0,
+              duration: 0.8,
+              ease: 'power2.out'
+            });
+          }
+        }
+      });
+    }
 
     if (!group || items.length === 0) return;
 
