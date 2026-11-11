@@ -226,25 +226,38 @@
           );
         }
 
-        // 2. EXACT MICHA BACKDROP TRANSITION (Scale 0.3 InOut -> Target 1.0 Elastic Delay 0.35s)
-        gsap.killTweensOf(backdrops);
-        gsap.to(backdrops, {
-          scale: 0.3,
-          duration: 0.45,
-          ease: 'power2.inOut'
+        // 2. CLEAN BACKDROP TRANSITION: HIDE INACTIVE, REVEAL ACTIVE (Zero Stray Elements)
+        backdrops.forEach((bd, i) => {
+          gsap.killTweensOf(bd);
+          if (i !== currentIndex) {
+            gsap.to(bd, {
+              scale: 0.3,
+              opacity: 0,
+              duration: 0.35,
+              ease: 'power2.in',
+              onComplete: () => {
+                bd.classList.remove('active');
+                bd.style.visibility = 'hidden';
+              }
+            });
+          }
         });
-
-        backdrops.forEach((bd, i) => bd.classList.remove('active'));
 
         const activeBd = backdrops[currentIndex];
         if (activeBd) {
           activeBd.classList.add('active');
-          gsap.to(activeBd, {
-            scale: 1,
-            duration: 0.85,
-            ease: 'elastic.out(1, 0.5)',
-            delay: 0.35
-          });
+          activeBd.style.visibility = 'visible';
+          gsap.killTweensOf(activeBd);
+          gsap.fromTo(activeBd,
+            { scale: 0.3, opacity: 0 },
+            {
+              scale: 1,
+              opacity: 1,
+              duration: 0.85,
+              ease: 'elastic.out(1, 0.5)',
+              delay: 0.15
+            }
+          );
         }
 
         // 3. SMOOTH BACKGROUND COLOR MORPH (0.5s power2.inOut)
@@ -374,9 +387,19 @@
       }
     }, { passive: true });
 
-    // Initial setup with scale 0.3 on backdrops and activate first slide
+    // Initial setup with scale 0.3 and opacity 0 on inactive backdrops, reveal only active slide
     if (typeof gsap !== 'undefined') {
-      gsap.set(backdrops, { scale: 0.3 });
+      backdrops.forEach((bd, i) => {
+        if (i === 0) {
+          bd.classList.add('active');
+          bd.style.visibility = 'visible';
+          gsap.set(bd, { scale: 1, opacity: 1 });
+        } else {
+          bd.classList.remove('active');
+          bd.style.visibility = 'hidden';
+          gsap.set(bd, { scale: 0.3, opacity: 0 });
+        }
+      });
     }
     showHeroSlide(0, 1);
   }
@@ -844,6 +867,36 @@
     });
   }
 
+  // --- 13. SMOOTH SCROLLING FOR ALL ANCHOR BUTTONS (EXPLORE, CATALOG, NAV) ---
+  function setupSmoothScrollLinks() {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (!href || href === '#' || href === '#!') return;
+
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          if (window.playCrunchSound) window.playCrunchSound();
+
+          if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+            window.lenis.scrollTo(target, {
+              offset: -10,
+              duration: 1.3,
+              easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+            });
+          } else {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+
+          if (window.history && window.history.pushState) {
+            window.history.pushState(null, null, href);
+          }
+        }
+      });
+    });
+  }
+
   window.setupHoverMicroInteractions = setupHoverMicroInteractions;
 
   // Initialize
@@ -859,5 +912,6 @@
     setupProductCatalogScroll();
     setupTestimonialsStagger();
     setupTickerVelocity();
+    setupSmoothScrollLinks();
   });
 })();
