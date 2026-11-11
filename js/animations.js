@@ -103,34 +103,45 @@
     }
   }
 
-  // --- 3. HERO POUCH PARALLAX & TILT (EXACT MICHA 3D INTERACTION) ---
+  // --- 3. HERO POUCH CAROUSEL & 3D INTERACTION (EXACT MICHA AESTHETIC) ---
   function setupHeroSlider() {
     const banner = document.querySelector('.banner-home');
-    const pouchImg = document.querySelector('.banner-home .pouch-hero-img');
-    const backdrop = document.querySelector('.banner-home .can-backdrop');
     const group = document.querySelector('.banner-home .packaging-group');
     const items = document.querySelectorAll('.banner-home .packaging-item');
+    const backdrops = document.querySelectorAll('.banner-home .can-backdrop-wrapper');
+    const btnRight = document.querySelector('.banner-home .arrows button.right');
+    const btnLeft = document.querySelector('.banner-home .arrows button.left');
+    const sparkSvgPaths = document.querySelectorAll('.banner-heading .spark-container svg path');
+    const ctaButton = document.querySelector('#heroCtaBtn');
+    const stickerSpan = document.querySelector('.banner-heading .sticker');
+    const backdropContainer = document.querySelector('.banner-home .can-backdrop');
 
-    // Interactive 3D mouse parallax tilt on Hero Pouch
-    if (banner && pouchImg) {
+    let currentIndex = 0;
+
+    // Interactive 3D mouse parallax tilt on currently active Hero Pouch
+    if (banner) {
       banner.addEventListener('mousemove', (e) => {
+        const activePouch = items[currentIndex]?.querySelector('.pouch-hero-img');
+        if (!activePouch) return;
+
         const rect = banner.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;
+
         if (typeof gsap !== 'undefined') {
-          gsap.to(pouchImg, {
+          gsap.to(activePouch, {
             rotationY: x * 16,
             rotationX: -y * 14,
-            x: x * 22,
-            y: y * 16,
+            x: x * 20,
+            y: y * 14,
             duration: 0.6,
             ease: 'power1.out',
             overwrite: 'auto'
           });
-          if (backdrop) {
-            gsap.to(backdrop, {
-              x: -x * 32,
-              y: -y * 22,
+          if (backdropContainer) {
+            gsap.to(backdropContainer, {
+              x: -x * 28,
+              y: -y * 18,
               duration: 0.8,
               ease: 'power1.out',
               overwrite: 'auto'
@@ -140,8 +151,9 @@
       });
 
       banner.addEventListener('mouseleave', () => {
-        if (typeof gsap !== 'undefined') {
-          gsap.to(pouchImg, {
+        const activePouch = items[currentIndex]?.querySelector('.pouch-hero-img');
+        if (activePouch && typeof gsap !== 'undefined') {
+          gsap.to(activePouch, {
             rotationY: 0,
             rotationX: 0,
             x: 0,
@@ -149,21 +161,19 @@
             duration: 0.8,
             ease: 'elastic.out(1, 0.4)'
           });
-          if (backdrop) {
-            gsap.to(backdrop, {
-              x: 0,
-              y: 0,
-              duration: 0.8,
-              ease: 'power2.out'
-            });
-          }
+        }
+        if (backdropContainer && typeof gsap !== 'undefined') {
+          gsap.to(backdropContainer, {
+            x: 0,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out'
+          });
         }
       });
     }
 
     if (!group || items.length === 0) return;
-
-    let currentIndex = 0;
 
     function showHeroSlide(index) {
       if (index < 0) index = items.length - 1;
@@ -179,23 +189,61 @@
       const currentItem = items[currentIndex];
       const newBg = currentItem.getAttribute('data-bg');
       const sparkColor = currentItem.getAttribute('data-spark');
+      const newTitle = currentItem.getAttribute('data-title');
       const targetTab = currentItem.getAttribute('data-tab');
 
-      // Morph background color smoothly
-      if (banner && newBg && typeof gsap !== 'undefined') {
-        gsap.to(banner, { backgroundColor: newBg, duration: 0.5, ease: 'power2.inOut' });
+      // Update sticker title with tactile punch
+      if (stickerSpan && newTitle) {
+        if (typeof gsap !== 'undefined') {
+          gsap.to(stickerSpan, {
+            scale: 0.85,
+            rotation: -4,
+            duration: 0.15,
+            onComplete: () => {
+              stickerSpan.textContent = newTitle;
+              stickerSpan.setAttribute('data-sticker-text', newTitle);
+              gsap.to(stickerSpan, {
+                scale: 1,
+                rotation: -1.5,
+                duration: 0.4,
+                ease: 'back.out(2)'
+              });
+            }
+          });
+        } else {
+          stickerSpan.textContent = newTitle;
+          stickerSpan.setAttribute('data-sticker-text', newTitle);
+        }
       }
 
-      if (sparkSvg && sparkColor && typeof gsap !== 'undefined') {
-        gsap.to(sparkSvg, { fill: sparkColor, duration: 0.5 });
+      // Morph background color smoothly
+      if (banner && newBg) {
+        if (typeof gsap !== 'undefined') {
+          gsap.to(banner, { backgroundColor: newBg, duration: 0.6, ease: 'power2.inOut' });
+        } else {
+          banner.style.backgroundColor = newBg;
+        }
+      }
+
+      // Update spark SVG fills
+      if (sparkSvgPaths.length && sparkColor) {
+        sparkSvgPaths.forEach((path) => {
+          if (typeof gsap !== 'undefined') {
+            gsap.to(path, { fill: sparkColor, duration: 0.5 });
+          } else {
+            path.setAttribute('fill', sparkColor);
+          }
+        });
       }
 
       // Animate backdrops with elastic bounce
       backdrops.forEach((bd, i) => {
-        bd.classList.remove('active');
-        if (typeof gsap !== 'undefined') {
-          gsap.killTweensOf(bd);
-          gsap.to(bd, { scale: 0.3, duration: 0.35, ease: 'power2.inOut' });
+        if (i !== currentIndex) {
+          bd.classList.remove('active');
+          if (typeof gsap !== 'undefined') {
+            gsap.killTweensOf(bd);
+            gsap.to(bd, { scale: 0.35, opacity: 0, duration: 0.35, ease: 'power2.inOut' });
+          }
         }
       });
 
@@ -203,7 +251,11 @@
       if (activeBd) {
         activeBd.classList.add('active');
         if (typeof gsap !== 'undefined') {
-          gsap.to(activeBd, { scale: 1, duration: 0.8, ease: 'elastic.out(1, 0.5)', delay: 0.2 });
+          gsap.killTweensOf(activeBd);
+          gsap.fromTo(activeBd, 
+            { scale: 0.4, opacity: 0 }, 
+            { scale: 1, opacity: 1, duration: 0.85, ease: 'elastic.out(1, 0.5)', delay: 0.1 }
+          );
         }
       }
 
@@ -227,7 +279,7 @@
       });
     }
 
-    // Touch swipe support for mobile
+    // Touch swipe support for mobile devices
     let touchStartX = 0;
     group.addEventListener('touchstart', (e) => {
       touchStartX = e.touches[0].clientX;
@@ -236,14 +288,14 @@
     group.addEventListener('touchend', (e) => {
       const touchEndX = e.changedTouches[0].clientX;
       const diff = touchStartX - touchEndX;
-      if (diff > 40) {
+      if (diff > 45) {
         showHeroSlide(currentIndex + 1);
-      } else if (diff < -40) {
+      } else if (diff < -45) {
         showHeroSlide(currentIndex - 1);
       }
     }, { passive: true });
 
-    // Initial show
+    // Initial show to align everything
     showHeroSlide(0);
   }
 
