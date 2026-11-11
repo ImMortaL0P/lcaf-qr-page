@@ -37,10 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // 2. Chip filters
-      if (activeFilterChip === 'gluten-free' && !product.isGlutenFree) return false;
-      if (activeFilterChip === 'roasted' && !product.isRoasted) return false;
-      if (activeFilterChip === 'high-protein' && !product.isHighProtein) return false;
+      if (activeFilterChip === 'five-rupee' && !product.isFiveRupee) return false;
+      if (activeFilterChip === 'free-gift' && !product.isFreeGift) return false;
+      if (activeFilterChip === 'traditional' && product.category !== 'traditional-namkeens') return false;
       if (activeFilterChip === 'bestseller' && !product.isBestseller) return false;
+      if (activeFilterChip === 'gluten-free' && !product.isGlutenFree) return false;
+      if (activeFilterChip === 'high-protein' && !product.isHighProtein) return false;
 
       // 3. Search query
       if (activeSearchTerm.trim() !== '') {
@@ -61,6 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderSpiceChilies(level) {
+    if (level === 0) {
+      return `<span class="spice-meter" title="Sweet & Fruity">🍓 Sweet</span>`;
+    }
     const chilies = '🌶️'.repeat(level);
     const label = level === 1 ? 'Mild' : level === 2 ? 'Medium' : level === 3 ? 'Spicy' : 'Fiery';
     return `<span class="spice-meter" title="Spice Heat: ${label}">${chilies} ${label}</span>`;
@@ -72,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const filtered = getFilteredProducts();
 
     if (productCountDisplay) {
-      productCountDisplay.textContent = `Showing ${filtered.length} of ${PRODUCTS_DATA.length} Artisanal Packs`;
+      productCountDisplay.textContent = `Showing ${filtered.length} of ${PRODUCTS_DATA.length} LCAF Packs`;
     }
 
     if (filtered.length === 0) {
@@ -96,10 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return `
         <article class="product-card" data-product-id="${p.id}">
           <div class="card-top-badges">
-            <div style="display:flex; align-items:center; gap:0.4rem;">
+            <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
               <span class="veg-badge" title="100% Pure Vegetarian"></span>
-              ${p.isRoasted ? `<span class="badge-pill" style="background:#E8F5E9; color:#2E7D32;">100% Roasted</span>` : ''}
-              ${p.isGlutenFree ? `<span class="badge-pill" style="background:#FFF3E0; color:#E65100;">Gluten-Free</span>` : ''}
+              <span class="badge-pill" style="background:#FFF9C4; color:#E65100; font-weight:800;">₹5 Pack</span>
+              ${p.isFreeGift ? `<span class="badge-pill" style="background:#FCE4EC; color:#C2185B; font-weight:800;">🎁 Free Toy</span>` : ''}
+              ${p.isGlutenFree ? `<span class="badge-pill" style="background:#E8F5E9; color:#2E7D32;">Gluten-Free</span>` : ''}
             </div>
             ${p.isBestseller ? `<span class="badge-bestseller">⭐ Bestseller</span>` : ''}
           </div>

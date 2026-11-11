@@ -103,7 +103,7 @@
     }
   }
 
-  // --- 3. HERO POUCH CAROUSEL & 3D INTERACTION (EXACT MICHA AESTHETIC) ---
+  // --- 3. HERO POUCH CAROUSEL WITH EXACT MICHA 3D SPIN ANIMATION ---
   function setupHeroSlider() {
     const banner = document.querySelector('.banner-home');
     const group = document.querySelector('.banner-home .packaging-group');
@@ -111,16 +111,21 @@
     const backdrops = document.querySelectorAll('.banner-home .can-backdrop-wrapper');
     const btnRight = document.querySelector('.banner-home .arrows button.right');
     const btnLeft = document.querySelector('.banner-home .arrows button.left');
+    const sparkContainer = document.querySelector('.banner-heading .spark-container');
     const sparkSvgPaths = document.querySelectorAll('.banner-heading .spark-container svg path');
     const ctaButton = document.querySelector('#heroCtaBtn');
     const stickerSpan = document.querySelector('.banner-heading .sticker');
     const backdropContainer = document.querySelector('.banner-home .can-backdrop');
 
+    if (!group || items.length === 0) return;
+
     let currentIndex = 0;
+    let isAnimating = false;
 
     // Interactive 3D mouse parallax tilt on currently active Hero Pouch
     if (banner) {
       banner.addEventListener('mousemove', (e) => {
+        if (isAnimating) return;
         const activePouch = items[currentIndex]?.querySelector('.pouch-hero-img');
         if (!activePouch) return;
 
@@ -130,11 +135,11 @@
 
         if (typeof gsap !== 'undefined') {
           gsap.to(activePouch, {
-            rotationY: x * 16,
+            rotationY: x * 18,
             rotationX: -y * 14,
-            x: x * 20,
+            x: x * 22,
             y: y * 14,
-            duration: 0.6,
+            duration: 0.5,
             ease: 'power1.out',
             overwrite: 'auto'
           });
@@ -173,90 +178,176 @@
       });
     }
 
-    if (!group || items.length === 0) return;
+    function showHeroSlide(index, dir = 1) {
+      const prevIndex = currentIndex;
+      let nextIndex = index;
+      if (nextIndex < 0) nextIndex = items.length - 1;
+      if (nextIndex >= items.length) nextIndex = 0;
 
-    function showHeroSlide(index) {
-      if (index < 0) index = items.length - 1;
-      if (index >= items.length) index = 0;
-      currentIndex = index;
+      const direction = dir !== undefined ? dir : (nextIndex >= prevIndex ? 1 : -1);
+      currentIndex = nextIndex;
 
       playCrunchSound();
 
-      // Translate packaging items
-      const targetPercent = -(currentIndex * 100);
-      group.style.transform = `translateX(${targetPercent}%)`;
-
       const currentItem = items[currentIndex];
+      const prevItem = items[prevIndex];
       const newBg = currentItem.getAttribute('data-bg');
       const sparkColor = currentItem.getAttribute('data-spark');
       const newTitle = currentItem.getAttribute('data-title');
       const targetTab = currentItem.getAttribute('data-tab');
 
-      // Update sticker title with tactile punch
-      if (stickerSpan && newTitle) {
-        if (typeof gsap !== 'undefined') {
-          gsap.to(stickerSpan, {
-            scale: 0.85,
-            rotation: -4,
-            duration: 0.15,
-            onComplete: () => {
-              stickerSpan.textContent = newTitle;
-              stickerSpan.setAttribute('data-sticker-text', newTitle);
-              gsap.to(stickerSpan, {
-                scale: 1,
-                rotation: -1.5,
-                duration: 0.4,
-                ease: 'back.out(2)'
-              });
-            }
+      const currentPouch = currentItem.querySelector('.pouch-hero-img');
+      const prevPouch = prevItem?.querySelector('.pouch-hero-img');
+      const currentShadow = currentItem.querySelector('.pouch-ground-shadow');
+
+      if (typeof gsap !== 'undefined') {
+        isAnimating = true;
+
+        // 1. MICHA CYLINDRICAL SPIN ON POUCHES
+        if (prevPouch && prevIndex !== currentIndex) {
+          gsap.killTweensOf(prevPouch);
+          gsap.to(prevPouch, {
+            rotationY: direction * 85,
+            rotation: -direction * 12,
+            scale: 0.72,
+            opacity: 0,
+            duration: 0.42,
+            ease: 'power2.in'
           });
+        }
+
+        if (currentPouch) {
+          gsap.killTweensOf(currentPouch);
+          if (prevIndex !== currentIndex) {
+            gsap.fromTo(currentPouch,
+              {
+                rotationY: -direction * 85,
+                rotation: direction * 12,
+                scale: 0.72,
+                opacity: 0
+              },
+              {
+                rotationY: 0,
+                rotation: 0,
+                scale: 1,
+                opacity: 1,
+                duration: 0.8,
+                ease: 'elastic.out(1, 0.45)',
+                delay: 0.15,
+                onComplete: () => {
+                  isAnimating = false;
+                }
+              }
+            );
+          } else {
+            gsap.to(currentPouch, { rotationY: 0, rotation: 0, scale: 1, opacity: 1, duration: 0.4 });
+            isAnimating = false;
+          }
         } else {
+          isAnimating = false;
+        }
+
+        // 2. Packaging Group Translation
+        gsap.to(group, {
+          xPercent: -currentIndex * 100,
+          duration: 0.65,
+          ease: 'power3.inOut'
+        });
+
+        // 3. Ground Shadow Pop
+        if (currentShadow) {
+          gsap.fromTo(currentShadow,
+            { scale: 0.4, opacity: 0.2 },
+            { scale: 1, opacity: 0.85, duration: 0.65, ease: 'power2.out', delay: 0.1 }
+          );
+        }
+
+        // 4. Spark Starburst Acceleration Spin & Color Fill
+        if (sparkContainer) {
+          gsap.to(sparkContainer, {
+            rotation: `+=${direction * 360}`,
+            duration: 0.7,
+            ease: 'power2.out'
+          });
+        }
+        if (sparkSvgPaths.length && sparkColor) {
+          sparkSvgPaths.forEach((path) => {
+            gsap.to(path, { fill: sparkColor, duration: 0.5 });
+          });
+        }
+
+        // 5. Morph Background Color Smoothly
+        if (banner && newBg) {
+          gsap.to(banner, { backgroundColor: newBg, duration: 0.65, ease: 'power2.inOut' });
+        }
+
+        // 6. Tactile Sticker Punch
+        if (stickerSpan && newTitle) {
+          gsap.fromTo(stickerSpan,
+            { scale: 0.8, rotation: -direction * 5 },
+            {
+              scale: 1,
+              rotation: -1.5,
+              duration: 0.45,
+              ease: 'back.out(2)',
+              onStart: () => {
+                stickerSpan.textContent = newTitle;
+                stickerSpan.setAttribute('data-sticker-text', newTitle);
+              }
+            }
+          );
+        }
+
+        // 7. 10 Floating Spices & Cartoon Chillis Explosive Spin Burst
+        backdrops.forEach((bd, i) => {
+          if (i !== currentIndex) {
+            bd.classList.remove('active');
+            const shapes = bd.querySelectorAll('.backdrop-shape');
+            gsap.killTweensOf(shapes);
+            gsap.to(shapes, {
+              scale: 0.2,
+              rotation: `+=${direction * 180}`,
+              opacity: 0,
+              duration: 0.35,
+              ease: 'power2.in'
+            });
+          }
+        });
+
+        const activeBd = backdrops[currentIndex];
+        if (activeBd) {
+          activeBd.classList.add('active');
+          const activeShapes = activeBd.querySelectorAll('.backdrop-shape');
+          gsap.killTweensOf(activeShapes);
+          gsap.fromTo(activeShapes,
+            {
+              scale: 0.1,
+              rotation: `-=${direction * 220}`,
+              opacity: 0
+            },
+            {
+              scale: 1,
+              rotation: 0,
+              opacity: 1,
+              duration: 0.85,
+              stagger: 0.025,
+              ease: 'elastic.out(1.15, 0.45)',
+              delay: 0.1
+            }
+          );
+        }
+
+      } else {
+        // Fallback without GSAP
+        group.style.transform = `translateX(-${currentIndex * 100}%)`;
+        if (banner && newBg) banner.style.backgroundColor = newBg;
+        if (stickerSpan && newTitle) {
           stickerSpan.textContent = newTitle;
           stickerSpan.setAttribute('data-sticker-text', newTitle);
         }
-      }
-
-      // Morph background color smoothly
-      if (banner && newBg) {
-        if (typeof gsap !== 'undefined') {
-          gsap.to(banner, { backgroundColor: newBg, duration: 0.6, ease: 'power2.inOut' });
-        } else {
-          banner.style.backgroundColor = newBg;
-        }
-      }
-
-      // Update spark SVG fills
-      if (sparkSvgPaths.length && sparkColor) {
-        sparkSvgPaths.forEach((path) => {
-          if (typeof gsap !== 'undefined') {
-            gsap.to(path, { fill: sparkColor, duration: 0.5 });
-          } else {
-            path.setAttribute('fill', sparkColor);
-          }
+        backdrops.forEach((bd, i) => {
+          bd.classList.toggle('active', i === currentIndex);
         });
-      }
-
-      // Animate backdrops with elastic bounce
-      backdrops.forEach((bd, i) => {
-        if (i !== currentIndex) {
-          bd.classList.remove('active');
-          if (typeof gsap !== 'undefined') {
-            gsap.killTweensOf(bd);
-            gsap.to(bd, { scale: 0.35, opacity: 0, duration: 0.35, ease: 'power2.inOut' });
-          }
-        }
-      });
-
-      const activeBd = backdrops[currentIndex];
-      if (activeBd) {
-        activeBd.classList.add('active');
-        if (typeof gsap !== 'undefined') {
-          gsap.killTweensOf(activeBd);
-          gsap.fromTo(activeBd, 
-            { scale: 0.4, opacity: 0 }, 
-            { scale: 1, opacity: 1, duration: 0.85, ease: 'elastic.out(1, 0.5)', delay: 0.1 }
-          );
-        }
       }
 
       // Update CTA
@@ -268,14 +359,16 @@
     if (btnRight) {
       btnRight.addEventListener('click', (e) => {
         e.preventDefault();
-        showHeroSlide(currentIndex + 1);
+        gsap?.fromTo(btnRight, { scale: 0.88 }, { scale: 1, duration: 0.35, ease: 'elastic.out(1.5, 0.3)' });
+        showHeroSlide(currentIndex + 1, 1);
       });
     }
 
     if (btnLeft) {
       btnLeft.addEventListener('click', (e) => {
         e.preventDefault();
-        showHeroSlide(currentIndex - 1);
+        gsap?.fromTo(btnLeft, { scale: 0.88 }, { scale: 1, duration: 0.35, ease: 'elastic.out(1.5, 0.3)' });
+        showHeroSlide(currentIndex - 1, -1);
       });
     }
 
@@ -289,14 +382,14 @@
       const touchEndX = e.changedTouches[0].clientX;
       const diff = touchStartX - touchEndX;
       if (diff > 45) {
-        showHeroSlide(currentIndex + 1);
+        showHeroSlide(currentIndex + 1, 1);
       } else if (diff < -45) {
-        showHeroSlide(currentIndex - 1);
+        showHeroSlide(currentIndex - 1, -1);
       }
     }, { passive: true });
 
     // Initial show to align everything
-    showHeroSlide(0);
+    showHeroSlide(0, 1);
   }
 
   // --- 4. STICKY STACKING CARDS WITH SCROLLTRIGGER (MICHA SIGNATURE) ---
