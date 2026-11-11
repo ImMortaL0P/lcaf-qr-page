@@ -87,6 +87,7 @@
       touchMultiplier: 1.2,
       infinite: false
     });
+    window.lenis = lenis;
 
     function raf(time) {
       lenis.raf(time);
@@ -644,6 +645,182 @@
     });
   }
 
+  // --- 8. SECTION HEADINGS ELASTIC STICKER POP ---
+  function setupHeadingStickerPop() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    const headingGroups = document.querySelectorAll('.section-title, .bring-together h2, .testimonials h2, .faq-header, .about .heading-wrapper');
+    headingGroups.forEach((group) => {
+      const stickers = group.querySelectorAll('.sticker');
+      if (!stickers.length) return;
+
+      gsap.fromTo(stickers,
+        { scale: 0.82, opacity: 0.85, rotate: (i) => (i % 2 === 0 ? -4 : 4) },
+        {
+          scale: 1,
+          opacity: 1,
+          rotate: (i) => (i % 2 === 0 ? -1 : 1),
+          duration: 0.65,
+          ease: 'back.out(2)',
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: group,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+  }
+
+  // --- 9. ARTISANAL VIDEO SECTION & FLOATING SPICE ORBITS ---
+  function setupArtisanalVideoParallax() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    const wrap = document.querySelector('.video-container-outer');
+    if (!wrap) return;
+
+    const spices = wrap.querySelectorAll('.video-floating-spice');
+    spices.forEach((sp, i) => {
+      const speed = i % 2 === 0 ? -40 : 40;
+      const rot = i % 2 === 0 ? 25 : -25;
+      gsap.to(sp, {
+        y: speed,
+        rotate: rot,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: wrap,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true
+        }
+      });
+    });
+
+    const player = wrap.querySelector('.video-player-wrap');
+    if (player) {
+      gsap.fromTo(player,
+        { scale: 0.94, opacity: 0.85 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: player,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // Interactive 3D mouse parallax tilt on Video Frame
+      player.addEventListener('mousemove', (e) => {
+        const rect = player.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        gsap.to(player, {
+          rotationY: x * 10,
+          rotationX: -y * 10,
+          duration: 0.5,
+          ease: 'power1.out',
+          transformPerspective: 900,
+          overwrite: 'auto'
+        });
+      });
+
+      player.addEventListener('mouseleave', () => {
+        gsap.to(player, {
+          rotationY: 0,
+          rotationX: 0,
+          duration: 0.6,
+          ease: 'elastic.out(1, 0.4)'
+        });
+      });
+    }
+  }
+
+  // --- 10. PRODUCT CATALOG CASCADE & SCROLLTRIGGER ---
+  function animateProductCards() {
+    if (typeof gsap === 'undefined') return;
+    const cards = document.querySelectorAll('.product-card');
+    if (!cards.length) return;
+
+    gsap.killTweensOf(cards);
+    gsap.fromTo(cards,
+      { opacity: 0, y: 35, scale: 0.95 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.5,
+        stagger: 0.045,
+        ease: 'back.out(1.4)',
+        overwrite: 'auto'
+      }
+    );
+  }
+  window.animateProductCards = animateProductCards;
+
+  function setupProductCatalogScroll() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    const grid = document.getElementById('productsGrid');
+    if (!grid) return;
+
+    ScrollTrigger.create({
+      trigger: grid,
+      start: 'top 82%',
+      once: true,
+      onEnter: () => animateProductCards()
+    });
+  }
+
+  // --- 11. TESTIMONIALS STAGGER CASCADE ---
+  function setupTestimonialsStagger() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    const cards = document.querySelectorAll('.testimonials-wrapper .testimony-card');
+    if (!cards.length) return;
+
+    gsap.fromTo(cards,
+      { opacity: 0, y: 40, scale: 0.94 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.65,
+        stagger: 0.12,
+        ease: 'back.out(1.5)',
+        scrollTrigger: {
+          trigger: '.testimonials-wrapper',
+          start: 'top 82%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  }
+
+  // --- 12. TICKER SPICE SCROLL VELOCITY MICRO-SPIN ---
+  function setupTickerVelocity() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    const tickerIcons = document.querySelectorAll('.ticker-spice-icon');
+    if (!tickerIcons.length) return;
+
+    ScrollTrigger.create({
+      onUpdate: (self) => {
+        const vel = Math.abs(self.getVelocity());
+        if (vel > 300) {
+          const spin = Math.min(vel / 60, 20) * (self.direction || 1);
+          gsap.to(tickerIcons, {
+            rotation: `+=${spin.toFixed(1)}`,
+            duration: 0.4,
+            ease: 'power1.out',
+            overwrite: 'auto'
+          });
+        }
+      }
+    });
+  }
+
   window.setupHoverMicroInteractions = setupHoverMicroInteractions;
 
   // Initialize
@@ -654,5 +831,10 @@
     setupFlavoursTabs();
     setupBgColorMorph();
     setupHoverMicroInteractions();
+    setupHeadingStickerPop();
+    setupArtisanalVideoParallax();
+    setupProductCatalogScroll();
+    setupTestimonialsStagger();
+    setupTickerVelocity();
   });
 })();

@@ -951,6 +951,7 @@ h4 .sticker {
   width: 100%;
   pointer-events: none;
   overflow: hidden;
+  z-index: 1;
 }
 
 .about .bubbles-wrapper .bubbles-group {
@@ -976,6 +977,7 @@ h4 .sticker {
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
+  z-index: 2;
 }
 
 .about .about-cards .card-outer {
@@ -1685,6 +1687,58 @@ h4 .sticker {
   align-items: center;
 }
 
+.video-container-outer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-container-outer .video-floating-spice {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  filter: drop-shadow(4px 8px 12px rgba(0, 0, 0, 0.3));
+}
+
+.video-container-outer .video-floating-spice img {
+  width: clamp(55px, 7vw, 90px);
+  height: clamp(55px, 7vw, 90px);
+  object-fit: contain;
+  animation: floatSpice 4s ease-in-out infinite alternate;
+}
+
+.video-container-outer .spice-tl {
+  top: -24px;
+  left: -24px;
+}
+.video-container-outer .spice-tr {
+  top: -28px;
+  right: -20px;
+}
+.video-container-outer .spice-tr img {
+  animation-delay: -1.5s;
+}
+.video-container-outer .spice-bl {
+  bottom: -22px;
+  left: -18px;
+}
+.video-container-outer .spice-bl img {
+  animation-delay: -2.3s;
+}
+.video-container-outer .spice-br {
+  bottom: -26px;
+  right: -24px;
+}
+.video-container-outer .spice-br img {
+  animation-delay: -0.8s;
+}
+
+@keyframes floatSpice {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-12px) rotate(8deg); }
+}
+
 .video-player-wrap {
   position: relative;
   border-radius: 28px;
@@ -1693,6 +1747,7 @@ h4 .sticker {
   box-shadow: var(--shadow-retro-lg);
   background: #000;
   height: 380px;
+  width: 100%;
 }
 
 .video-player-wrap video {
@@ -2074,6 +2129,7 @@ h4 .sticker {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
+  overscroll-behavior: contain;
 }
 
 .modal-overlay.open {
@@ -2090,9 +2146,33 @@ h4 .sticker {
   max-height: 90vh;
   box-shadow: 16px 20px 0px #000;
   overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
   transform: translateY(30px) scale(0.97);
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Smooth retro styling for modal scrollbar */
+.modal-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal-container::-webkit-scrollbar-track {
+  background: #F3EFE6;
+  border-radius: 9999px;
+  margin: 12px;
+}
+
+.modal-container::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 9999px;
+  border: 2px solid #F3EFE6;
+}
+
+.modal-container::-webkit-scrollbar-thumb:hover {
+  background: #EB373E;
 }
 
 .modal-overlay.open .modal-container {

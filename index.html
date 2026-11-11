@@ -324,16 +324,16 @@
     <!-- Parallax Scrubbed Spice Elements (Exact MiCha Parallax Implementation) -->
     <div class="bubbles-wrapper">
       <div class="bubbles-group bubbles-1">
-        <img class="bubbles" src="assets/icons/spices_kitchen/chilli_curved.svg" alt="chilli spice">
+        <img class="bubbles" src="assets/icons/chilli_cartoon/chilli_fiery_curved.svg" alt="chilli spice">
         <img class="bubbles" src="assets/icons/spices_kitchen/star_anise.svg" alt="star anise spice">
       </div>
       <div class="bubbles-group bubbles-2">
-        <img class="bubbles" src="assets/icons/spices_kitchen/cinnamon_sticks.svg" alt="cinnamon sticks">
+        <img class="bubbles" src="assets/icons/spices_kitchen/clove_bud.svg" alt="clove spice">
         <img class="bubbles" src="assets/icons/spices_kitchen/garlic_bulb.svg" alt="garlic spice">
       </div>
       <div class="bubbles-group bubbles-3">
         <img class="bubbles" src="assets/icons/spices_kitchen/cardamom_pod.svg" alt="cardamom spice">
-        <img class="bubbles" src="assets/icons/spices_kitchen/bay_leaves.svg" alt="bay leaves">
+        <img class="bubbles" src="assets/icons/spices_kitchen/coriander_sprig.svg" alt="coriander leaves">
       </div>
     </div>
 
@@ -680,11 +680,17 @@
   <section class="section bring-together" id="bring-together">
     <div class="section-content">
       <div class="bring-together-grid">
-        <div class="video-player-wrap">
-          <video controls autoplay muted loop playsinline poster="assets/images/spice_video_poster.jpg">
-            <source src="assets/videos/spice_processing.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+        <div class="video-container-outer">
+          <div class="video-floating-spice spice-tl"><img src="assets/icons/spices_kitchen/star_anise.svg" alt="star anise"></div>
+          <div class="video-floating-spice spice-tr"><img src="assets/icons/chilli_cartoon/chilli_fiery_curved.svg" alt="chilli"></div>
+          <div class="video-floating-spice spice-bl"><img src="assets/icons/spices_kitchen/clove_bud.svg" alt="clove"></div>
+          <div class="video-floating-spice spice-br"><img src="assets/icons/spices_kitchen/coriander_sprig.svg" alt="coriander"></div>
+          <div class="video-player-wrap">
+            <video controls autoplay muted loop playsinline poster="assets/images/spice_video_poster.jpg">
+              <source src="assets/videos/spice_processing.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
 
         <div>
@@ -962,8 +968,8 @@
   </footer>
 
   <!-- ==================== DETAILED NUTRITION FACTS MODAL ==================== -->
-  <div class="modal-overlay" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalProductTitle">
-    <div class="modal-container">
+  <div class="modal-overlay" id="productModal" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="modalProductTitle">
+    <div class="modal-container" data-lenis-prevent>
       <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close Dialog">✕</button>
 
       <div class="modal-content-grid">

@@ -163,6 +163,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.setupHoverMicroInteractions) {
       window.setupHoverMicroInteractions();
     }
+    // Stagger animate cards
+    if (window.animateProductCards) {
+      window.animateProductCards();
+    }
   }
 
   // --- 2. SEARCH & FILTER HANDLERS ---
@@ -236,7 +240,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (productModal) {
       productModal.classList.add('open');
-      document.body.style.overflow = 'hidden'; // prevent background scrolling
+      document.body.style.overflow = 'hidden';
+      // Stop Lenis smooth scroll while modal is active so trackpad / wheel scroll the modal content smoothly
+      if (window.lenis && typeof window.lenis.stop === 'function') {
+        window.lenis.stop();
+      }
+      const container = productModal.querySelector('.modal-container');
+      if (container) {
+        container.scrollTop = 0;
+        container.setAttribute('tabindex', '-1');
+        container.focus({ preventScroll: true });
+      }
     }
   }
 
@@ -244,7 +258,32 @@ document.addEventListener('DOMContentLoaded', () => {
     if (productModal) {
       productModal.classList.remove('open');
       document.body.style.overflow = '';
+      if (window.lenis && typeof window.lenis.start === 'function') {
+        window.lenis.start();
+      }
     }
+  }
+
+  const modalContainer = document.querySelector('.modal-container');
+  if (productModal && modalContainer) {
+    // 1. Direct wheel inside modalContainer: stop bubbling to parent, native overflow handles smooth scroll
+    modalContainer.addEventListener('wheel', (e) => {
+      e.stopPropagation();
+    }, { passive: true });
+
+    // 2. Wheel over dark backdrop overlay: scroll modalContainer directly
+    productModal.addEventListener('wheel', (e) => {
+      e.stopPropagation();
+      if (e.target === productModal) {
+        e.preventDefault();
+        modalContainer.scrollTop += e.deltaY;
+      }
+    }, { passive: false });
+
+    // 3. Touch scroll propagation stop
+    modalContainer.addEventListener('touchmove', (e) => {
+      e.stopPropagation();
+    }, { passive: true });
   }
 
   if (modalCloseBtn) {
