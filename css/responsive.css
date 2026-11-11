@@ -188,6 +188,11 @@
     height: 220px;
   }
 
+  .insta-feed-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+  }
+
   .footer-top {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -206,5 +211,14 @@
 
   .about .card .card-heading {
     font-size: 32px;
+  }
+
+  .ticker-text {
+    font-size: 22px;
+  }
+
+  .ticker-spice-icon {
+    width: 28px;
+    height: 28px;
   }
 }

@@ -1,0 +1,10 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Red Lanka Chilli Pepper -->
+  <path d="M78 18C74 12 66 10 60 14C56 16.5 54 22 56 26C48 30 38 38 32 48C24 62 22 78 28 92C32 101 40 108 48 111C54 113 60 110 64 105C72 95 78 80 82 66C86 52 88 38 84 26C83 23 80 20 78 18Z" fill="#D32F2F" stroke="#000" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Highlight shine on pepper -->
+  <path d="M42 54C38 66 38 80 44 92" stroke="#FF8A80" stroke-width="4" stroke-linecap="round"/>
+  <path d="M68 36C72 48 72 64 68 76" stroke="#FF5252" stroke-width="3" stroke-linecap="round"/>
+  <!-- Green Stem & Calyx -->
+  <path d="M76 22C80 20 86 16 92 12C94 10 96 6 92 4C88 2 82 8 78 14" stroke="#2E7D32" stroke-width="5" stroke-linecap="round"/>
+  <path d="M54 24C60 20 70 18 78 20C82 22 84 26 80 30C72 32 64 30 56 30C52 30 50 26 54 24Z" fill="#4CAF50" stroke="#000" stroke-width="3"/>
+</svg>

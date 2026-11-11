@@ -1,0 +1,16 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Clove (Laung) -->
+  <g transform="rotate(25 60 60)">
+    <!-- Round Head -->
+    <circle cx="60" cy="35" r="15" fill="#3E2723" stroke="#000" stroke-width="4"/>
+    <circle cx="60" cy="35" r="10" fill="#5D4037"/>
+    <!-- 4 Sepals around head -->
+    <path d="M42 35 C42 26 48 24 50 28" stroke="#000" stroke-width="3" fill="#6D4C41"/>
+    <path d="M78 35 C78 26 72 24 70 28" stroke="#000" stroke-width="3" fill="#6D4C41"/>
+    <path d="M60 18 C52 18 52 24 58 26" stroke="#000" stroke-width="3" fill="#6D4C41"/>
+    <path d="M50 42 C54 44 66 44 70 42" stroke="#000" stroke-width="3" fill="#4E342E"/>
+    <!-- Tapering Stem -->
+    <path d="M52 45 L54 100 C54 105 66 105 66 100 L68 45 Z" fill="#4E342E" stroke="#000" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M58 52 L59 95" stroke="#795548" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>

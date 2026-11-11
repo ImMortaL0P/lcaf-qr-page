@@ -1,0 +1,25 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Black Peppercorns (Kali Mirch) -->
+  <g>
+    <!-- Peppercorn 1 -->
+    <circle cx="50" cy="45" r="18" fill="#212121" stroke="#000" stroke-width="4"/>
+    <circle cx="45" cy="40" r="5" fill="#616161"/>
+    <circle cx="54" cy="50" r="3" fill="#424242"/>
+
+    <!-- Peppercorn 2 -->
+    <circle cx="75" cy="65" r="16" fill="#1C1C1C" stroke="#000" stroke-width="4"/>
+    <circle cx="72" cy="60" r="4" fill="#757575"/>
+
+    <!-- Peppercorn 3 -->
+    <circle cx="40" cy="78" r="15" fill="#263238" stroke="#000" stroke-width="3.5"/>
+    <circle cx="36" cy="74" r="4" fill="#546E7A"/>
+
+    <!-- Small Peppercorn 4 -->
+    <circle cx="82" cy="40" r="12" fill="#212121" stroke="#000" stroke-width="3"/>
+    <circle cx="80" cy="37" r="3" fill="#616161"/>
+
+    <!-- Stray cracked pepper flakes -->
+    <polygon points="62,78 68,75 66,84" fill="#212121" stroke="#000" stroke-width="1.5"/>
+    <polygon points="25,55 30,52 28,60" fill="#212121" stroke="#000" stroke-width="1.5"/>
+  </g>
+</svg>

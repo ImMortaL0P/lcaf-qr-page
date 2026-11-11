@@ -437,8 +437,8 @@
       });
     });
 
-    // Interactive Floating Hero Shapes on Hover
-    const bannerShapes = document.querySelectorAll('.banner-shape-item img');
+    // Interactive Floating Hero & Ticker Spice Elements on Hover
+    const bannerShapes = document.querySelectorAll('.banner-shape-item img, .ticker-spice-icon');
     bannerShapes.forEach((img) => {
       img.addEventListener('mouseenter', () => {
         if (typeof gsap !== 'undefined') {

@@ -1,0 +1,25 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Paprika & Red Chilli Flakes (Kuti Lal Mirch) -->
+  <g>
+    <!-- Big Flake 1 -->
+    <path d="M45 35 L65 25 L75 45 L55 60 L40 50 Z" fill="#E53935" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M48 38 L62 30" stroke="#FFCDD2" stroke-width="2"/>
+    <!-- Yellow Chilli Seed -->
+    <ellipse cx="62" cy="42" rx="5" ry="7" transform="rotate(30 62 42)" fill="#FFD54F" stroke="#000" stroke-width="2"/>
+
+    <!-- Flake 2 -->
+    <path d="M22 65 L40 60 L45 80 L28 88 Z" fill="#C62828" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="32" cy="72" rx="4" ry="5" fill="#FFE082" stroke="#000" stroke-width="1.5"/>
+
+    <!-- Flake 3 -->
+    <path d="M70 65 L95 58 L98 78 L80 92 L68 80 Z" fill="#D32F2F" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="85" cy="72" rx="4.5" ry="6.5" transform="rotate(-20 85 72)" fill="#FFCA28" stroke="#000" stroke-width="2"/>
+
+    <!-- Small Flakes -->
+    <polygon points="50,85 62,80 58,95 48,92" fill="#B71C1C" stroke="#000" stroke-width="2"/>
+    <polygon points="78,35 88,30 92,42 82,45" fill="#E53935" stroke="#000" stroke-width="2"/>
+    <circle cx="28" cy="42" r="3" fill="#D32F2F"/>
+    <circle cx="95" cy="48" r="3" fill="#B71C1C"/>
+    <circle cx="68" cy="98" r="3.5" fill="#C62828"/>
+  </g>
+</svg>

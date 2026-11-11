@@ -1,0 +1,13 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fresh Coriander Leaf (Dhaniya Patta) -->
+  <path d="M60 110C60 90 58 65 52 45" stroke="#2E7D32" stroke-width="4" stroke-linecap="round"/>
+  <!-- Central Leaf lobe -->
+  <path d="M52 45C45 38 40 25 50 15C56 20 58 26 62 18C68 25 72 20 74 28C68 36 60 40 52 45Z" fill="#43A047" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Left Leaf lobe -->
+  <path d="M54 60C42 54 30 50 24 38C30 36 34 42 40 34C44 42 48 38 52 46" fill="#4CAF50" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Right Leaf lobe -->
+  <path d="M56 55C68 50 82 48 92 36C86 34 82 40 76 32C72 40 68 36 62 45" fill="#388E3C" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Lower small lobes -->
+  <path d="M55 75C46 72 38 72 32 64C38 64 42 68 48 66" fill="#66BB6A" stroke="#000" stroke-width="3"/>
+  <path d="M57 72C66 70 76 70 82 62C78 62 74 66 66 64" fill="#66BB6A" stroke="#000" stroke-width="3"/>
+</svg>
