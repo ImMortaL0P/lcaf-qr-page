@@ -155,6 +155,8 @@
             gsap.to(backdropContainer, {
               x: -x * 24,
               y: -y * 16,
+              xPercent: -50,
+              yPercent: -50,
               duration: 0.65,
               ease: 'power1.out',
               overwrite: 'auto'
@@ -181,6 +183,8 @@
           gsap.to(backdropContainer, {
             x: 0,
             y: 0,
+            xPercent: -50,
+            yPercent: -50,
             duration: 0.6,
             ease: 'power2.out',
             overwrite: 'auto'
@@ -220,11 +224,11 @@
           ease: 'power3.inOut'
         });
 
-        // Signature MiCha playful spin and elastic punch on current pouch settling into center
+        // Keep the product glide dominant, with only a restrained settling motion.
         if (currentPouch) {
           gsap.fromTo(currentPouch,
-            { scale: 0.86, rotation: direction * 16, opacity: 0.8 },
-            { scale: 1, rotation: 0, opacity: 1, duration: 0.85, ease: 'elastic.out(1.1, 0.45)', delay: 0.05 }
+            { scale: 0.94, rotation: direction * 4, opacity: 0.92 },
+            { scale: 1, rotation: 0, opacity: 1, duration: 0.7, ease: 'power2.out', delay: 0.04 }
           );
         }
 
@@ -236,14 +240,20 @@
           );
         }
 
-        // 2. CLEAN BACKDROP TRANSITION: HIDE INACTIVE, REVEAL ACTIVE (Zero Stray Elements)
+        // 2. Let the selected spices follow the product with a soft stagger.
         backdrops.forEach((bd, i) => {
+          const shapes = bd.querySelectorAll('.backdrop-shape');
+          gsap.killTweensOf(shapes);
           gsap.killTweensOf(bd);
+
           if (i !== currentIndex) {
-            gsap.to(bd, {
-              scale: 0.3,
+            // Outgoing spices fade and tuck back slightly as the next product arrives.
+            gsap.to(shapes, {
+              scale: 0.94,
               opacity: 0,
-              duration: 0.35,
+              rotation: direction * 5,
+              duration: 0.24,
+              stagger: 0.025,
               ease: 'power2.in',
               onComplete: () => {
                 bd.classList.remove('active');
@@ -257,15 +267,29 @@
         if (activeBd) {
           activeBd.classList.add('active');
           activeBd.style.visibility = 'visible';
-          gsap.killTweensOf(activeBd);
-          gsap.fromTo(activeBd,
-            { scale: 0.3, opacity: 0 },
+
+          const activeShapes = activeBd.querySelectorAll('.backdrop-shape');
+          gsap.killTweensOf(activeShapes);
+
+          // Incoming spices settle around the pouch without a large burst.
+          gsap.fromTo(activeShapes,
+            {
+              scale: 0.92,
+              opacity: 0,
+              rotation: -direction * 6
+            },
             {
               scale: 1,
               opacity: 1,
-              duration: 0.85,
-              ease: 'elastic.out(1, 0.5)',
-              delay: 0.15
+              rotation: 0,
+              duration: 0.6,
+              stagger: {
+                each: 0.035,
+                from: direction > 0 ? 'start' : 'end'
+              },
+              ease: 'power2.out',
+              delay: 0.04,
+              overwrite: 'auto'
             }
           );
         }
@@ -397,17 +421,18 @@
       }
     }, { passive: true });
 
-    // Initial setup with scale 0.3 and opacity 0 on inactive backdrops, reveal only active slide
+    // Initial setup: activate first slide shapes cleanly, set inactive to hidden & scale 0
     if (typeof gsap !== 'undefined') {
       backdrops.forEach((bd, i) => {
+        const shapes = bd.querySelectorAll('.backdrop-shape');
         if (i === 0) {
           bd.classList.add('active');
           bd.style.visibility = 'visible';
-          gsap.set(bd, { scale: 1, opacity: 1 });
+          gsap.set(shapes, { scale: 1, opacity: 1, rotation: 0 });
         } else {
           bd.classList.remove('active');
           bd.style.visibility = 'hidden';
-          gsap.set(bd, { scale: 0.3, opacity: 0 });
+          gsap.set(shapes, { scale: 0, opacity: 0, rotation: 0 });
         }
       });
     }
@@ -732,6 +757,16 @@
         if (typeof gsap !== 'undefined') {
           gsap.to(img, { scale: 1, rotate: 0, duration: 0.3, ease: 'power2.out' });
         }
+      });
+    });
+
+    // Interactive Floating Hero Spices on Hover
+    const heroSpices = document.querySelectorAll('.banner-home .shape-inner');
+    heroSpices.forEach((spice) => {
+      if (spice.dataset.soundBound) return;
+      spice.dataset.soundBound = 'true';
+      spice.addEventListener('mouseenter', () => {
+        triggerHoverCrunch();
       });
     });
 
