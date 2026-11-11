@@ -492,9 +492,9 @@ h4 .sticker {
 
 .banner-home .can-backdrop {
   position: absolute;
-  width: clamp(340px, 38vw, 560px);
+  width: clamp(600px, 68vw, 1080px);
   height: 100%;
-  max-height: clamp(340px, 55vh, 520px);
+  max-height: clamp(380px, 58vh, 540px);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -513,104 +513,87 @@ h4 .sticker {
 
 .banner-home .can-backdrop-wrapper .backdrop-shape {
   position: absolute;
+  width: clamp(80px, 8.5vw, 120px);
+  height: clamp(80px, 8.5vw, 120px);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
+  filter: drop-shadow(4px 8px 14px rgba(0, 0, 0, 0.22));
   will-change: transform;
 }
 
-/* 10 Floating Backdrop Shapes: DENSE, LARGE, PROMINENT RADIANT AURA DIRECTLY BEHIND POUCH (Exact MiCha Fan-Out) */
+/* 10 Floating Backdrop Shapes: UNIFORM IN SIZE, FLOATING CLEANLY AROUND PACKET EDGES (MiCha Style) */
+/* Left Perimeter */
 .banner-home .backdrop-shape.backdrop1 {
-  width: clamp(100px, 15vh, 180px);
-  height: clamp(100px, 15vh, 180px);
-  top: 0%;
-  left: 8%;
-  animation: spinLeft 6s linear infinite;
+  top: 4%;
+  left: 4%;
+  animation: waveLeft 4.5s ease-in-out infinite;
 }
 
 .banner-home .backdrop-shape.backdrop2 {
-  width: clamp(95px, 14vh, 170px);
-  height: clamp(95px, 14vh, 170px);
-  top: 24%;
-  left: 2%;
-  animation: spinRight 8s linear infinite;
+  top: 32%;
+  left: 0%;
+  animation: spinLeft 16s linear infinite;
 }
 
 .banner-home .backdrop-shape.backdrop3 {
-  width: clamp(100px, 15vh, 180px);
-  height: clamp(100px, 15vh, 180px);
-  top: 48%;
-  left: 6%;
-  animation: waveLeft 4.5s ease-in-out infinite;
-  transform-origin: bottom right;
+  top: 60%;
+  left: 2%;
+  animation: waveLeft 5s ease-in-out infinite alternate;
 }
 
 .banner-home .backdrop-shape.backdrop4 {
-  width: clamp(95px, 14vh, 170px);
-  height: clamp(95px, 14vh, 170px);
-  top: 70%;
-  left: 14%;
-  animation: spinRight 7s linear infinite;
+  bottom: 2%;
+  left: 12%;
+  animation: spinRight 16s linear infinite;
 }
 
+/* Right Perimeter */
 .banner-home .backdrop-shape.backdrop5 {
-  width: clamp(105px, 15.5vh, 185px);
-  height: clamp(105px, 15.5vh, 185px);
-  top: -2%;
-  right: 10%;
-  animation: spinLeft 8.5s linear infinite;
+  top: 4%;
+  right: 4%;
+  animation: waveRight 4.5s ease-in-out infinite;
 }
 
 .banner-home .backdrop-shape.backdrop6 {
-  width: clamp(95px, 14vh, 170px);
-  height: clamp(95px, 14vh, 170px);
-  top: 22%;
-  right: 2%;
-  animation: spinRight 10s linear infinite;
+  top: 32%;
+  right: 0%;
+  animation: spinRight 16s linear infinite;
 }
 
 .banner-home .backdrop-shape.backdrop7 {
-  width: clamp(100px, 15vh, 180px);
-  height: clamp(100px, 15vh, 180px);
-  top: 46%;
-  right: 4%;
-  animation: waveRight 5s ease-in-out infinite;
-  transform-origin: bottom left;
+  top: 60%;
+  right: 2%;
+  animation: waveRight 5s ease-in-out infinite alternate;
 }
 
 .banner-home .backdrop-shape.backdrop8 {
-  width: clamp(100px, 15vh, 180px);
-  height: clamp(100px, 15vh, 180px);
-  top: 68%;
+  bottom: 2%;
   right: 12%;
-  animation: spinLeft 6s linear infinite;
+  animation: spinLeft 16s linear infinite;
 }
 
+/* Top & Bottom Crowns */
 .banner-home .backdrop-shape.backdrop9 {
-  width: clamp(90px, 13.5vh, 160px);
-  height: clamp(90px, 13.5vh, 160px);
-  top: 78%;
-  left: 42%;
-  animation: spinRight 9s linear infinite;
+  top: -8%;
+  left: 45%;
+  animation: waveLeft 4.2s ease-in-out infinite alternate;
 }
 
 .banner-home .backdrop-shape.backdrop10 {
-  width: clamp(100px, 15vh, 180px);
-  height: clamp(100px, 15vh, 180px);
-  top: -8%;
-  left: 44%;
-  animation: waveLeft 5.5s ease-in-out infinite;
+  bottom: -8%;
+  left: 45%;
+  animation: waveRight 4.2s ease-in-out infinite alternate;
 }
 
-/* Authentic MiCha Landing Area Free-Floating Product Showcase */
+/* Authentic MiCha Landing Area Free-Floating Product Showcase: ONE PACK AT A TIME */
 .banner-home .can-container {
   position: relative;
-  width: clamp(260px, 28vw, 420px);
+  width: clamp(280px, 32vw, 440px);
   max-height: 100%;
   margin: 0 auto;
   z-index: 2;
-  overflow: visible;
+  overflow: hidden; /* Clips other packs so ONLY 1 pack is visible at a time */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -631,6 +614,7 @@ h4 .sticker {
 .banner-home .packaging-item {
   flex: 0 0 100%;
   width: 100%;
+  max-width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;

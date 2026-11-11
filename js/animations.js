@@ -210,11 +210,11 @@
           ease: 'power3.inOut'
         });
 
-        // Subtle elastic punch on current pouch settling into center
+        // Signature MiCha playful spin and elastic punch on current pouch settling into center
         if (currentPouch) {
           gsap.fromTo(currentPouch,
-            { scale: 0.94 },
-            { scale: 1, duration: 0.8, ease: 'elastic.out(1.1, 0.5)', delay: 0.1 }
+            { scale: 0.86, rotation: direction * 16, opacity: 0.8 },
+            { scale: 1, rotation: 0, opacity: 1, duration: 0.85, ease: 'elastic.out(1.1, 0.45)', delay: 0.05 }
           );
         }
 
@@ -319,9 +319,30 @@
       }
     }
 
+    // Auto-advance: packs transition one by one smoothly, pausing when hovered or interacted with
+    let autoSlideTimer = null;
+    function resetAutoSlide() {
+      if (autoSlideTimer) clearInterval(autoSlideTimer);
+      autoSlideTimer = setInterval(() => {
+        showHeroSlide(currentIndex + 1, 1);
+      }, 5500);
+    }
+    resetAutoSlide();
+
+    if (banner) {
+      banner.addEventListener('mouseenter', () => {
+        if (autoSlideTimer) clearInterval(autoSlideTimer);
+      });
+      banner.addEventListener('mouseleave', resetAutoSlide);
+      banner.addEventListener('touchstart', () => {
+        if (autoSlideTimer) clearInterval(autoSlideTimer);
+      }, { passive: true });
+    }
+
     if (btnRight) {
       btnRight.addEventListener('click', (e) => {
         e.preventDefault();
+        resetAutoSlide();
         gsap?.fromTo(btnRight, { scale: 0.9 }, { scale: 1, duration: 0.3, ease: 'elastic.out(1.5, 0.3)' });
         showHeroSlide(currentIndex + 1, 1);
       });
@@ -330,6 +351,7 @@
     if (btnLeft) {
       btnLeft.addEventListener('click', (e) => {
         e.preventDefault();
+        resetAutoSlide();
         gsap?.fromTo(btnLeft, { scale: 0.9 }, { scale: 1, duration: 0.3, ease: 'elastic.out(1.5, 0.3)' });
         showHeroSlide(currentIndex - 1, -1);
       });
@@ -342,6 +364,7 @@
     }, { passive: true });
 
     group.addEventListener('touchend', (e) => {
+      resetAutoSlide();
       const touchEndX = e.changedTouches[0].clientX;
       const diff = touchStartX - touchEndX;
       if (diff > 45) {
