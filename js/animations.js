@@ -706,6 +706,7 @@
       card.dataset.tiltBound = 'true';
 
       let rect = null;
+      let tiltRaf = null;
 
       card.addEventListener('mouseenter', () => {
         rect = card.getBoundingClientRect();
@@ -714,24 +715,35 @@
 
       card.addEventListener('mousemove', (e) => {
         if (!rect) rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        const clientX = e.clientX;
+        const clientY = e.clientY;
 
-        if (typeof gsap !== 'undefined') {
-          gsap.to(card, {
-            rotationY: x * 8,
-            rotationX: -y * 8,
-            y: -8,
-            scale: 1.02,
-            duration: 0.25,
-            ease: 'power1.out',
-            transformPerspective: 1000,
-            overwrite: 'auto'
-          });
-        }
+        if (tiltRaf) return;
+        tiltRaf = requestAnimationFrame(() => {
+          tiltRaf = null;
+          const x = (clientX - rect.left) / rect.width - 0.5;
+          const y = (clientY - rect.top) / rect.height - 0.5;
+
+          if (typeof gsap !== 'undefined') {
+            gsap.to(card, {
+              rotationY: x * 8,
+              rotationX: -y * 8,
+              y: -8,
+              scale: 1.02,
+              duration: 0.25,
+              ease: 'power1.out',
+              transformPerspective: 1000,
+              overwrite: 'auto'
+            });
+          }
+        });
       });
 
       card.addEventListener('mouseleave', () => {
+        if (tiltRaf) {
+          cancelAnimationFrame(tiltRaf);
+          tiltRaf = null;
+        }
         rect = null;
         if (typeof gsap !== 'undefined') {
           gsap.to(card, {
@@ -880,26 +892,39 @@
         }
       );
 
-      // Interactive 3D mouse parallax tilt on Video Frame with cached rect
+      // Interactive 3D mouse parallax tilt on Video Frame with cached rect & rAF throttle
       let playerRect = null;
+      let playerRaf = null;
+
       player.addEventListener('mouseenter', () => {
         playerRect = player.getBoundingClientRect();
       });
       player.addEventListener('mousemove', (e) => {
         if (!playerRect) playerRect = player.getBoundingClientRect();
-        const x = (e.clientX - playerRect.left) / playerRect.width - 0.5;
-        const y = (e.clientY - playerRect.top) / playerRect.height - 0.5;
-        gsap.to(player, {
-          rotationY: x * 8,
-          rotationX: -y * 8,
-          duration: 0.4,
-          ease: 'power1.out',
-          transformPerspective: 900,
-          overwrite: 'auto'
+        const clientX = e.clientX;
+        const clientY = e.clientY;
+
+        if (playerRaf) return;
+        playerRaf = requestAnimationFrame(() => {
+          playerRaf = null;
+          const x = (clientX - playerRect.left) / playerRect.width - 0.5;
+          const y = (clientY - playerRect.top) / playerRect.height - 0.5;
+          gsap.to(player, {
+            rotationY: x * 8,
+            rotationX: -y * 8,
+            duration: 0.4,
+            ease: 'power1.out',
+            transformPerspective: 900,
+            overwrite: 'auto'
+          });
         });
       });
 
       player.addEventListener('mouseleave', () => {
+        if (playerRaf) {
+          cancelAnimationFrame(playerRaf);
+          playerRaf = null;
+        }
         playerRect = null;
         gsap.to(player, {
           rotationY: 0,

@@ -148,17 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .join('');
 
-    // Attach click events
-    document.querySelectorAll('.btn-open-modal, .product-card').forEach((card) => {
-      card.addEventListener('click', (e) => {
-        const prodId = card.getAttribute('data-product-id');
-        if (prodId) {
-          openProductModal(prodId);
-          if (window.playCrunchSound) window.playCrunchSound();
-        }
-      });
-    });
-
     // Rebind hover micro-interactions & 3D tilt
     if (window.setupHoverMicroInteractions) {
       window.setupHoverMicroInteractions();
@@ -169,14 +158,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Single delegated click listener on productsGrid (avoids duplicate listeners and memory leaks)
+  if (productsGrid) {
+    productsGrid.addEventListener('click', (e) => {
+      if (e.target.closest('#resetFiltersBtn')) return;
+      const card = e.target.closest('.product-card');
+      if (card) {
+        const prodId = card.getAttribute('data-product-id');
+        if (prodId) {
+          openProductModal(prodId);
+          if (window.playCrunchSound) window.playCrunchSound();
+        }
+      }
+    });
+  }
+
+  // 180ms debounce utility to protect main thread during rapid typing
+  function debounce(fn, delay = 180) {
+    let timer = null;
+    return function (...args) {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+  }
+
   // --- 2. SEARCH & FILTER HANDLERS ---
   if (searchInput) {
+    const debouncedRender = debounce(() => renderProducts(), 180);
     searchInput.addEventListener('input', (e) => {
       activeSearchTerm = e.target.value;
       if (clearSearchBtn) {
         clearSearchBtn.style.display = activeSearchTerm.length > 0 ? 'block' : 'none';
       }
-      renderProducts();
+      debouncedRender();
     });
   }
 
