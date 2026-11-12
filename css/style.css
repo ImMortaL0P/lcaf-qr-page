@@ -44,6 +44,9 @@
 html {
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
 }
 
 /* Lenis Smooth Scroll Core Rules */
@@ -73,8 +76,11 @@ body {
   background-color: var(--color-yellow);
   line-height: 1.4;
   overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
   -webkit-font-smoothing: antialiased;
   position: relative;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* ==========================================================================
@@ -121,10 +127,13 @@ body::after {
 .flavours-section,
 .catalog-section,
 .bring-together,
+.testimonials,
 .section.instagram-section,
 .section.faq-main {
   position: relative;
   z-index: 1;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 /* ==========================================================================
@@ -1074,13 +1083,6 @@ h4 .sticker {
   position: sticky;
   top: 0;
   will-change: transform;
-  transform: translate3d(0, 0, 0);
-  filter: 
-    drop-shadow(3.5px 0 0 #000)
-    drop-shadow(-3.5px 0 0 #000)
-    drop-shadow(0 3.5px 0 #000)
-    drop-shadow(0 -3.5px 0 #000)
-    drop-shadow(10px 16px 0px rgba(0, 0, 0, 0.4));
 }
 
 .about .about-cards .card {
@@ -1091,19 +1093,11 @@ h4 .sticker {
   gap: 3rem;
   padding: clamp(35px, 5vw, 90px);
   position: relative;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
+  border: var(--border-thick);
+  border-radius: 36px;
+  box-shadow: var(--shadow-retro-lg);
   will-change: transform;
   transform-origin: 50% 60%;
-  -webkit-mask-image: url('../assets/icons/micha-about-card-mask.svg');
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: 100% 100%;
-  mask-image: url('../assets/icons/micha-about-card-mask.svg');
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: 100% 100%;
 }
 
 .about .about-cards .card-outer:nth-child(odd) .card {
@@ -1136,14 +1130,9 @@ h4 .sticker {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  -webkit-mask-image: url('../assets/icons/micha-flower-mask.svg');
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: contain;
-  mask-image: url('../assets/icons/micha-flower-mask.svg');
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: contain;
+  border-radius: 24px;
+  border: var(--border-thick);
+  box-shadow: var(--shadow-retro);
   transition: transform 0.6s ease;
 }
 
@@ -2724,10 +2713,10 @@ h4 .sticker {
     width: 50px;
     height: 50px;
   }
-  .video-container-outer .spice-tl { top: -14px; left: -10px; }
-  .video-container-outer .spice-tr { top: -16px; right: -10px; }
-  .video-container-outer .spice-bl { bottom: -12px; left: -10px; }
-  .video-container-outer .spice-br { bottom: -14px; right: -10px; }
+  .video-container-outer .spice-tl { top: -12px; left: 6px; }
+  .video-container-outer .spice-tr { top: -12px; right: 6px; }
+  .video-container-outer .spice-bl { bottom: -10px; left: 6px; }
+  .video-container-outer .spice-br { bottom: -10px; right: 6px; }
 
   /* Footer: single column clean stack */
   .footer-top {
@@ -2744,22 +2733,32 @@ h4 .sticker {
 
 /* Mobile Devices (<= 768px) */
 @media (max-width: 768px) {
-  /* About Section Stacking Cards: vertical flow with centered floral photo frame */
+  /* About Section Stacking Cards: clean natural card sequence without sticky scroll-trapping */
+  .about .bubbles-wrapper {
+    display: none !important;
+  }
   .about .about-cards {
     width: 94%;
   }
   .about .about-cards .card-outer {
-    height: auto;
-    min-height: 85vh;
-    padding: 1.5rem 0;
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    filter: none !important;
+    padding: 0 !important;
+    margin-bottom: 2rem !important;
   }
   .about .about-cards .card,
   .about .about-cards .card-outer:nth-child(odd) .card,
   .about .about-cards .card-outer:nth-child(even) .card {
     flex-direction: column !important;
-    padding: 2.25rem 1.25rem;
-    gap: 1.5rem;
-    text-align: center;
+    padding: 2rem 1.25rem !important;
+    gap: 1.5rem !important;
+    text-align: center !important;
+    border-radius: 26px !important;
+    box-shadow: var(--shadow-retro) !important;
+    height: auto !important;
   }
   .about .card .text-container {
     width: 100%;
@@ -2826,6 +2825,7 @@ h4 .sticker {
     width: 38px;
     height: 38px;
     pointer-events: auto;
+    border-radius: 50%;
     box-shadow: 2px 2px 0px #000;
   }
 
@@ -2837,44 +2837,48 @@ h4 .sticker {
     max-height: clamp(210px, 38vh, 275px);
   }
 
-  /* Backdrop envelope on mobile: wide enough so elements float clearly around the packet */
+  /* Backdrop envelope on mobile: safely contained inside viewport without horizontal overflow */
+  .banner-home .can-outer-wrapper {
+    overflow: hidden;
+    max-width: 100%;
+  }
   .banner-home .can-backdrop {
-    width: 96vw;
-    max-width: 420px;
+    width: 100%;
+    max-width: 360px;
     max-height: clamp(310px, 50vh, 420px);
   }
   .banner-home .can-backdrop-wrapper .backdrop-shape {
-    width: clamp(56px, 16vw, 74px);
-    height: clamp(56px, 16vw, 74px);
+    width: clamp(48px, 13vw, 62px);
+    height: clamp(48px, 13vw, 62px);
   }
   .banner-home .can-backdrop-wrapper .shape-inner {
     filter: drop-shadow(2px 6px 14px rgba(0, 0, 0, 0.22));
   }
 
-  /* Floating elements positioned clearly outside the packet perimeter on mobile */
+  /* Floating elements positioned cleanly within safe bounds on mobile */
   .banner-home .backdrop-shape.backdrop1 {
-    top: 2%;
-    left: 0%;
+    top: 3%;
+    left: 4%;
   }
   .banner-home .backdrop-shape.backdrop2 {
-    top: 38%;
-    left: -3%;
+    top: 40%;
+    left: 2%;
   }
   .banner-home .backdrop-shape.backdrop3 {
-    bottom: 3%;
-    left: 1%;
+    bottom: 4%;
+    left: 4%;
   }
   .banner-home .backdrop-shape.backdrop4 {
-    top: 2%;
-    right: 0%;
+    top: 3%;
+    right: 4%;
   }
   .banner-home .backdrop-shape.backdrop5 {
-    top: 38%;
-    right: -3%;
+    top: 40%;
+    right: 2%;
   }
   .banner-home .backdrop-shape.backdrop6 {
-    bottom: 3%;
-    right: 1%;
+    bottom: 4%;
+    right: 4%;
   }
 
   /* Product Catalog Grid on Mobile: single clean column */

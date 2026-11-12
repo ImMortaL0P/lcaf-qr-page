@@ -77,8 +77,13 @@
   }
 
   // --- 2. LENIS SMOOTH SCROLL (MICHA PARITY ARCHITECTURE) ---
+  // On mobile / touch screens (iPhone 14, Android), native hardware-accelerated momentum
+  // scrolling provides instantaneous 60/120fps touch tracking without virtual-scroll drag lag.
+  // Lenis virtual-scroll is enabled strictly on desktop wheel/trackpad.
+  const isTouchOrMobile = window.innerWidth <= 860 || ('ontouchstart' in window && navigator.maxTouchPoints > 0);
   let lenis = null;
-  if (typeof Lenis !== 'undefined') {
+
+  if (typeof Lenis !== 'undefined' && !isTouchOrMobile) {
     lenis = new Lenis({
       duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -86,21 +91,25 @@
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      touchMultiplier: 1.1,
+      syncTouch: false,
       infinite: false
     });
     window.lenis = lenis;
 
     // Connect Lenis scroll to GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
+    if (typeof ScrollTrigger !== 'undefined') {
+      lenis.on('scroll', ScrollTrigger.update);
+    }
 
     // Sync Lenis RAF exclusively with GSAP ticker (Single unified render loop)
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
     });
+  }
 
-    // Disable lagSmoothing so Lenis doesn't jump on scroll stop
-    gsap.ticker.lagSmoothing(0);
+  // Restore GSAP lagSmoothing so CPU hiccups never cause stutter or hard jumps
+  if (typeof gsap !== 'undefined') {
+    gsap.ticker.lagSmoothing(500, 33);
   }
 
   // --- 3. HERO POUCH CAROUSEL & VISUAL TRANSITIONS (EXACT MICHA BEHAVIOR) ---
@@ -481,68 +490,54 @@
         });
       },
 
-      // Mobile: Rotate -2deg / +2deg
+      // Mobile: Clean natural card alignment
       '(max-width: 749px)': function () {
-        aboutCards.forEach((card, i) => {
-          const direction = (i === 1) ? -2 : (i === 2) ? 2 : 0;
-          if (direction === 0) return;
-
+        aboutCards.forEach((card) => {
           gsap.set(card, { rotation: 0 });
-
-          gsap.to(card, {
-            rotation: direction,
-            transformOrigin: '50% 60%',
-            ease: 'none',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top center+=20%',
-              end: 'center center',
-              scrub: 0.6,
-              invalidateOnRefresh: true
-            }
-          });
         });
       }
     });
 
-    // Parallax floating bubbles (exact MiCha formula)
-    document.querySelectorAll('.about .bubbles-group').forEach((group, index) => {
-      const bubbles = group.querySelectorAll('img.bubbles');
-      if (bubbles.length < 2) return;
+    // Parallax floating bubbles (Desktop only - hidden on mobile to avoid scroll jank)
+    if (window.innerWidth >= 750) {
+      document.querySelectorAll('.about .bubbles-group').forEach((group, index) => {
+        const bubbles = group.querySelectorAll('img.bubbles');
+        if (bubbles.length < 2) return;
 
-      const leftBubble = bubbles[0];
-      const rightBubble = bubbles[1];
-      const leftIsFast = index % 2 === 0;
+        const leftBubble = bubbles[0];
+        const rightBubble = bubbles[1];
+        const leftIsFast = index % 2 === 0;
 
-      const fastY = '-50vh';
-      const slowY = '-20vh';
-      const fastRot = 12;
-      const slowRot = 4;
+        const fastY = '-50vh';
+        const slowY = '-20vh';
+        const fastRot = 12;
+        const slowRot = 4;
 
-      gsap.to(leftBubble, {
-        y: leftIsFast ? fastY : slowY,
-        rotate: leftIsFast ? fastRot : slowRot,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: group,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 0.8
-        }
+        gsap.to(leftBubble, {
+          y: leftIsFast ? fastY : slowY,
+          rotate: leftIsFast ? fastRot : slowRot,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: group,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 0.8
+          }
+        });
+
+        gsap.to(rightBubble, {
+          y: leftIsFast ? slowY : fastY,
+          rotate: leftIsFast ? slowRot : fastRot,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: group,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 0.8
+          }
+        });
       });
-
-      gsap.to(rightBubble, {
-        y: leftIsFast ? slowY : fastY,
-        rotate: leftIsFast ? slowRot : fastRot,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: group,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 0.8
-        }
-      });
-    });
+    }
   }
 
   // --- 5. POP-IN ELASTIC SHAPES ON SCROLL ---
@@ -976,9 +971,9 @@
     );
   }
 
-  // --- 12. TICKER SPICE SCROLL VELOCITY MICRO-SPIN ---
+  // --- 12. TICKER SPICE SCROLL VELOCITY MICRO-SPIN (DESKTOP ONLY) ---
   function setupTickerVelocity() {
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || isTouchOrMobile) return;
     const tickerIcons = document.querySelectorAll('.ticker-spice-icon');
     if (!tickerIcons.length) return;
 
@@ -987,7 +982,7 @@
       onUpdate: (self) => {
         if (isSpinning) return;
         const vel = Math.abs(self.getVelocity());
-        if (vel > 600) {
+        if (vel > 800) {
           isSpinning = true;
           const spin = Math.min(vel / 40, 50) * (self.direction || 1);
           gsap.to(tickerIcons, {
