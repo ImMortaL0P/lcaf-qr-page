@@ -2608,12 +2608,39 @@ h4 .sticker {
     margin: 1.5rem auto 0;
   }
   .flavour-tab-nav {
+    width: 100% !important;
     border-right: none;
     border-bottom: var(--border-thick);
     cursor: pointer;
+    box-sizing: border-box;
   }
   .flavour-tab-nav:last-child {
     border-bottom: none;
+  }
+  .flavour-tab-nav-inner {
+    padding: 1.15rem 1.25rem;
+    min-height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .flavour-tab-nav .flavour-name {
+    font-size: clamp(1.2rem, 5vw, 1.55rem);
+    line-height: 1.15;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+  }
+  .flavour-tab-nav .arrow {
+    width: 36px;
+    height: 36px;
+    align-self: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
   }
   .flavour-can-mobile {
     display: block;
@@ -2622,35 +2649,66 @@ h4 .sticker {
     transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     background: #FFF;
     border-top: var(--border-medium);
+    width: 100%;
+    box-sizing: border-box;
   }
   .flavour-tab-nav.active .flavour-can-mobile {
-    max-height: 520px;
+    max-height: 650px;
   }
   .flavour-can-mobile-inner {
-    padding: 1.5rem 1rem;
+    padding: 1.5rem 1.25rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    width: 100%;
+    box-sizing: border-box;
   }
   .flavour-can-mobile-inner img {
-    max-height: 200px;
+    max-height: 220px !important;
+    max-width: 85%;
     width: auto;
     object-fit: contain;
-    margin-bottom: 0.75rem;
-    filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.25));
+    margin-bottom: 0.85rem;
+    filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.22));
+    transition: transform 0.3s ease;
+  }
+  .flavour-can-mobile-inner:hover img,
+  .flavour-can-mobile-inner:active img {
+    transform: scale(1.04);
+  }
+  .flavour-can-mobile-inner h4 {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 5vw, 1.55rem);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+    color: #000;
+  }
+  .flavour-can-mobile-inner p {
+    font-size: 0.88rem;
+    color: #555;
+    margin-bottom: 1.1rem;
+    max-width: 320px;
+    line-height: 1.4;
   }
   .flavour-can-mobile-inner .btn-open-modal {
-    padding: 0.65rem 1.25rem;
+    padding: 0.75rem 1.5rem;
     border-radius: 9999px;
     background: #000;
     color: #FFF;
     font-weight: 800;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     text-transform: uppercase;
     border: var(--border-medium);
-    margin-top: 0.5rem;
     cursor: pointer;
+    box-shadow: var(--shadow-retro-sm);
+    transition: all 0.2s ease;
+    width: 100%;
+    max-width: 280px;
+  }
+  .flavour-can-mobile-inner .btn-open-modal:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px #000;
   }
 
   /* Bring Together / Artisanal Video: single column stack */
